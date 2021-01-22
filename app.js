@@ -22,6 +22,8 @@ app.use((req, res, next) => {
     next();
 });
 
+
+
 app.use('/user', usersRoute);       //declara que essa rota será usada
 
 module.exports = app;
