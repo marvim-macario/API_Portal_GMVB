@@ -3,6 +3,22 @@ const { vw_proposta, status, tipo , empresa, banco, substatus, produto } = requi
 
 const PropostaController = {
 
+    PropostaPorId: async(req, res) =>{
+
+        try {
+            const proposta = await vw_proposta.findAll({
+                attributes:{exclude:['id']},
+                where:{
+                     id_acesso:'2'
+                }
+            })
+            res.status(200).send(proposta)
+            
+        } catch (error) {
+            res.status(500).send(error)
+        }
+    },
+
     Status: async (req, res) => {
 
         const statusPropostas = await status.findAll({

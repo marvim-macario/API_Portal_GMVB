@@ -31,8 +31,6 @@ router.post('/search',CadastroController.FullSearch);
 // inclusão de cadastro pag cadastro
 router.post('/cadastro/inclusao',CadastroController.Create);
 
-
-
 //cadastro de novo acesso no portal 
 router.post('/cadastro/acesso',UserController.Create)
 
@@ -53,7 +51,9 @@ router.get('/proposta/substatus',PropostaController.SubStatus);
 router.get('/proposta/produto',PropostaController.Produto);
 
 
+// buscar propostas po id
 
+router.get('/proposta/search',PropostaController.PropostaPorId)
 
 
 

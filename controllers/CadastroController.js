@@ -127,7 +127,7 @@ const CadastroController = {
 
         try {
             const person = await cadastro.findAll({
-                attributes:['filial','status','parceiro','cnpj','supervisor','responsavel','gerente','data_admissao','data_inativacao','responsavel','data_alteracao'],
+                
                 where: consulta
             
 

@@ -1,5 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
     const Proposta = sequelize.define('vw_proposta', {
+        proposta: {
+            type: DataTypes.INTEGER,
+            primaryKey: true
+        },
         codigo:DataTypes.INTEGER,
         mes:DataTypes.STRING,
         data_envio:DataTypes.STRING,
@@ -60,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
         tipo_parceiro2:DataTypes.STRING,
         data_corte:DataTypes.STRING,
         empresa_sms:DataTypes.STRING, 
-        id_parceiro:DataTypes.STRING,
+        // id_parceiro:DataTypes.STRING,
         valor_parcela:DataTypes.STRING,
         seguro:DataTypes.STRING,
         data_atualizacao1:DataTypes.STRING,
