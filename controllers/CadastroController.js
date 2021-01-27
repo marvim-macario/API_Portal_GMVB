@@ -1,4 +1,4 @@
-const { cadastro,filial } = require('../models/');
+const { cadastro, filial, chavej } = require('../models/');
 
 
 const Sequelize = require('sequelize');
@@ -118,7 +118,8 @@ const CadastroController = {
 
             }
         }
-
+        if(!consulta)
+            return res.status(400).send('não foi possivel consultar resultados!');
 
 
         clean(consulta);
@@ -126,8 +127,9 @@ const CadastroController = {
 
         try {
             const person = await cadastro.findAll({
-                attributes:[''],
+                attributes:['filial','status','parceiro','cnpj','supervisor','responsavel','gerente','data_admissao','data_inativacao','responsavel','data_alteracao'],
                 where: consulta
+            
 
             })
             if (!person)
@@ -314,6 +316,9 @@ const CadastroController = {
             tabela_sim:tabela_sim
         })
         return res.status(201).send('usuario cadastrado com sucesso');
+    },
+    CadastroChave: async( req, res) => {
+
     }
 }
 
