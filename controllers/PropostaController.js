@@ -10,8 +10,18 @@ const PropostaController = {
                 attributes:{exclude:['id']},
                 where:{
                      id_acesso:'2'
+<<<<<<< HEAD
                 }
             })
+=======
+                },
+                limit : 5,
+                order: [
+                    ['data_envio', 'DESC']
+                ]
+
+            });
+>>>>>>> 50bd1458d3a738de1c7e54b55451be03d68d8300
             res.status(200).send(proposta)
             
         } catch (error) {
@@ -19,6 +29,11 @@ const PropostaController = {
         }
     },
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 50bd1458d3a738de1c7e54b55451be03d68d8300
     Status: async (req, res) => {
 
         const statusPropostas = await status.findAll({

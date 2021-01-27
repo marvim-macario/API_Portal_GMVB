@@ -37,6 +37,9 @@ router.post('/cadastro/acesso',UserController.Create)
 
 
 //proposta
+
+router.get('/proposta/parceiro',PropostaController.PropostaPorId);
+
 // get para popular campos na pagina de proposta 
 router.get('/proposta/status',PropostaController.Status);
 
