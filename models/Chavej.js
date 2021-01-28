@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const chavej = sequelize.define('base_chave', {
+    const base_chave = sequelize.define('base_chave', {
         id_chave: {
             type: DataTypes.INTEGER,
             primaryKey: true
@@ -32,5 +32,5 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'base_chave',
         timestamps: false
     })
-    return chavej;
+    return base_chave;
 };

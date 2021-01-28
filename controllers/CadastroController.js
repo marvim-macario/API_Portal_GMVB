@@ -1,4 +1,4 @@
-const { cadastro, filial, chavej } = require('../models/');
+const { cadastro, filial, base_chave, siglae } = require('../models/');
 
 
 const Sequelize = require('sequelize');
@@ -86,8 +86,6 @@ const CadastroController = {
             superintendente
         } = req.body;
 
-
-
         let consulta = {
             'parceiro': parceiro,
             'cnpj': cnpj,
@@ -162,46 +160,55 @@ const CadastroController = {
             experiencia1,
             experiencia2,
             data_nascimento,
-            cpf,
+            cnpj,
             tipo_documento,
             data_rg,
-            orgao_emissao,
+            orgao_emissao,	 
             nome_mae,
-            naturalidade,
             pis,
-            telefone_contato,
-            email_contato,
+            telefone,
+            email,
             cep,
             numero_l,
             complemento,
             bairro,
             cidade,
+            logradouro,
+            uf_carteira,
+            favorecido,
             tipo_pagamento,
             banco,
             agencia,
-            logradouro,
             conta,
             numero_cartao,
-            superintendente,
-            projeto,
-            cargo,
-            setor,
-            matricula,
-            cnpj,
-            certificacao,
-            data_bloqueio,
-            carteira,
-            serie_carteira,
             supervisor,
             gerente,
             supervisor_sant,
             gerente_sant,
+            superintendente,
+            projeto,
             cod_funcao,
-            cpf_repre,
+            cargo,
+            setor,
+            codigo,
+            matricula,
+            repre,
             data_certificacao,
-            tipo_aneps,
-            entregue,
+            certificacao,
+            data_bloqueio,
+            carteira,
+            serie_carteira,
+            contrato,
+            naturalidade,	
+            cpf,	
+            cpf_repre,  
+            regra_pagamento,	
+            data_contrato,	
             comissao,
+            secundario,
+            pct_secundario,
+            terceario,
+            pct_terceario,
             quaternario,
             pct_quaternario,
             comissao_novo,
@@ -221,105 +228,166 @@ const CadastroController = {
             prefeitura_rio_sup,
             prefeitura_rio_ger,
             prefeitura_rio_quat,
-            tabela_multi,
-            tabela_sim
+            registro_clt,
+            chave,
+            statusj,
+            funcao,
+            empresa,
+            data_envio,
+            senha,
+            motivo_cancelamentoj,
+            tipo_chave,
+            data_inativacaoj,
+            sigla,
+            codigo_corban,
+            nome_corban,
+            status_e,
+            data_inativacao_sigla,
+            motivo_pendencia,
+            sigla_prospect,
+            cpf_usuario_1,
+            usa_esteira1,
+            usa_siglai1,
+            observacao,
+
         } = req.body;
+       
+        try {
+                //verifica se há usuário cadastrado
+                const user = await cadastro.findOne({
+                    
+                    where: { cnpj,  parceiro, cpf }
+                })
 
-        console.log(req.body);
-        // const user = await cadastro.findOne({
-        //     where: {
-        //         cnpj,
-        //         parceiro,
-        //         cpf
-        //     }
-        // })
-        // if (user)
-        //     return res.status(403).send('não foi possivel cadastrar usuario, cpf existente na base de dados');
+                if (user)
+                    return res.status(403).send('não foi possivel cadastrar usuario, cpf existente na base de dados');
 
-        // const created = await cadastro.create({
-        //     cnpj: cnpj,
-        //     cpf: cpf,
-        //     parceiro: parceiro,
-        //     filial: filial,
-        //     parceiro: parceiro,
-        //     nome_completo: nome_completo,
-        //     tipo: tipo,
-        //     status: status,
-        //     data_admissao: data_admissao,
-        //     data_inativacao: data_inativacao,
-        //     motivo_cancelamento: motivo_cancelamento,
-        //     experiencia1: experiencia1,
-        //     experiencia2: experiencia2,
-        //     data_nascimento: data_nascimento,
-        //     cpf: cpf,
-        //     tipo_documento: tipo_documento,
-        //     data_rg: data_rg,
-        //     orgao_emissao: orgao_emissao,
-        //     nome_mae: nome_mae,
-        //     naturalidade: naturalidade,
-        //     pis: pis,
-        //     telefone_contato: telefone_contato,
-        //     email_contato: email_contato,
-        //     cep: cep,
-        //     logradouro: logradouro,
-        //     numero_l: numero_l,
-        //     complemento: complemento,
-        //     bairro: bairro,
-        //     cidade: cidade,
-        //     tipo_pagamento: tipo_pagamento,
-        //     banco: banco,
-        //     agencia: agencia,
-        //     conta: conta,
-        //     numero_cartao: numero_cartao,
-        //     superintendente: superintendente,
-        //     projeto: projeto,
-        //     cargo: cargo,
-        //     setor: setor,
-        //     matricula: matricula,
-        //     cnpj: cnpj,
-        //     certificacao: certificacao,
-        //     data_bloqueio: data_bloqueio,
-        //     carteira: carteira,
-        //     serie_carteira: serie_carteira,
-        //     naturalidade: naturalidade,
-        //     supervisor: supervisor,
-        //     gerente: gerente,
-        //     supervisor_sant: supervisor_sant,
-        //     gerente_sant: gerente_sant,
-        //     cod_funcao: cod_funcao,
-        //     cpf_repre: cpf_repre,
-        //     data_certificacao: data_certificacao,
-        //     tipo_pagamento: tipo_pagamento,
-        //     tipo_aneps: tipo_aneps,
-        //     entregue: entregue,
-        //     comissao:comissao,
-        //     quaternario:quaternario,
-        //     pct_quaternario:pct_quaternario,
-        //     comissao_novo:comissao_novo,
-        //     comissao_novo_sup:comissao_novo_sup,
-        //     comissao_novo_ger:comissao_novo_ger,
-        //     comissao_novo_quat:comissao_novo_quat,
-        //     qua_sant2:qua_sant2,
-        //     comissao_inss:comissao_inss,
-        //     comissao_inss_sup:comissao_inss_sup,
-        //     comissao_inss_ger:comissao_inss_ger,
-        //     comissao_inss_quat:comissao_inss_quat,
-        //     governo_minas:governo_minas,
-        //     governo_minas_sup:governo_minas_sup,
-        //     governo_minas_ger:governo_minas_ger,
-        //     governo_minas_quat:governo_minas_quat,
-        //     prefeitura_rio:prefeitura_rio,
-        //     prefeitura_rio_sup:prefeitura_rio_sup,
-        //     prefeitura_rio_ger:prefeitura_rio_ger,
-        //     prefeitura_rio_quat:prefeitura_rio_quat,
-        //     tabela_multi:tabela_multi,
-        //     tabela_sim:tabela_sim
-        // })
-        // return res.status(201).send('usuario cadastrado com sucesso');
+                //salvando dados na tabela cadastro
+                const createdCadastro = await cadastro.create({
+                    filial,
+                    parceiro,
+                    nome_completo,
+                    tipo,
+                    status,
+                    data_admissao,
+                    data_inativacao,
+                    motivo_cancelamento,
+                    experiencia1,
+                    experiencia2,
+                    data_nascimento,
+                    cnpj,
+                    tipo_documento,
+                    data_rg,
+                    orgao_emissao,	 
+                    nome_mae,
+                    pis,
+                    telefone,
+                    email,
+                    cep,
+                    numero_l,
+                    complemento,
+                    bairro,
+                    cidade,
+                    logradouro,
+                    uf_carteira,
+                    favorecido,
+                    tipo_pagamento,
+                    banco,
+                    agencia,
+                    conta,
+                    numero_cartao,
+                    supervisor,
+                    gerente,
+                    supervisor_sant,
+                    gerente_sant,
+                    superintendente,
+                    projeto,
+                    cod_funcao,
+                    cargo,
+                    setor,
+                    codigo,
+                    matricula,
+                    repre,
+                    data_certificacao,
+                    certificacao,
+                    data_bloqueio,
+                    carteira,
+                    serie_carteira,
+                    contrato,
+                    naturalidade,	
+                    cpf,	
+                    cpf_repre,  
+                    regra_pagamento,	
+                    data_contrato,	
+                    comissao,
+                    secundario,
+                    pct_secundario,
+                    terceario,
+                    pct_terceario,
+                    quaternario,
+                    pct_quaternario,
+                    comissao_novo,
+                    comissao_novo_sup,
+                    comissao_novo_ger,
+                    comissao_novo_quat,
+                    qua_sant2,
+                    comissao_inss,
+                    comissao_inss_sup,
+                    comissao_inss_ger,
+                    comissao_inss_quat,
+                    governo_minas,
+                    governo_minas_sup,
+                    governo_minas_ger,
+                    governo_minas_quat,
+                    prefeitura_rio,
+                    prefeitura_rio_sup,
+                    prefeitura_rio_ger,
+                    prefeitura_rio_quat,
+                    registro_clt
+                })
+                // return res.status(201).send('usuario cadastrado com sucesso');
+                // const createdChavej = await base_chave.create({
+                //     chave,
+                //     cpf_usuario:cnpj,
+                //     status:statusj,
+                //     funcao,
+                //     empresa,
+                //     data_envio,
+                //     senha,
+                //     motivo_cancelamento:motivo_cancelamentoj,
+                //     tipo_chave,
+                //     data_inativacao:data_inativacaoj
+                // })
+
+                // const createdSiglae = await siglae.create({
+                //     siglae:sigla,
+                //     cpf_sigla:cnpj,
+                //     codigo_corban,
+                //     nome_corban,
+                //     status_e,
+                //     data_inativacao:data_inativacao_sigla,
+                //     motivo_pendencia,
+                //     sigla_prospect,
+                //     cpf_usuario_1,
+                //     usa_esteira1,
+                //     usa_siglai1,
+                //     observacao
+                // })
+        
+            return res.status(200).send({sucesso:"usuario cadastrado com sucesso"})
+            
+
+        } catch(error){
+                console.log(error)
+                res.status(500).send({erro:error});
+        }
     },
-    CadastroChave: async( req, res) => {
 
-    }
+    // BuscaUserSigla: async(req, res) => {
+    //     const userSigla = await cadastro.findAll({
+
+    //     })
+    // }
 }
 
 module.exports = CadastroController
