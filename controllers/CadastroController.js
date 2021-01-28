@@ -346,33 +346,33 @@ const CadastroController = {
                     registro_clt
                 })
                 // return res.status(201).send('usuario cadastrado com sucesso');
-                // const createdChavej = await base_chave.create({
-                //     chave,
-                //     cpf_usuario:cnpj,
-                //     status:statusj,
-                //     funcao,
-                //     empresa,
-                //     data_envio,
-                //     senha,
-                //     motivo_cancelamento:motivo_cancelamentoj,
-                //     tipo_chave,
-                //     data_inativacao:data_inativacaoj
-                // })
+                const createdChavej = await base_chave.create({
+                    chave,
+                    cpf_usuario:cnpj,
+                    status:statusj,
+                    funcao,
+                    empresa,
+                    data_envio,
+                    senha,
+                    motivo_cancelamento:motivo_cancelamentoj,
+                    tipo_chave,
+                    data_inativacao:data_inativacaoj
+                })
 
-                // const createdSiglae = await siglae.create({
-                //     siglae:sigla,
-                //     cpf_sigla:cnpj,
-                //     codigo_corban,
-                //     nome_corban,
-                //     status_e,
-                //     data_inativacao:data_inativacao_sigla,
-                //     motivo_pendencia,
-                //     sigla_prospect,
-                //     cpf_usuario_1,
-                //     usa_esteira1,
-                //     usa_siglai1,
-                //     observacao
-                // })
+                const createdSiglae = await siglae.create({
+                    siglae:sigla,
+                    cpf_sigla:cnpj,
+                    codigo_corban,
+                    nome_corban,
+                    status_e,
+                    data_inativacao:data_inativacao_sigla,
+                    motivo_pendencia,
+                    sigla_prospect,
+                    cpf_usuario_1,
+                    usa_esteira1,
+                    usa_siglai1,
+                    observacao
+                })
         
             return res.status(200).send({sucesso:"usuario cadastrado com sucesso"})
             
