@@ -399,7 +399,6 @@ const CadastroController = {
 
         const dadosDesigla = await siglae.findOne({
 
-            // attributes:{ exclude:[ 'siglae' ] },
 
             where: { cpf_usuario1:cpf }
         })
