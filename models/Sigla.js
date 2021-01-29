@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             primaryKey: true
         },
-            sigla_e:DataTypes.STRING, 
+            siglae:DataTypes.STRING, 
             cpf_sigla:DataTypes.STRING, 
             codigo_corban:DataTypes.STRING, 
             corban:DataTypes.STRING, 

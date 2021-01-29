@@ -384,7 +384,9 @@ const CadastroController = {
     },
 
     Modal: async (req,res)=>{
-
+        try {
+            
+      
         const { cpf } = req.body;
 
         const dadosDeCadastro = await cadastro.findOne({
@@ -396,7 +398,10 @@ const CadastroController = {
         })
 
         const dadosDesigla = await siglae.findOne({
-            where: { cpf_usuario_1:cpf }
+
+            // attributes:{ exclude:[ 'siglae' ] },
+
+            where: { cpf_usuario1:cpf }
         })
 
         return res.status(200).send({
@@ -407,9 +412,13 @@ const CadastroController = {
 
             dados_sigla:dadosDesigla
         })
+    } catch (error) {
+
+            console.log(error);
+            res.send(error)
     }
 
  
+    }
 }
-
 module.exports = CadastroController
