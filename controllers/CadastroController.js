@@ -383,11 +383,33 @@ const CadastroController = {
         }
     },
 
-    // BuscaUserSigla: async(req, res) => {
-    //     const userSigla = await cadastro.findAll({
+    Modal: async (req,res)=>{
 
-    //     })
-    // }
+        const { cpf } = req.body;
+
+        const dadosDeCadastro = await cadastro.findOne({
+            where:{ cpf }
+        })
+
+        const dadosDechave = await base_chave.findOne({
+            where:{ cpf_usuario: cpf}
+        })
+
+        const dadosDesigla = await siglae.findOne({
+            where: { cpf_usuario_1:cpf }
+        })
+
+        return res.status(200).send({
+
+            dados_cadastro:dadosDeCadastro,
+
+            dados_chave:dadosDechave,
+
+            dados_sigla:dadosDesigla
+        })
+    }
+
+ 
 }
 
 module.exports = CadastroController
