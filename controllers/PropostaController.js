@@ -3,7 +3,7 @@ const { vw_proposta, status, tipo , empresa, banco, substatus, produto } = requi
 
 const PropostaController = {
 
-    PropostaPorId: async(req, res) =>{
+        PropostaPorId: async(req, res) =>{
 
         try {
             const proposta = await vw_proposta.findAll({
