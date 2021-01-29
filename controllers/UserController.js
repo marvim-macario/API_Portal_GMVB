@@ -81,7 +81,7 @@ const UserController = {
                 });
             })
 
-        }catch (err) {
+        }catch(err) {
             console.log(err);
             return res.status(400).send({
                 erro: "não foi possivel enviar o email, tente novamente."
@@ -107,8 +107,8 @@ const UserController = {
             user.senha = novaSenha;
             await user.save()
 
-            res.status(200).send({
-                sucesso: "senha alterada com sucesso"
+                res.status(200).send({
+                    sucesso: "senha alterada com sucesso"
             });
 
         }catch (err) {
@@ -120,7 +120,6 @@ const UserController = {
 
     //metodo de inclusao de acesso no portal 
     Create: async (req, res) => {
-        
         const { 
                 cnpj_matriz, 
                 nome,
@@ -163,7 +162,7 @@ const UserController = {
                 consorcio_caixa,
                 crefisa,
                 itau 
-        } = req.body;
+            } = req.body;
 
 
         let data_cadastro  =  new Date();
@@ -228,7 +227,7 @@ const UserController = {
                 return res.status(201).send({sucesso:'acesso criado com sucesso'});
             
         }catch (error) {
-                return res.status(500).send({erro:"não foi possivel cadastrar usuario tente novamente."})
+                return res.status(500).send({erro:"não foi possivel cadastrar acesso tente novamente."})
                 console.log(error)
         }
     },
