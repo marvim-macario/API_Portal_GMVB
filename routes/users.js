@@ -17,16 +17,16 @@ router.post('/reset',UserController.update);
 //rotas para popular campos
 router.get('/pctquaternario',PreencherCamposController.PctQuaternario);
 router.get('/quaternario',PreencherCamposController.Quaternario);
-router.get('/proposta/status',PreencherCamposController.Status);
-router.get('/proposta/tipo',PreencherCamposController.Tipo);
-router.get('/proposta/empresas',PreencherCamposController.Empresa);
-router.get('/proposta/bancos',PreencherCamposController.Banco);
-router.get('/proposta/substatus',PreencherCamposController.SubStatus);
 router.get('/proposta/produto',PreencherCamposController.Produto);
 router.get('/funcionario',PreencherCamposController.Funcionario);
 router.get('/supervisor',PreencherCamposController.Supervisor);
 router.get('/gerente',PreencherCamposController.Gerente);
 router.get('/filial',PreencherCamposController.Filial);
+router.get('/proposta/status',PreencherCamposController.Status);
+router.get('/proposta/tipo',PreencherCamposController.Tipo);
+router.get('/proposta/empresas',PreencherCamposController.Empresa);
+router.get('/proposta/bancos',PreencherCamposController.Banco);
+router.get('/proposta/substatus',PreencherCamposController.SubStatus);
 
 
 //pequisa de cadastros

@@ -224,7 +224,7 @@ const UserController = {
             })
 
             if(created)
-                return res.status(201).send({sucesso:'acesso criado com sucesso'});
+                return res.status(201).send(created);
             
         }catch (error) {
                 return res.status(500).send({erro:"não foi possivel cadastrar acesso tente novamente."})
