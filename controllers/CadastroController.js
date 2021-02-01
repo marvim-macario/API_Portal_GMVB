@@ -6,70 +6,7 @@ const Op = Sequelize.Op
 
 const CadastroController = {
     //get buscar campos
-    Supervisor: async (req, res) => {
-
-        const supervisor = await cadastro.findAll({
-            attributes: ['parceiro'],
-            where: {
-                tipo_func: {
-                    [Op.in]: ['SUPERVISOR MEI', 'SUPERVISOR'],
-                },
-                status: 'ATIVO'
-            },
-            order: [
-                ['parceiro', 'asc']
-            ]
-        });
-
-        res.status(200).send(supervisor);
-    },
-
-
-    //get buscar campos 
-    Gerente: async (req, res) => {
-
-        const gerente = await cadastro.findAll({
-            attributes: ['gerente'],
-            where: {
-                tipo_func: {
-                    [Op.in]: ['GERENTE MEI', 'GERENTE'],
-                },
-                status: 'ATIVO'
-            },
-            order: [
-                ['gerente', 'asc']
-            ]
-        });
-
-        res.status(200).send(gerente);
-    },
-
-    //get buscar campos
-    Funcionario: async (req, res) => {
-
-        var query = `${req.query.nome}`;
-
-        console.log(query)
-        const funcionario = await cadastro.findAll({
-
-            attributes: ['parceiro'],
-            where: {
-                parceiro: {
-                    [Op.substring]: query
-                }
-            }
-        });
-        res.status(200).send(funcionario);
-    },
-
-    Filial: async (req, res) => {
-
-        const filiais = await filial.findAll({
-            attributes: ['filial']
-
-        });
-        res.status(200).send(filiais);
-    },
+   
 
     // pesquisa geral 
     FullSearch: async (req, res) => {
@@ -143,9 +80,6 @@ const CadastroController = {
             });
         }
     },
-
-
-
     Create: async (req, res) => {
 
         const {
@@ -385,39 +319,38 @@ const CadastroController = {
 
     Modal: async (req,res)=>{
         try {
-            
-      
-        const { cpf } = req.body;
 
-        const dadosDeCadastro = await cadastro.findOne({
-            where:{ cpf }
-        })
+                const { cpf } = req.body;
 
-        const dadosDechave = await base_chave.findOne({
-            where:{ cpf_usuario: cpf}
-        })
+                const dadosDeCadastro = await cadastro.findOne({
+                    where:{ cpf }
+                })
 
-        const dadosDesigla = await siglae.findOne({
+                const dadosDechave = await base_chave.findOne({
+                    where:{ cpf_usuario: cpf}
+                })
+
+                const dadosDesigla = await siglae.findOne({
 
 
-            where: { cpf_usuario1:cpf }
-        })
+                    where: { cpf_usuario1:cpf }
+                })
 
-        return res.status(200).send({
+                return res.status(200).send({
 
-            dados_cadastro:dadosDeCadastro,
+                    dados_cadastro:dadosDeCadastro,
 
-            dados_chave:dadosDechave,
+                    dados_chave:dadosDechave,
 
-            dados_sigla:dadosDesigla
-        })
-    } catch (error) {
+                    dados_sigla:dadosDesigla
+                })
+            } catch (error) {
 
-            console.log(error);
-            res.send(error)
-    }
+                    console.log(error);
+                    res.send(error)
+            }
 
- 
-    }
+    },
+
 }
 module.exports = CadastroController
