@@ -1,5 +1,5 @@
 // controller para popular selects das paginas 
-const { cadastro, vw_proposta, status, tipo , empresa, banco, substatus, produto } = require('../models');
+const { cadastro, vw_proposta, status, tipo , empresa, banco, substatus,filial, produto } = require('../models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
