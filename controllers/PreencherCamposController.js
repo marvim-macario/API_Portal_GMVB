@@ -1,7 +1,8 @@
 // controller para popular selects das paginas 
 const { cadastro, vw_proposta, status, tipo , empresa, banco, substatus, produto } = require('../models');
 
-// const Sequelize = require('sequelize');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op
 
 const PreencherCamposController = {
     
@@ -135,21 +136,28 @@ const PreencherCamposController = {
 
     //get buscar campos 
     Gerente: async (req, res) => {
-
-        const gerente = await cadastro.findAll({
-            attributes: ['gerente'],
-            where: {
-                tipo_func: {
-                    [Op.in]: ['GERENTE MEI', 'GERENTE'],
+        try {
+            const gerentes = await cadastro.findAll({
+                attributes: ['gerente'],
+                where: {
+                    tipo_func: {
+                        [Op.in]: ['GERENTE MEI', 'GERENTE'],
+                    },
+                    status: 'ATIVO'
                 },
-                status: 'ATIVO'
-            },
-            order: [
-                ['gerente', 'asc']
-            ]
-        });
+                order: [
+                    ['gerente', 'asc']
+                ]
+            });
+            res.status(200).send(gerentes)
 
-        res.status(200).send(gerente);
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error)
+        }
+       
+
+       
     },
 
     //get buscar campos
