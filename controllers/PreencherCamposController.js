@@ -24,7 +24,7 @@ const PreencherCamposController = {
 
             return res.status(200).send(parceiro);
         } catch (error) {
-            
+
             return res.status(500).send({erro:"erro interno"});
         }
       
@@ -132,6 +132,7 @@ const PreencherCamposController = {
         }
     },
     
+
     Produto: async (req, res) => {
 
         try {
@@ -141,6 +142,18 @@ const PreencherCamposController = {
             res.send(error)
         }
     },
+
+
+    SupervisorMulti: async(req, res)=>{
+        const supervisorMulti = await cadastro.findAll({
+            attributes:['supervisor_sant'],
+           
+        });
+
+        res.send(supervisorMulti);
+    },
+
+
     Supervisor: async (req, res) => {
 
         const supervisor = await cadastro.findAll({
@@ -160,7 +173,6 @@ const PreencherCamposController = {
     },
 
 
-    //get buscar campos 
     Gerente: async (req, res) => {
         try {
             const gerentes = await cadastro.findAll({
@@ -186,7 +198,7 @@ const PreencherCamposController = {
        
     },
 
-    //get buscar campos
+
     Funcionario: async (req, res) => {
 
         var query = `${req.query.nome}`;

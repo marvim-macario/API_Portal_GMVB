@@ -29,6 +29,7 @@ router.get('/proposta/empresas',PreencherCamposController.Empresa);
 router.get('/proposta/bancos',PreencherCamposController.Banco);
 router.get('/proposta/substatus',PreencherCamposController.SubStatus);
 router.get('/proposta/produto',PreencherCamposController.Produto);
+router.get('/supervisormulti',PreencherCamposController.SupervisorMulti);
 
 
 //pequisa de cadastros
