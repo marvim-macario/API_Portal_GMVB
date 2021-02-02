@@ -2,18 +2,40 @@ const { vw_proposta, status, tipo , empresa, banco, substatus, produto, acesso_c
 
 
 const PropostaController = {
-     
+    teste: async(req,res)=>{
+        res.send('oi')
+    },
+   
     Interface: async(req,res)=>{
         
-        const { id_acesso, cnpj_matriz ,perfil, tipo_usuario, nome } = req.body;
+        const {  cnpj_matriz ,perfil, tipo_usuario} = req.body;
 
         if (tipo_usuario === 'PARCEIRO' ){
 
             if (perfil === 'MATRIZ'){
 
-            const idsParceiros = await acesso_completo.findAll({
-                
-            })
+                const idsParceiros = await acesso_completo.findAll({
+                    attributes:['id_acesso'],
+                    where: {
+                        cnpj_matriz
+                    }
+                });
+
+                if(idsParceiros){
+                    var parceiros = [];
+                    idsParceiros.forEach(element => {
+                        parceiros.push(element.id_acesso)
+                        
+                    });
+                }
+
+                const propstasMatriz = await vw_proposta.findAll({
+                    where:{
+                        id_acesso:parceiros
+                    }
+                })
+                res.send(propstasMatriz)
+
 
             }
             if(perfil === 'SUBACESSO'){

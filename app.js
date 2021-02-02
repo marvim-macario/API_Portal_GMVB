@@ -5,25 +5,31 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
 
-const usersRoute = require('./routes/users'); //importatando de rotas
 
 const app = express();
+
+//carregamento de rotas
+const index = require('./routes/index')
+const usersRoute = require('./routes/users'); //importatando de rotas
+const propostasRoute = require('./routes/propostas');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
+//configurando cors
 app.use((req, res, next) => {
-	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Request-Width, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     app.use(cors());
     next();
 });
 
-
-
-app.use('/user', usersRoute);       //declara que essa rota será usada
+//imprementando rotas
+app.use('/', index);
+app.use('/users', usersRoute);
+app.use('/propostas',propostasRoute)
 
 module.exports = app;
