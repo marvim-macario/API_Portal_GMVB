@@ -17,7 +17,8 @@ router.post('/reset',UserController.update);
 //rotas para popular campos
 router.get('/pctquaternario',PreencherCamposController.PctQuaternario);
 router.get('/quaternario',PreencherCamposController.Quaternario);
-router.get('/proposta/produto',PreencherCamposController.Produto);
+
+router.post('/parceiros',PreencherCamposController.Parceiro);
 router.get('/funcionario',PreencherCamposController.Funcionario);
 router.get('/supervisor',PreencherCamposController.Supervisor);
 router.get('/gerente',PreencherCamposController.Gerente);
@@ -27,6 +28,7 @@ router.get('/proposta/tipo',PreencherCamposController.Tipo);
 router.get('/proposta/empresas',PreencherCamposController.Empresa);
 router.get('/proposta/bancos',PreencherCamposController.Banco);
 router.get('/proposta/substatus',PreencherCamposController.SubStatus);
+router.get('/proposta/produto',PreencherCamposController.Produto);
 
 
 //pequisa de cadastros
@@ -42,7 +44,7 @@ router.post('/cadastro/acesso',UserController.Create)
 router.post('/cadastro/modal',CadastroController.Modal)
 
 //proposta
-router.get('/proposta/id',PropostaController.PropostaPorId);
+// router.get('/proposta/id',PropostaController.PropostaPorId);
 
 
 
