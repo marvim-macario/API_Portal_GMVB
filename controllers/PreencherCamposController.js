@@ -5,6 +5,32 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op
 
 const PreencherCamposController = {
+
+    Parceiro: async( req, res )=>{
+
+        const { cnpj } = req.body;
+
+        try {
+            const parceiro = await cadastro.findAll({
+
+                attributes:['parceiro'],
+                where:{
+                    cnpj
+                }
+            })
+
+            if(!parceiro)
+                return res.status(400).send({erro:"nao encontrado"});
+
+            return res.status(200).send(parceiro);
+        } catch (error) {
+            
+            return res.status(500).send({erro:"erro interno"});
+        }
+      
+
+    },
+
     
     Quaternario: async (req , res) => {
 
