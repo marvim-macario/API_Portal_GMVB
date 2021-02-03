@@ -128,7 +128,7 @@ const UserController = {
                 usuario,
                 senha,
                 responsavel,
-                cpf,
+                cpf_usuario,
                 tipo_parceiro,
                 usuario_master,
                 classificacao,
@@ -171,7 +171,7 @@ const UserController = {
             
             const valid = await acessos.findOne({
                 where:{
-                    cpf,
+                    cpf_usuario,
                     nome
                 }
             })
@@ -186,7 +186,7 @@ const UserController = {
                     usuario,
                     senha,
                     responsavel,
-                    cpf,
+                    cpf_usuario,
                     tipo_parceiro,
                     usuario_master,
                     classificacao,

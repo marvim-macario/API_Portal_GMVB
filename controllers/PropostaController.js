@@ -2,53 +2,48 @@ const { vw_proposta, status, tipo , empresa, banco, substatus, produto, acesso_c
 
 
 const PropostaController = {
-    teste: async(req,res)=>{
-        res.send('oi')
-    },
+    
    
     Interface: async(req,res)=>{
         
-        const {  cnpj_matriz ,perfil, tipo_usuario} = req.body;
+        const {  cnpj_matriz ,perfil, tipo_usuario } = req.body;
+
 
         if (tipo_usuario === 'PARCEIRO' ){
 
             if (perfil === 'MATRIZ'){
 
                 const idsParceiros = await acesso_completo.findAll({
-                    attributes:['id_acesso'],
-                    where: {
-                        cnpj_matriz
-                    }
+
+                    attributes:[ 'id_acesso' ],
+
+                    where: {  cnpj_matriz }
                 });
 
-                if(idsParceiros){
+                if( idsParceiros ){
+
                     var parceiros = [];
                     idsParceiros.forEach(element => {
                         parceiros.push(element.id_acesso)
-                        
                     });
                 }
 
                 const propstasMatriz = await vw_proposta.findAll({
-                    where:{
-                        id_acesso:parceiros
-                    }
+
+                    where:{ id_acesso:parceiros }
                 })
                 res.send(propstasMatriz)
-
-
             }
+
             if(perfil === 'SUBACESSO'){
 
                 try {
                     
                     const parceiroSubAcesso =  await vw_proposta.findAll({
 
-                        where:{
-                            id_acesso
-                        }
+                        where:{ id_acesso }
+
                     })
-                    // if(parceiroSub)
 
                     return res.status(200).send(parceiroSubAcesso)
                     
@@ -59,6 +54,16 @@ const PropostaController = {
             }
 
             }
+        }
+        if(tipo_usuario === "SUPERVISOR"){
+
+            const idsDoSupervisor = await acesso_completo.findAll({
+
+                attributes:['id_acesso'],
+                where:{
+                    supervisor
+                }
+            })
         }
 
 

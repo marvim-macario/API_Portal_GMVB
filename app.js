@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 
 //imprementando rotas
 app.use('/', index);
-app.use('/users', usersRoute);
+app.use('/user', usersRoute);
 app.use('/propostas',propostasRoute)
 
 module.exports = app;
