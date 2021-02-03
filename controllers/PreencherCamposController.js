@@ -143,7 +143,7 @@ const PreencherCamposController = {
         }
     },
 
-
+    ///retirar
     SupervisorMulti: async(req, res)=>{
         const supervisorMulti = await cadastro.findAll({
             attributes:['supervisor_sant'],
@@ -172,6 +172,10 @@ const PreencherCamposController = {
         res.status(200).send(supervisor);
     },
 
+    // GerenteMullti: async (req, res)=>{
+    //     const gerente
+    // },
+
 
     Gerente: async (req, res) => {
         try {
@@ -197,7 +201,6 @@ const PreencherCamposController = {
 
        
     },
-
 
     Funcionario: async (req, res) => {
 

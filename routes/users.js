@@ -1,8 +1,11 @@
 const express = require('express');
+
 const UserController = require('../controllers/UserController');
 const CadastroController = require('../controllers/CadastroController');
 const PropostaController = require('../controllers/PropostaController');
 const PreencherCamposController = require('../controllers/PreencherCamposController');
+const AuthMiddleware = require('../services/AuthMiddleware');
+
 const router = express.Router();
 
 
@@ -13,10 +16,9 @@ router.post('/email',UserController.send);
 //rota para alterar senha senha
 router.post('/reset',UserController.update);
 
-
 //rotas para popular campos
-router.get('/pctquaternario',PreencherCamposController.PctQuaternario);
-router.get('/quaternario',PreencherCamposController.Quaternario);
+// router.get('/pctquaternario',PreencherCamposController.PctQuaternario);
+// router.get('/quaternario',PreencherCamposController.Quaternario);
 
 router.post('/parceiros',PreencherCamposController.Parceiro);
 router.get('/funcionario',PreencherCamposController.Funcionario);
@@ -44,8 +46,12 @@ router.post('/cadastro/acesso',UserController.Create)
 //popular campos no modal de cadastro
 router.post('/cadastro/modal',CadastroController.Modal)
 
-//proposta
-// router.get('/proposta/id',PropostaController.PropostaPorId);
+router.post('/proposta',PropostaController.Interface);
+
+
+
+
+ 
 
 
 
