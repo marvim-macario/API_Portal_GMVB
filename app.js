@@ -9,9 +9,9 @@ const session = require('express-session');
 const app = express();
 
 //carregamento de rotas
-const index = require('./routes/index')
+// const index = require('./routes/index')
 const usersRoute = require('./routes/users'); //importatando de rotas
-const propostasRoute = require('./routes/propostas');
+// const propostasRoute = require('./routes/propostas');
 
 
 app.use(bodyParser.json());
@@ -28,8 +28,8 @@ app.use((req, res, next) => {
 });
 
 //imprementando rotas
-app.use('/', index);
-app.use('/users', usersRoute);
-app.use('/propostas',propostasRoute)
+// app.use('/', index);
+app.use('/user', usersRoute);
+// app.use('/propostas',propostasRoute)
 
 module.exports = app;

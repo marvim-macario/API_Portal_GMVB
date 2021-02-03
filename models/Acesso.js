@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         usuario:DataTypes.STRING,
         senha:DataTypes.STRING,
         responsavel:DataTypes.STRING,
-        cpf:DataTypes.STRING,
+        cpf_usuario:DataTypes.STRING,
         tipo_parceiro:DataTypes.STRING,
         usuario_master:DataTypes.STRING,
         classificacao:DataTypes.STRING, 
