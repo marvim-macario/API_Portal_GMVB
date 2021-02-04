@@ -11,8 +11,10 @@ const router = express.Router();
 
 // rota para fazer login no portal
 router.post('/login',UserController.Login);
+
 /*rota para envio de email de recuperação de senha*/
 router.post('/email',UserController.send);
+
 //rota para alterar senha senha
 router.post('/reset',UserController.update);
 
@@ -32,7 +34,7 @@ router.get('/proposta/bancos',PreencherCamposController.Banco);
 router.get('/proposta/substatus',PreencherCamposController.SubStatus);
 router.get('/proposta/produto',PreencherCamposController.Produto);
 router.get('/supervisormulti',PreencherCamposController.SupervisorMulti);
-
+// router.get('/banco',PreencherCamposController)
 
 //pequisa de cadastros
 router.post('/search',CadastroController.FullSearch);
@@ -45,8 +47,10 @@ router.post('/cadastro/acesso',UserController.Create)
 
 //popular campos no modal de cadastro
 router.post('/cadastro/modal',CadastroController.Modal)
+router.post('/cadastro/busca/acesso',UserController.PreencherAcesso)
 
-router.post('/proposta',PropostaController.Interface);
+
+router.post('/proposta/filtro',PropostaController.Interface);
 
 
 

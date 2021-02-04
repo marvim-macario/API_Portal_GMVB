@@ -1,218 +1,32 @@
-{ 
-   "filial":"teste2",
-   "parceiro":"teste2",
-   "nome_completo":"teste2",
-   "tipo":"teste2",
-   "status":"teste2",
-   "data_admissao":"teste2",
-   "data_inativacao":"teste2",
-   "motivo_cancelamento":"teste2",
-   "experiencia1":"teste2",
-   "experiencia2":"teste2",
-   "data_nascimento":"teste2",
-   "cnpj":"teste2",
-   "tipo_documento":"teste2",
-   "data_rg":"teste2",
-   "orgao_emissao":"teste2",	 
-   "nome_mae":"teste2",
-   "pis":"teste2",
-   "telefone":"teste2",
-   "email":"teste2",
-   "cep":"teste2",
-   "numero_l":"teste2",
-   "complemento":"teste2",
-   "bairro":"teste2",
-   "cidade":"teste2",
-   "logradouro":"teste2",
-   "uf_carteira":"teste2",
-   "favorecido":"teste2",
-   "tipo_pagamento":"teste2",
-   "banco":"teste2",
-   "agencia":"teste2",
-   "conta":"teste2",
-   "numero_cartao":"teste2",
-   "supervisor":"teste2",
-   "gerente":"teste2",
-   "supervisor_sant":"teste2",
-   "gerente_sant":"teste2",
-   "superintendente":"teste2",
-   "projeto":"teste2",
-   "cod_funcao":"teste2",
-   "cargo":"teste2",
-   "setor":"teste2",
-   "codigo":"teste2",
-   "matricula":"teste2",
-   "repre":"teste2",
-   "data_certificacao":"teste2",
-   "certificacao":"teste2",
-   "data_bloqueio":"teste2",
-   "carteira":"teste2",
-   "serie_carteira":"teste2",
-   "contrato":"teste2",
-   "naturalidade":"teste2",	
-   "cpf":"teste2",	
-   "cpf_repre":"tete",  
-   "regra_pagamento":"teste2",	
-   "data_contrato":"teste2",	
-   "comissao":"teste2",
-   "secundario":"teste2",
-   "pct_secundario":"teste2",
-   "terceario":"teste2",
-   "pct_terceario":"teste2",
-   "quaternario":"teste2",
-   "pct_quaternario":"teste2",
-   "comissao_novo":"teste2",
-   "comissao_novo_sup":"teste2",
-   "comissao_novo_ger":"tete",
-   "comissao_novo_quat":"teste2",
-   "qua_sant2":"teste2",
-   "comissao_inss":"teste2",
-   "comissao_inss_sup":"teste2",
-   "comissao_inss_ger":"teste2",
-   "comissao_inss_quat":"teste2",
-   "governo_minas":"teste2",
-   "governo_minas_sup":"teste2",
-   "governo_minas_ger":"teste2",
-   "governo_minas_quat":"teste2",
-   "prefeitura_rio":"teste2",
-   "prefeitura_rio_sup":"teste2",
-   "prefeitura_rio_ger":"teste2",
-   "prefeitura_rio_quat":"teste2"
+if(tipo_usuario === "SUPERVISOR"){
+                
+    const idsDoSupervisor = await acesso_completo.findAll({
+
+        attributes:['id_acesso'],
+        where:{
+
+            supervisor:nome
+        }
+    })
+
+    if(idsDoSupervisor){
+
+        var idssup = [];
+        idsDoSupervisor.forEach(element => {
+            idssup.push(element.id_acesso)
+        });
+
+    }
+    where.id_acesso = idssup;
+
+    const propstasSup = await vw_proposta.findAll({
+
+        where
+    })
+    res.send(propstasSup)
+          
 }
 
-   filial,
-   parceiro,
-   nome_completo,
-   tipo,
-   status,
-   data_admissao,
-   data_inativacao,
-   motivo_cancelamento,
-   experiencia1,
-   experiencia2,
-   data_nascimento,
-   cnpj*,
-   tipo_documento,
-   data_rg,
-   orgao_emissao,	 
-   nome_mae,
-   pis,
-   telefone,
-   email,
-   cep,
-   numero_l,
-   complemento,
-   bairro,
-   cidade,
-   logradouro,
-   uf_carteira,
-   favorecido,
-   tipo_pagamento,
-   banco,
-   agencia,
-   conta,
-   numero_cartao,
-   supervisor,
-   gerente,
-   supervisor_sant,
-   gerente_sant,
-   superintendente,
-   projeto,
-   cod_funcao,
-   cargo,
-   setor,
-   codigo,
-   matricula,
-   repre,
-   data_certificacao,
-   certificacao,
-   data_bloqueio,
-   carteira,
-   serie_carteira,
-   contrato,
-   naturalidade,	
-   cpf,	
-   cpf_repre,  
-   regra_pagamento,	
-   data_contrato,	
-   comissao,
-   secundario,
-   pct_secundario,
-   terceario,
-   pct_terceario,
-   quaternario,
-   pct_quaternario,
-   comissao_novo,
-   comissao_novo_sup,
-   comissao_novo_ger,
-   comissao_novo_quat,
-   qua_sant2,
-   comissao_inss,
-   comissao_inss_sup,
-   comissao_inss_ger,
-   comissao_inss_quat,
-   governo_minas,
-   governo_minas_sup,
-   governo_minas_ger,
-   governo_minas_quat,
-   prefeitura_rio,
-   prefeitura_rio_sup,
-   prefeitura_rio_ger,
-   prefeitura_rio_quat
-
-
-   statusj
-   funcao
-   empresa
-   data_envio
-   senha
-   motivo_cancelamentoj
-   tipo_chave
-   data_inativacaoj
-
-
-   int(11) AI PK 
-siglae varchar(45) PK 
-cpf_sigla varchar(45) 
-codigo_corban varchar(45) 
-corban varchar(255) 
-nome_corban varchar(255) 
-sigla_prospect varchar(255) 
-certificacao varchar(255) 
-data_certificacao varchar(255) 
-status_i varchar(45) 
-cpf_usuario1 varchar(45) 
-cpf_usuario2 varchar(45) 
-cpf_usuario3 varchar(45) 
-cpf_usuario4 varchar(45) 
-cpf_usuario5 varchar(45) 
-usa_sigla1 varchar(45) 
-usa_siglai1 varchar(45) 
-usa_esteira1 varchar(255) 
-status_e varchar(45) 
-observacao longtext 
-data_cadastro varchar(45) 
-usa_sigla2 varchar(45) 
-usa_sigla3 varchar(45) 
-usa_sigla4 varchar(45) 
-usa_sigla5 varchar(45) 
-usa_siglai2 varchar(45) 
-usa_siglai3 varchar(45) 
-usa_siglai4 varchar(45) 
-usa_siglai5 varchar(45) 
-usa_esteira2 varchar(45) 
-usa_esteira3 varchar(45) 
-usa_esteira4 varchar(45) 
-usa_esteira5 varchar(45) 
-responsavel varchar(45) 
-data_atualizacao varchar(45) 
-arquivo1 varchar(45) 
-arquivo2 varchar(45) 
-arquivo3 varchar(45) 
-arquivo4 varchar(45) 
-arquivo5 varchar(45) 
-arquivo6 varchar(45) 
-arquivo7 varchar(45) 
-arquivo8 varchar(45) 
-data_inativacao varchar(45) 
-motivo_pendencia varchar
+if (tipo_usuario === 'GERENTE'){
+    
+}

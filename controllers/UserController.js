@@ -164,7 +164,6 @@ const UserController = {
                 itau 
             } = req.body;
 
-
         let data_cadastro  =  new Date();
 
         try {
@@ -227,10 +226,26 @@ const UserController = {
                 return res.status(201).send(created);
             
         }catch (error) {
+            console.log(error)
                 return res.status(500).send({erro:"não foi possivel cadastrar acesso tente novamente."})
-                console.log(error)
+                
         }
     },
+    PreencherAcesso: async (req,res)=>{
+        const { id_acesso } = req.body;
+    try {
+        const dadosDeAcesso = await acessos.findOne({
+
+            id_acesso
+        })
+        
+        if(dadosDeAcesso)
+            res.send(dadosDeAcesso);
+    } catch (error) {
+        console.log(error)
+    }
+   
+}
     
 }
 
