@@ -58,7 +58,7 @@ const CadastroController = {
 
 
         clean(consulta);
-        console.log(consulta);
+        // console.log(consulta);
 
         try {
             const person = await cadastro.findAll({
@@ -351,6 +351,8 @@ const CadastroController = {
             }
 
     },
+  
+
 
 }
 module.exports = CadastroController

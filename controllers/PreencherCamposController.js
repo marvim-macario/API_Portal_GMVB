@@ -1,5 +1,5 @@
 // controller para popular selects das paginas 
-const { cadastro, vw_proposta, status, tipo , empresa, banco, substatus,filial, produto } = require('../models');
+const { cadastro, vw_proposta, status, tipo , empresa, banco, substatus,filial, produto, } = require('../models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
@@ -30,43 +30,7 @@ const PreencherCamposController = {
       
 
     },
-
     
-    Quaternario: async (req , res) => {
-
-        try {
-            const quaternario = await cadastro.findAll({
-                attributes:['parceiro'],
-                where:{ status:'ATIVO' }
-            });
-            res.status(200).send(quaternario);
-
-        } catch(error){
-
-            res.status(500).send(error);
-            console.log(error); 
-        }
-    },
-
-    PctQuaternario: async ( req, res ) => {
-
-        try{
-
-            const pctQuaternario = await cadastro.findAll({
-
-                attributes:['pct_quaternario']
-            });
-
-            res.status(200).send(pctQuaternario);
-
-        }catch(error){
-
-            res.status(500).send(error)
-            console.log(error)
-        }
-        
-    }, 
-
     Status: async (req, res) => {
 
         try {
