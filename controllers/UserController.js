@@ -245,7 +245,32 @@ const UserController = {
         console.log(error)
     }
    
-}
+    },
+
+    //busca acessos cadastrados de acordo com o cnpj da matriz
+    BuscarAcesso:async(req,res) => {
+
+        const { cnpj_matriz } = req.body;
+
+            try {
+                const acessosCnpj = await acessos.findAll({
+
+                    where:{
+        
+                        cnpj_matriz
+                    }
+                })
+                if(acessosCnpj)
+                    res.status(200).send(acessosCnpj)
+                
+            } catch (error) {
+                
+                res.status(500).send({error})
+
+
+        }
+        
+    }
     
 }
 

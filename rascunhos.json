@@ -1,32 +1,91 @@
-if(tipo_usuario === "SUPERVISOR"){
-                
-    const idsDoSupervisor = await acesso_completo.findAll({
 
-        attributes:['id_acesso'],
-        where:{
-
-            supervisor:nome
-        }
-    })
-
-    if(idsDoSupervisor){
-
-        var idssup = [];
-        idsDoSupervisor.forEach(element => {
-            idssup.push(element.id_acesso)
-        });
-
-    }
-    where.id_acesso = idssup;
-
-    const propstasSup = await vw_proposta.findAll({
-
-        where
-    })
-    res.send(propstasSup)
-          
-}
-
-if (tipo_usuario === 'GERENTE'){
-    
-}
+Número da Proposta = proposta
+Data Cadastro
+Mês Referência
+Número Refin Portabilidade
+Tipo da Operação
+Valor Entregue
+Valor Troco
+Valor Parcela
+Quantidade Parcela
+Previsão de Saldo
+Portabilidade
+Retorno CIP
+Banco Portador
+Data Corte
+Salário/Vencimentos
+Margem Negativa (Caso Tenha)
+Número Chamado
+Chamado Resolvido?
+Banco
+Produto
+Venda SMS
+Auditoria SMS
+Acesso Cetelem
+Parcela Desconto Cetelem
+Status
+Sub-Status
+Convênio
+Regra Convênio
+Empresa SMS
+Espécie
+Validade Contrato
+Sigla Chamado
+Nova Proposta
+Telefone TFC?
+Nome Promotor Contrato
+Código Averbação
+Senha Exército
+Piloto Olá?
+Seguro
+Parcelas Pagas (PORT/REFIN)
+Deseja Agendar Horário Para Confirmação?
+Exército Temporário ?
+Código Único Exercito
+Venda SMS
+Auditoria SMS
+Motivo New Space
+Data Atualização New Space
+Nome do Cliente
+CPF Cliente
+DDD
+Telefone Cliente
+Gênero
+Sexo
+Telefone Confirmação
+Novo Contato Informado
+Matrícula (NB/RA)
+Data Nascimento
+UF Naturalidade
+Naturalidade
+RG
+Data Emissão RG
+Orgão Expeditor
+Nome Pai
+Nome Mãe
+Data Admissão
+UF Endereço
+Cidade Endereço
+CEP
+Endereço
+Bairro
+Número Endereço
+Complemento
+Tipo Conta Cliente
+Banco Cliente
+Agência Cliente
+Conta Cliente
+Dígito Conta
+Correntista?
+Telefone SMS Cliente
+Estado Civil
+Cônjuge
+Telefone Procedente?
+Sistema Telefone
+Telefone Completo
+Digitado?
+Gênero
+E-mail
+Solicitou Agendamento?
+Melhor Data - Confirmação Cliente
+Melhor Horário - Confirmação Cliente
