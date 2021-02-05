@@ -3,7 +3,7 @@ const { vw_proposta, acesso_completo } = require('../models');
 
 const PropostaController = {
     
-    
+
     Interface: async(req,res)=>{
         
         const { id_aceso, cnpj_matriz ,perfil, tipo_usuario, nome,
@@ -219,41 +219,27 @@ const PropostaController = {
 
                 res.status(200).send(propostasSuper);
                 break;
+
+            case "ADM":
+
+                const propostasAdm = await vw_proposta.findAll({
+                    where
+                });
+
+                res.status(200).send(propostasAdm);
+                break;
+            
+            default:
+                res.send("tipo usuario não aceito")
         }
+    },
 
 
-        
+    Update: async ( req, res ) => {
+
+
     }
 
-
-
-
-
-
-
-    //     PropostaPorId: async(req, res) =>{
-    //         const {id_acesso } = req.query;
-    //         console.log(id_acesso);
-    //     try {
-    //         const proposta = await vw_proposta.findAll({
-    //             attributes:{exclude:['id']},
-    //             where:{
-    //                  id_acesso
-    //             },
-    //             limit : 5,
-    //             order: [
-    //                 ['data_envio', 'DESC']
-    //             ]
-
-    //         });
-    //         res.status(200).send(proposta)
-            
-    //     } catch (error) {
-    //         res.status(500).send(error)
-    //     }
-    // },
-
-    
 
 }
 module.exports = PropostaController;

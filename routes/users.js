@@ -8,7 +8,6 @@ const PreencherCamposController = require('../controllers/PreencherCamposControl
 
 const router = express.Router();
 
-
 // rota para fazer login no portal
 router.post('/login',UserController.Login);
 
@@ -19,8 +18,6 @@ router.post('/email',UserController.send);
 router.post('/reset',UserController.update);
 
 //rotas para popular campos
-// router.get('/pctquaternario',PreencherCamposController.PctQuaternario);
-// router.get('/quaternario',PreencherCamposController.Quaternario);
 
 router.post('/parceiros',PreencherCamposController.Parceiro);
 router.get('/funcionario',PreencherCamposController.Funcionario);
@@ -47,10 +44,17 @@ router.post('/cadastro/acesso',UserController.Create)
 
 //popular campos no modal de cadastro
 router.post('/cadastro/modal',CadastroController.Modal)
+
+//preencher modal de acessos
 router.post('/cadastro/busca/acesso',UserController.PreencherAcesso)
 
 
+//busca cadastros para preencher acessos vinculados no cpf
+router.post('/cadastro/buscar',UserController.BuscarAcesso)
+
+
 router.post('/proposta/filtro',PropostaController.Interface);
+router.post('/proposta/inclusao',)
 
 
 
