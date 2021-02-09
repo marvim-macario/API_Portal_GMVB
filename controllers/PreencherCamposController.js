@@ -1,5 +1,5 @@
 // controller para popular selects das paginas 
-const { cadastro, vw_proposta, status, tipo , empresa, banco, substatus,filial, produto, } = require('../models');
+const { cadastro, vw_proposta, status, tipo , empresa, banco, substatus,filial, produto, proposta_comissao } = require('../models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
@@ -191,7 +191,54 @@ const PreencherCamposController = {
         });
         res.status(200).send(filiais);
     },
+    
+    Promotor: async (req, res) => {
+        
+        const promotor = await proposta_comissao.findAll({
+            attributes:['parceiro'],
+            group:['parceiro']
 
+        })
+
+        res.status(200).send(promotor); 
+    },
+
+    StausComissao: async (req, res ) => {
+
+        const statusComissao = await proposta_comissao.findAll({
+
+            attributes:['status'],
+            group:['status']
+        })
+
+        res.status(200).send(statusComissao)
+    },
+    DataPagamentoGerente: async ( req, res ) => {
+
+        const dataPagamentoGerente = await proposta_comissao.findAll({
+            attributes:['data_ger'],
+            group:['data_ger']
+        })
+
+        res.status(200).send(dataPagamentoGerente);
+    },
+    DataPagamentoSupervisor: async ( req, res ) => {
+
+        const dataPagamentoSupervisor = await proposta_comissao.findAll({
+            attributes:['data_sup'],
+            group:['data_sup']
+        })
+
+        res.status(200).send(dataPagamentoSupervisor);
+    },
+    Competencia: async ( req, res ) => {
+        const competencia = await proposta_comissao.findAll({
+            attributes:['competencia'],
+            group:['competencia']
+        })
+
+        res.status(200).send(competencia);
+    }
 
 
 

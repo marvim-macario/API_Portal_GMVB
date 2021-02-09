@@ -4,6 +4,7 @@ const UserController = require('../controllers/UserController');
 const CadastroController = require('../controllers/CadastroController');
 const PropostaController = require('../controllers/PropostaController');
 const PreencherCamposController = require('../controllers/PreencherCamposController');
+const ComissaoController = require('../controllers/ComissaoController');
 
 
 const router = express.Router();
@@ -31,6 +32,12 @@ router.get('/proposta/bancos',PreencherCamposController.Banco);
 router.get('/proposta/substatus',PreencherCamposController.SubStatus);
 router.get('/proposta/produto',PreencherCamposController.Produto);
 router.get('/supervisormulti',PreencherCamposController.SupervisorMulti);
+
+router.get('/comissao/promotor',PreencherCamposController.Promotor);
+router.get('/comissao/status',PreencherCamposController.StausComissao);
+router.get('/comissao/datagerente',PreencherCamposController.DataPagamentoGerente);
+router.get('/comissao/datasupervisor',PreencherCamposController.DataPagamentoSupervisor);
+router.get('/comissao/competencia',PreencherCamposController.Competencia);
 // router.get('/banco',PreencherCamposController)
 
 //pequisa de cadastros
