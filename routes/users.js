@@ -59,7 +59,7 @@ router.post('/cadastro/buscar',UserController.BuscarAcesso)
 
 
 router.post('/proposta/filtro',PropostaController.Interface);
-router.post('/proposta/inclusao',)
+router.post('/proposta/inclusao',PropostaController.CreateProposta)
 
 
 
