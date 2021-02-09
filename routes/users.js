@@ -19,7 +19,6 @@ router.post('/email',UserController.send);
 router.post('/reset',UserController.update);
 
 //rotas para popular campos
-
 router.post('/parceiros',PreencherCamposController.Parceiro);
 router.get('/funcionario',PreencherCamposController.Funcionario);
 router.get('/supervisor',PreencherCamposController.Supervisor);
@@ -32,7 +31,6 @@ router.get('/proposta/bancos',PreencherCamposController.Banco);
 router.get('/proposta/substatus',PreencherCamposController.SubStatus);
 router.get('/proposta/produto',PreencherCamposController.Produto);
 router.get('/supervisormulti',PreencherCamposController.SupervisorMulti);
-
 router.get('/comissao/promotor',PreencherCamposController.Promotor);
 router.get('/comissao/status',PreencherCamposController.StausComissao);
 router.get('/comissao/datagerente',PreencherCamposController.DataPagamentoGerente);
