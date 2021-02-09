@@ -4,7 +4,7 @@ const UserController = require('../controllers/UserController');
 const CadastroController = require('../controllers/CadastroController');
 const PropostaController = require('../controllers/PropostaController');
 const PreencherCamposController = require('../controllers/PreencherCamposController');
-const ComissaoController = require('../controllers/ComissaoController');
+// const ComissaoController = require('../controllers/ComissaoController');
 
 
 const router = express.Router();
