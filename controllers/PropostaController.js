@@ -1,4 +1,6 @@
 const { vw_proposta, acesso_completo } = require('../models');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op
 
 
 const PropostaController = {
@@ -47,7 +49,7 @@ const PropostaController = {
 
         var where = {};
 
-        if(parceiro) where.parceiro = parceiro;
+        if(parceiro) where.parceiro = {[Op.substring]: parceiro}
         if(tipo_parceiro) where.tipo_parceiro = tipo_parceiro;
         if(proposta) where.proposta = proposta;
         if(status) where.status = status;
