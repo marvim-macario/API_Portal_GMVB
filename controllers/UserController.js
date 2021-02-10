@@ -220,9 +220,13 @@ const UserController = {
                     consorcio_caixa,
                     crefisa,
                     itau,
-            })
+            },
+            {
+            isNewRecord:false
+        })
 
             if(created)
+            // console.log(created)
                 return res.status(201).send(created);
             
         }catch (error) {
