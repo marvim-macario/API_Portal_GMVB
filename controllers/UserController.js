@@ -223,10 +223,10 @@ const UserController = {
             },
             {
             isNewRecord:false
-        })
+
+        });
 
             if(created)
-            // console.log(created)
                 return res.status(201).send(created);
             
         }catch (error) {
