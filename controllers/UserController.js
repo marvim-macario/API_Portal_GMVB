@@ -235,8 +235,10 @@ const UserController = {
         const { id_acesso } = req.body;
     try {
         const dadosDeAcesso = await acessos.findOne({
-
-            id_acesso
+            where:{
+                id_acesso
+            }
+            
         })
         
         if(dadosDeAcesso)
