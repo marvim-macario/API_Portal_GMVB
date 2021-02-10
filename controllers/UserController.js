@@ -236,13 +236,13 @@ const UserController = {
     try {
         const dadosDeAcesso = await acessos.findOne({
             where:{
-                
+                           
                 id_acesso
-
             }
         })
         
         if(dadosDeAcesso)
+            
             res.send(dadosDeAcesso);
     } catch (error) {
         console.log(error)
