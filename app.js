@@ -3,15 +3,16 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const session = require('express-session');
+
+
 
 
 const app = express();
 
 //carregamento de rotas
-// const index = require('./routes/index')
+
 const usersRoute = require('./routes/users'); //importatando de rotas
-// const propostasRoute = require('./routes/propostas');
+
 
 
 app.use(bodyParser.json());
@@ -30,6 +31,6 @@ app.use((req, res, next) => {
 //imprementando rotas
 // app.use('/', index);
 app.use('/user', usersRoute);
-// app.use('/propostas',propostasRoute)
+
 
 module.exports = app;

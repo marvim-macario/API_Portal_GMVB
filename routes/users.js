@@ -1,4 +1,7 @@
 const express = require('express');
+const multer = require("multer");
+
+const upload = multer({dest:"upload/"});
 
 const UserController = require('../controllers/UserController');
 const CadastroController = require('../controllers/CadastroController');
@@ -59,7 +62,12 @@ router.post('/cadastro/buscar',UserController.BuscarAcesso)
 
 
 router.post('/proposta/filtro',PropostaController.Interface);
-router.post('/proposta/inclusao',PropostaController.CreateProposta)
+
+router.post('proposta,inclusao',upload.array(),(req, res ) => {
+  res.send('arquivos recebidos');
+})
+
+// router.post('/proposta/inclusao',PropostaController.CreateProposta);
 
 
 
