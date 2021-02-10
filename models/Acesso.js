@@ -1,8 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
     const Acesso = sequelize.define('acessos', {
       id_acesso:{
+          autoIncrement: true,
           type: DataTypes.INTEGER,
-          primaryKey:true
+          primaryKey:true,
+        
         },
         cnpj_matriz:DataTypes.STRING,
         nome:DataTypes.STRING,

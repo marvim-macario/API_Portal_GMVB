@@ -65,8 +65,8 @@ router.post('/cadastro/buscar',UserController.BuscarAcesso)
 router.post('/proposta/filtro',PropostaController.Interface);
 
 
-// router.post('/proposta/inclusao',PropostaController.CreateProposta);
-router.post('/proposta/inclusao', multer(multerConfig).single('file'),PropostaController.CreateProposta);
+router.post('/proposta/inclusao',PropostaController.CreateProposta);
+router.post('/proposta/inclusao/arquivos', multer(multerConfig).single('file'),PropostaController.PropostaArquivos);
 
 
 
