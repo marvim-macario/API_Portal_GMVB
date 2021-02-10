@@ -16,8 +16,9 @@ const usersRoute = require('./routes/users'); //importatando de rotas
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 
 //configurando cors
 app.use((req, res, next) => {
@@ -31,6 +32,9 @@ app.use((req, res, next) => {
 //imprementando rotas
 // app.use('/', index);
 app.use('/user', usersRoute);
-
+app.use(
+    "/arquivos",
+    express.static(path.resolve(__dirname,"tmp","uploads"))
+);
 
 module.exports = app;
