@@ -2,7 +2,7 @@ const { vw_proposta, acesso_completo,propostas } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
 
-// const multer = require('multer'); 
+
 
 
 const PropostaController = {
@@ -241,7 +241,7 @@ const PropostaController = {
 
     CreateProposta: async ( req, res ) => {
 
-        const{ parceiro, id_parceiro, supervisor, gerente, tipo_parceiro,   
+        const{ parceiro, id_acesso, supervisor, gerente, tipo_parceiro,   
             proposta,
             data_envio,
             banco,
