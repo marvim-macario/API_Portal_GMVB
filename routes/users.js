@@ -1,4 +1,8 @@
 const express = require('express');
+const router = express.Router();
+const multer = require('multer');
+const multerConfig = require('../config/multer');
+
 
 const UserController = require('../controllers/UserController');
 const CadastroController = require('../controllers/CadastroController');
@@ -7,7 +11,7 @@ const PreencherCamposController = require('../controllers/PreencherCamposControl
 // const ComissaoController = require('../controllers/ComissaoController');
 
 
-const router = express.Router();
+
 
 // rota para fazer login no portal
 router.post('/login',UserController.Login);
@@ -59,12 +63,12 @@ router.post('/cadastro/buscar',UserController.BuscarAcesso)
 
 
 router.post('/proposta/filtro',PropostaController.Interface);
-router.post('/proposta/inclusao',)
 
 
+router.post('/proposta/inclusao',PropostaController.CreateProposta);
+router.post('/proposta/inclusao/arquivos', multer(multerConfig).single('file'),PropostaController.PropostaArquivos);
 
 
- 
 
 
 

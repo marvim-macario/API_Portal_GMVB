@@ -220,9 +220,13 @@ const UserController = {
                     consorcio_caixa,
                     crefisa,
                     itau,
-            })
+            },
+            {
+            isNewRecord:false
+        })
 
             if(created)
+            // console.log(created)
                 return res.status(201).send(created);
             
         }catch (error) {
@@ -236,9 +240,16 @@ const UserController = {
     try {
         const dadosDeAcesso = await acessos.findOne({
             where:{
+<<<<<<< HEAD
                 id_acesso
             }
             
+=======
+                
+                id_acesso
+
+            }
+>>>>>>> 7ed1e47ec777c13248a1b69060799d5ca45736ce
         })
         
         if(dadosDeAcesso)

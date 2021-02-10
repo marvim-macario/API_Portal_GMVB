@@ -1,6 +1,8 @@
-const { vw_proposta, acesso_completo } = require('../models');
+const { vw_proposta, acesso_completo,propostas } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
+
+
 
 
 const PropostaController = {
@@ -235,11 +237,100 @@ const PropostaController = {
                 res.send("tipo usuario não aceito")
         }
     },
+  
+    CreateProposta: async ( req, res ) => {
+        // const{ originalname: name,si}
+        console.log(req.body)
+        
+        const{ parceiro, id_acesso, supervisor, gerente, tipo_parceiro,   
+            proposta,
+            data_envio,
+            banco,
+            status,
+            produto,
+            tipo,
+            entregue,
+            valor_troco,
+            convenio,
+            banco_port1,
+            numero_portabilidade,
+            parcela,
+            seguro,
+            qtdp_pagaport1,
+            nome,
+            cpf,
+            telefone_ddd_1,
+            telefone1,
+            correntista,
+            telefone4,
+            matricula,
+            agendamento,
+            dia,
+            horario,
+            exercito,
+            senha_exercito,
+            sexo,
+            data_nascimento,
+            email_cliente,
+            uf,
+            observacao,
+            
+        } = req.body;
+        
+        const creatdProposta = await propostas.create({
+            parceiro,
+            id_acesso, 
+            supervisor, 
+            gerente, 
+            tipo_parceiro,   
+            proposta,
+            data_envio,
+            banco,
+            status,
+            produto,
+            tipo,
+            entregue,
+            valor_troco,
+            convenio,
+            banco_port1,
+            numero_portabilidade,
+            parcela,
+            seguro,
+            qtdp_pagaport1,
+            nome,
+            cpf,
+            telefone_ddd_1,
+            telefone1,
+            correntista,
+            telefone4,
+            matricula,
+            agendamento,
+            dia,
+            horario,
+            exercito,
+            senha_exercito,
+            sexo,
+            data_nascimento,
+            email_cliente,
+            uf,
+            observacao,
+        })
+        if(creatdProposta)
+            res.send("incluido texto")
+    },
 
+    PropostaArquivos: async ( req, res ) =>{
 
-    Update: async ( req, res ) => {
+        const {originalname} =  req.file;
+        const {id_acesso} = req.query;
+        // console.log(originalname);
+        // console.log(id_acesso)
 
-
+        const arquivo = await propostas.findOne({
+            where:{
+                id_acesso
+            }
+        })
     }
 
 
