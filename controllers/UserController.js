@@ -240,16 +240,9 @@ const UserController = {
     try {
         const dadosDeAcesso = await acessos.findOne({
             where:{
-<<<<<<< HEAD
                 id_acesso
             }
             
-=======
-                
-                id_acesso
-
-            }
->>>>>>> 7ed1e47ec777c13248a1b69060799d5ca45736ce
         })
         
         if(dadosDeAcesso)
