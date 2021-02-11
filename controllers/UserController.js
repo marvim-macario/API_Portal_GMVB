@@ -246,6 +246,7 @@ const UserController = {
         })
         
         if(dadosDeAcesso)
+            
             res.send(dadosDeAcesso);
     } catch (error) {
         console.log(error)
