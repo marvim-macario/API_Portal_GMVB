@@ -2,7 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const base_chave = sequelize.define('base_chave', {
         id_chave: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
         },
         chave:DataTypes.STRING,
         empresa:DataTypes.STRING, 

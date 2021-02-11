@@ -2,7 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const propostaOriginal = sequelize.define('propostas', {
         codigo: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement:true
         },
         mes:DataTypes.STRING, 
         data_envio:DataTypes.STRING, 
@@ -361,7 +362,7 @@ module.exports = (sequelize, DataTypes) => {
         piloto_ola:DataTypes.STRING,
         digito_conta:DataTypes.STRING,
         email:DataTypes.STRING, 
-        id_si:DataTypes.STRING, }, 
+        id_sim:DataTypes.STRING, }, 
         {
         tableName: 'propostas',
         timestamps: false

@@ -2,7 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const Sigla = sequelize.define('siglae', {
         codigo: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
         },
             siglae:DataTypes.STRING, 
             cpf_sigla:DataTypes.STRING, 

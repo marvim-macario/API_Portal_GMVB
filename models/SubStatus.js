@@ -2,7 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const SubStatus = sequelize.define('sub_status', {
         id_substatus: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+        
         },
         id_status: DataTypes.INTEGER,
         status:DataTypes.STRING,
@@ -13,3 +14,4 @@ module.exports = (sequelize, DataTypes) => {
     })
     return SubStatus;
 };
+

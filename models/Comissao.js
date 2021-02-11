@@ -2,7 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const Comissao = sequelize.define('proposta_comissao', {
         id_proposta: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
         },
         proposta:DataTypes.STRING, 
         parceiro:DataTypes.STRING, 

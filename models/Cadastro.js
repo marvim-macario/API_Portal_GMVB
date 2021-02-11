@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     const Cadastro = sequelize.define('cadastro', {
         id_parceiro: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
         },
         cnpj: {
             type: DataTypes.INTEGER,

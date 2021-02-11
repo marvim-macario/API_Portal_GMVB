@@ -2,7 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const Proposta = sequelize.define('vw_proposta', {
         proposta: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
 
         },
         codigo: DataTypes.INTEGER,

@@ -1,5 +1,5 @@
 // controller para popular selects das paginas 
-const { cadastro, vw_proposta, status, tipo , empresa, banco, substatus,filial, produto, proposta_comissao } = require('../models');
+const { cadastro, vw_proposta, status, tipo , empresa, banco, sub_status,filial, produto, proposta_comissao } = require('../models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
@@ -83,16 +83,16 @@ const PreencherCamposController = {
     },
 
     SubStatus: async (req, res) => {
-
         // console.log(req)
         try {
-            const sub = await substatus.findAll({
-                // attributes:['sub_status']
+            const sub = await sub_status.findAll({
+                attributes:['sub_status']
                 
             })
             res.send(sub);
+           
         } catch (error) {
-            res.send(error)
+            console.log(error)
         }
     },
     

@@ -316,21 +316,33 @@ const PropostaController = {
             observacao,
         })
         if(creatdProposta)
-            res.send("incluido texto")
+            res.send(creatdProposta)
     },
 
     PropostaArquivos: async ( req, res ) =>{
-
+        
         const {originalname} =  req.file;
-        const {id_acesso} = req.query;
-        // console.log(originalname);
-        // console.log(id_acesso)
-
+        const { codigo } = req.query;
+   
+        try {
         const arquivo = await propostas.findOne({
-            where:{
-                id_acesso
+            where:
+            {
+                codigo
             }
-        })
+        });
+
+        console.log(arquivo);
+        if (arquivo.arquivo1 == null){
+            arquivo.arquivo1 = originalname;
+        }
+
+        
+        arquivo.save();
+        res.send(arquivo);
+    } catch (error) {
+            console.log(error)
+    }
     }
 
 

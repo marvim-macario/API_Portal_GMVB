@@ -2,7 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const Status = sequelize.define('status', {
         id_status: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
         },
 
         status: DataTypes.STRING,

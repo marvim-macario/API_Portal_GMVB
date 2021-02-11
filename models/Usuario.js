@@ -2,7 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('acesso_completo', {
       id_acesso:{
           type: DataTypes.INTEGER,
-          primaryKey:true
+          primaryKey:true,
+          autoIncrement: true,
         },
         cnpj_matriz: DataTypes.STRING,
         nome: DataTypes.STRING,
