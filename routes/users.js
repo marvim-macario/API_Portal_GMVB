@@ -60,6 +60,7 @@ router.post('/cadastro/busca/acesso',UserController.PreencherAcesso)
 
 //busca cadastros para preencher acessos vinculados no cpf
 router.post('/cadastro/buscar',UserController.BuscarAcesso)
+router.post('/cadstro/alterar',CadastroController.Update);
 
 
 router.post('/proposta/filtro',PropostaController.Interface);
