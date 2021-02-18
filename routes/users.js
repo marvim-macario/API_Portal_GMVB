@@ -50,6 +50,7 @@ router.post('/cadastro/inclusao',CadastroController.Create);
 
 //cadastro de novo acesso no portal 
 router.post('/cadastro/acesso',UserController.Create)
+router.post('cadastro/acesso/alterar',UserController.AlterarAceso);
 
 //popular campos no modal de cadastro
 router.post('/cadastro/modal',CadastroController.Modal)
@@ -61,6 +62,7 @@ router.post('/cadastro/busca/acesso',UserController.PreencherAcesso)
 //busca cadastros para preencher acessos vinculados no cpf
 router.post('/cadastro/buscar',UserController.BuscarAcesso)
 router.post('/cadstro/alterar',CadastroController.Update);
+
 
 
 router.post('/proposta/filtro',PropostaController.Interface);

@@ -236,7 +236,7 @@ const UserController = {
         }
     },
     PreencherAcesso: async (req,res)=>{
-        const { id_acesso } = req.body;
+        const { id_acesso, } = req.body;
     try {
         const dadosDeAcesso = await acessos.findOne({
             where:{
@@ -277,6 +277,107 @@ const UserController = {
 
         }
         
+    }, 
+    AlterarAceso: async(req, res)=>{
+        const{id_acesso,
+            cnpj_matriz, 
+            nome,
+            empresa,
+            perfil,
+            usuario,
+            senha,
+            responsavel,
+            cpf_usuario,
+            tipo_parceiro,
+            usuario_master,
+            classificacao,
+            status,
+            tipo_parceiro2,
+            email,
+            data_nascimento,
+            data_atualizacao,
+            foto,
+            telefone,
+            arquivo1,
+            arquivo2,
+            tipo,
+            motivo_cancelamento,
+            cetelem,
+            f5_ole,
+            f5_pan,
+            f5_bmg,
+            f5_orienta,
+            f5_itau,
+            f5_safra,
+            ole,
+            pan,
+            sim,
+            daycoval,
+            safra,
+            bradesco,
+            parana,
+            consorcio_bb,
+            consorcio_itau,
+            consorcio_caixa,
+            crefisa,
+            itau
+           }=req.body
+
+        const user = await acessos.findOne({
+            where:{
+                id_acesso
+            }
+        })
+        if(!user)
+            return res.status(400).send("não foi possivel encontrar usuario")
+        
+        
+           user.cnpj_matriz = cnpj_matriz;
+           user.nome = nome;
+           user.empresa = empresa;
+           user.perfil = perfil;
+           user.usuario = usuario;
+           user.senha = senha;
+           user.responsavel = responsavel;
+           user.cpf_usuario = cpf_usuario;
+           user.tipo_parceiro = tipo_parceiro;
+           user.usuario_master = usuario_master;
+           user.classificacao = classificacao;
+           user.status = status;
+           user.tipo_parceiro2 = tipo_parceiro2;
+           user.email = email;
+           user.data_nascimento = data_nascimento
+           user.data_atualizacao = data_atualizacao
+           user.foto = foto;
+           user.telefone = telefone;
+           user.arquivo1 = arquivo1
+           user.arquivo2 = arquivo2
+           user.tipo = tipo;
+           user.motivo_cancelamento = motivo_cancelamento
+           user.cetelem = cetelem;
+           user.f5_ole = f5_ole;
+           user.f5_pan = f5_pan;
+           user.f5_bmg = f5_bmg;
+           user.f5_orienta = f5_orienta;
+           user.f5_itau = f5_itau;
+           user.f5_safra = f5_safra
+           user.ole = ole;
+           user.pan = pan;
+           user.sim = sim;
+           user.daycoval = daycoval; 
+           user.safra = safra;
+           user.bradesco = bradesco;
+           user.parana = parana;
+           user.consorcio_bb = consorcio_bb;
+           user.consorcio_itau = consorcio_itau;
+           user.consorcio_caixa = consorcio_caixa;
+           user.crefisa = crefisa; 
+           user.itau = itau;
+
+           
+        user.save()
+        res.send("o acesso foi alterado com sucesso")
+       
     }
     
 }

@@ -1,2 +1,82 @@
+Usuário = nome
+Senha = senha
+Login = usuario
+Tipo_usuario = tipo_parceiro
+Usuário_aster = usuario_master
+Classificação = classificacao
+Empresa = responsavel
+Status = status
+Telefone Celular = telefone
+CPF/CNPJ Usuário = cpf_usuario
+CNPJ Matriz = cnpj_matriz
+E-mail = email
+Motivo Cancelamento = motivo_cancelamento
+Perfil Acesso = tipo
+Acesso Olé =  f5_ole
+Acesso Pan = f5_pan
+Acesso Cetelem = cetelem
+Acesso Itaú = f5_itau
+Acesso F5 BMG = f5_bmg
+Acesso F5 Itaú
+Acesso Daycoval
+Acesso SIM
+Acesso Safra
+Acesso Bradesco
+Acesso Paraná
+Acesso Crefisa
+Acesso Consórcio BB
+Acesso Consórcio Caixa
+Acesso Consórcio Itaú
 
+
+
+
+
+
+
+
+id_acesso
+
+
+empresa
+perfil
+
+
+
+
+
+
+
+tipo_parceiro2
+
+data_cadastro
+data_nascimento
+data_atualizacao
+foto
+
+arquivo1
+arquivo2
+
+
+
+
+
+f5_orienta
+
+f5_safra
+ole
+pan
+sim
+daycoval
+safra
+bradesco
+parana
+consorcio_bb
+consorcio_itau
+consorcio_caixa
+crefisa
+itau
+token
+
+responsavel_criacao
               
