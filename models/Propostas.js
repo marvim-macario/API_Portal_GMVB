@@ -362,7 +362,9 @@ module.exports = (sequelize, DataTypes) => {
         piloto_ola:DataTypes.STRING,
         digito_conta:DataTypes.STRING,
         email:DataTypes.STRING, 
-        id_sim:DataTypes.STRING, }, 
+        id_sim:DataTypes.STRING,
+        url:DataTypes.STRING 
+    }, 
         {
         tableName: 'propostas',
         timestamps: false

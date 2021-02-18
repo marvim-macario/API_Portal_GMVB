@@ -321,29 +321,47 @@ const PropostaController = {
 
     PropostaArquivos: async ( req, res ) =>{
         
-        const {originalname} =  req.file;
         const { codigo } = req.query;
-   
-        try {
-        const arquivo = await propostas.findOne({
-            where:
-            {
-                codigo
-            }
-        });
+        var { proposta, identificacao, endereco, renda, extratoInss,
+        outros1, outros2, outros3, outros4 } = req.files;
 
-        console.log(arquivo);
-        if (arquivo.arquivo1 == null){
-            arquivo.arquivo1 = originalname;
-        }
+            (proposta) ?  proposta = req.files.proposta[0].originalname : proposta = null;
+            (identificacao) ? identificacao = req.files.identificacao[0].originalname : identificacao = null;
+            (endereco) ? endereco = req.files.endereco[0].originalname : endereco = null;
+            (renda) ?  renda = req.files.renda[0].originalname : endereco = null;
+            (extratoInss) ? extratoInss = req.files.extratoInss[0].originalname : extratoInss = null;
+            (outros1) ? outros1 = req.files.outros1[0].originalname : outros1 = null;
+            (outros2) ? outros2 = req.files.outros2[0].originalname : outros2 = null;
+            (outros3) ? outros3 = req.files.outros3[0].originalname : outros3 = null;
+            (outros4) ? outros4 = req.files.outros4[0].originalname : outros = null; 
+                      
+            try {
+            const arquivo = await propostas.findOne({
+                where:
+                {
+                    codigo
+                }
+            });
 
+            // console.log(arquivo);
         
-        arquivo.save();
-        res.send(arquivo);
-    } catch (error) {
-            console.log(error)
-    }
-    }
+             arquivo.arquivo1 = proposta;
+             arquivo.arquivo2 = identificacao;
+             arquivo.arquivo3 = endereco;
+             arquivo.arquivo4 = renda;
+             arquivo.arquivo5 = extratoInss;
+             arquivo.arquivo6 = outros1;
+             arquivo.arquivo7 = outros2;
+             arquivo.arquivo8 = outros3;
+             arquivo.arquivo9 = outros4;
+
+            arquivo.save();
+            res.send(arquivo);
+            
+        } catch (error) {
+                console.log(error)
+        }
+        }
 
 
 }
