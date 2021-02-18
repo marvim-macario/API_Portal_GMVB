@@ -50,7 +50,7 @@ router.post('/cadastro/inclusao',CadastroController.Create);
 
 //cadastro de novo acesso no portal 
 router.post('/cadastro/acesso',UserController.Create)
-router.post('cadastro/acesso/alterar',UserController.AlterarAceso);
+router.post('/cadastro/acesso/alterar',UserController.AlterarAceso);
 
 //popular campos no modal de cadastro
 router.post('/cadastro/modal',CadastroController.Modal)
