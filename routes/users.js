@@ -8,6 +8,8 @@ const UserController = require('../controllers/UserController');
 const CadastroController = require('../controllers/CadastroController');
 const PropostaController = require('../controllers/PropostaController');
 const PreencherCamposController = require('../controllers/PreencherCamposController');
+
+const SaldoDevedorController = require('../controllers/SaldoDevedorController');
 // const ComissaoController = require('../controllers/ComissaoController');
 
 
@@ -90,6 +92,10 @@ router.post('/proposta/inclusao/arquivos', multer(multerConfig).fields([
 
 
 
+ router.get('/solicitacoes/saldoDevedor',SaldoDevedorController.SaldoDevedor);
+ router.get('/statusSaldo/saldoDevedor',SaldoDevedorController.StatusSaldo);
+ router.post('/incluirSaldo/saldoDevedor',SaldoDevedorController.IncluirSaldo);
+ router.post('/alterarSaldo/saldoDevedor',SaldoDevedorController.AlterarSaldo);
 
 
 
