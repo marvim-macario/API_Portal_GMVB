@@ -30,6 +30,48 @@ const PreencherCamposController = {
       
 
     },
+
+    Secundario:async( req, res )=>{
+
+        const { cnpj } = req.body;
+
+        const supervisor = await cadastro.findAll({
+            attributes: ['parceiro'],
+            where: {
+                tipo_func: {
+                    [Op.in]: ['SUPERVISOR MEI', 'SUPERVISOR'],
+                },
+                status: 'ATIVO',
+                cnpj:cnpj
+            },
+           
+        });
+
+        res.status(200).send(supervisor);
+    },
+    Terceario: async( req, res )=>{
+        const { cnpj } = req.body;
+
+    try {
+        const gerentes = await cadastro.findAll({
+            attributes: ['gerente'],
+            where: {
+                tipo_func: {
+                    [Op.in]: ['GERENTE MEI', 'GERENTE'],
+                },
+                status: 'ATIVO',
+                cnpj:cnpj
+            }
+        });
+        res.status(200).send(gerentes)
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+    }
+
+   
+},
     
     Status: async (req, res) => {
 

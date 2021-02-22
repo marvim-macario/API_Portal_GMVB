@@ -24,6 +24,8 @@ router.post('/reset',UserController.update);
 
 //rotas para popular campos
 router.post('/parceiros',PreencherCamposController.Parceiro);
+router.post('/secundario',PreencherCamposController.Secundario);
+router.post('/terceario',PreencherCamposController.Terceario)
 router.get('/funcionario',PreencherCamposController.Funcionario);
 router.get('/supervisor',PreencherCamposController.Supervisor);
 router.get('/gerente',PreencherCamposController.Gerente);
@@ -57,6 +59,8 @@ router.post('/cadastro/modal',CadastroController.Modal)
 
 //preencher modal de acessos
 router.post('/cadastro/busca/acesso',UserController.PreencherAcesso)
+
+//busca secundarios e tercearios
 
 
 //busca cadastros para preencher acessos vinculados no cpf
