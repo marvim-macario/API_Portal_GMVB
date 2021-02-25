@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const multerConfig = require('../config/multer');
+const ecxelConfig = require('../config/excel');
 
 
 const UserController = require('../controllers/UserController');
 const CadastroController = require('../controllers/CadastroController');
 const PropostaController = require('../controllers/PropostaController');
 const PreencherCamposController = require('../controllers/PreencherCamposController');
+const ComissaoController = require('../controllers/ComissaoController');
 // const ComissaoController = require('../controllers/ComissaoController');
 
 
@@ -86,6 +88,17 @@ router.post('/proposta/inclusao/arquivos', multer(multerConfig).fields([
 { name: 'outros4', maxCount: 1 },
 
 ]),PropostaController.PropostaArquivos);
+
+
+
+//perquisar comissao
+router.post('/comissao/pesquisa',ComissaoController.Pesquisar);
+router.post('/comissao/modal',ComissaoController.PreecherModal);
+
+//incluir comissao
+router.post('/comissao/incluir',multer(ecxelConfig).single('incluir_propostas'),ComissaoController.Incluir);
+//alterar comissao
+router.post('/comissao/alterar',multer(ecxelConfig).single('alterar_propostas'),ComissaoController.Alterar);
 
 
 
