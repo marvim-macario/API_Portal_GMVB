@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         data_nascimento: DataTypes.STRING,
         token: DataTypes.STRING,
         tipo_usuario: DataTypes.STRING,
-        tipo_parceiro2: DataTypes.STRING
+        tipo_parceiro2: DataTypes.STRING,
+        cpf_usuario: DataTypes.STRING
       },{
           tableName: 'acesso_completo',
           timestamps:false
