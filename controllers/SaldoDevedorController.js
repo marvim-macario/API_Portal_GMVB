@@ -141,7 +141,6 @@ const SaldoDevedorController = {
     AlterarSaldo: async (req, res) => {
 
         const {
-
             saldo_devedor1,
             prazo_restante,
             taxa_juros,
@@ -149,11 +148,9 @@ const SaldoDevedorController = {
             data_atualizacao,
             status,
             codigo
-
         } = req.body;
 
         const AlterarSaldo1 = await saldo_devedor.update({
-
             saldo_devedor1: saldo_devedor1,
             prazo_restante: prazo_restante,
             taxa_juros: taxa_juros,
@@ -162,13 +159,9 @@ const SaldoDevedorController = {
             status: status
 
         }, {
-
             where: {
-
                 codigo: codigo
-
             }
-
         });
 
         res.status(200).send("alterado com sucesso!");

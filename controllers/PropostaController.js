@@ -281,7 +281,7 @@ const PropostaController = {
             [Op.substring]: parceiro
         }
         if (proposta) where.proposta = proposta;
-        where.status = 'AGUARDANDO DOCUMENTACAO';
+        where.status = "AGUARDANDO DOCUMENTACAO";
         if (tipo) where.tipo = tipo;
         if (cpf) where.cpf = cpf;
         if (mes) where.mes = mes;
