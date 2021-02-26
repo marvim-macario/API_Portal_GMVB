@@ -194,7 +194,7 @@ const CadastroController = {
                 })
 
                 if (user)
-                    return res.status(403).send('não foi possivel cadastrar usuario, cpf existente na base de dados');
+                    return res.status(403).send({resp:'não foi possivel cadastrar usuario, cpf existente na base de dados'});
 
                 //salvando dados na tabela cadastro
                 const createdCadastro = await cadastro.create({
