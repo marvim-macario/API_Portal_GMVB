@@ -18,7 +18,7 @@ const SaldoDevedorController = require('../controllers/SaldoDevedorController');
 // rota para fazer login no portal
 router.post('/login',UserController.Login);
 
-/*rota para envio de email de recuperação de senha*/
+/rota para envio de email de recuperação de senha/
 router.post('/email',UserController.send);
 
 //rota para alterar senha senha
@@ -72,6 +72,7 @@ router.post('/cadstro/alterar',CadastroController.Update);
 
 
 router.post('/proposta/filtro',PropostaController.Interface);
+router.post('/proposta/identificacao/filtro', PropostaController.FiltroPropostaIdentificacao)
 
 
 router.post('/proposta/inclusao',PropostaController.CreateProposta);
@@ -92,11 +93,11 @@ router.post('/proposta/inclusao/arquivos', multer(multerConfig).fields([
 
 
 
- router.get('/solicitacoes/saldoDevedor',SaldoDevedorController.SaldoDevedor);
+ router.post('/solicitacoes/saldoDevedor',SaldoDevedorController.SaldoDevedor);
  router.get('/statusSaldo/saldoDevedor',SaldoDevedorController.StatusSaldo);
  router.post('/incluirSaldo/saldoDevedor',SaldoDevedorController.IncluirSaldo);
  router.post('/alterarSaldo/saldoDevedor',SaldoDevedorController.AlterarSaldo);
-
+ router.post('/alterar/modal',SaldoDevedorController.Modal);
 
 
 
