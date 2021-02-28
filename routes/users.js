@@ -14,11 +14,14 @@ const SaldoDevedorController = require('../controllers/SaldoDevedorController');
 
 
 
-
+//teste
+router.get('/',(req,res)=>{
+    res.send('ok');
+})
 // rota para fazer login no portal
 router.post('/login',UserController.Login);
 
-/rota para envio de email de recuperação de senha/
+//rota para envio de email de recuperação de senha/
 router.post('/email',UserController.send);
 
 //rota para alterar senha senha
