@@ -10,7 +10,7 @@ const CadastroController = require('../controllers/CadastroController');
 const PropostaController = require('../controllers/PropostaController');
 const PreencherCamposController = require('../controllers/PreencherCamposController');
 const ComissaoController = require('../controllers/ComissaoController');
-// const ComissaoController = require('../controllers/ComissaoController');
+const SaldoDevedorController = require('../controllers/SaldoDevedorController');
 
 
 
