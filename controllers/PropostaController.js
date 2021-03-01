@@ -637,8 +637,63 @@ const PropostaController = {
         } catch (error) {
             console.log(error)
         }
+    },
+
+    UpdateIdentificacaoProposta: async (req,res) => {
+        const {
+            codigo,
+        } = req.query
+
+        var {
+            proposta,
+            identificacao,
+            endereco,
+            renda,
+            outros1,
+            outros2,
+            outros3,
+            outros4,
+            gravacao
+        } = req.files
+
+        (proposta) ? proposta = req.files.proposta[0].originalname: proposta = null;
+        (identificacao) ? identificacao = req.files.identificacao[0].originalname: identificacao = null;
+        (endereco) ? endereco = req.files.endereco[0].originalname: endereco = null;
+        (renda) ? renda = req.files.renda[0].originalname: endereco = null;
+        (outros1) ? outros1 = req.files.outros1[0].originalname: outros1 = null;
+        (outros2) ? outros2 = req.files.outros2[0].originalname: outros2 = null;
+        (outros3) ? outros3 = req.files.outros3[0].originalname: outros3 = null;
+        (outros4) ? outros4 = req.files.outros4[0].originalname: outros = null;
+        (gravacao) ? gravacao = req.files.gravacao[0].originalname: gravacao = null;
+
+        try {
+
+            const arquivo = await propostas.findOne({
+                where: {codigo: codigo}
+            })
+
+            
+            arquivo.arquivo1 = proposta;
+            arquivo.arquivo2 = identificacao;
+            arquivo.arquivo3 = endereco;
+            arquivo.arquivo4 = renda;
+
+            arquivo.arquivo6 = outros1;
+            arquivo.arquivo7 = outros2;
+            arquivo.arquivo8 = outros3;
+            arquivo.arquivo9 = outros4;
+            arquivo.arquivo10 = gravacao;
+
+            arquivo.save()
+            res.send(arquivo)
+
+        } catch (error) {
+            
+        }
+        
+
+        
+
     }
-
-
 }
 module.exports = PropostaController;
