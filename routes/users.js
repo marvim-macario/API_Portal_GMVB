@@ -10,16 +10,18 @@ const CadastroController = require('../controllers/CadastroController');
 const PropostaController = require('../controllers/PropostaController');
 const PreencherCamposController = require('../controllers/PreencherCamposController');
 const ComissaoController = require('../controllers/ComissaoController');
-const SaldoDevedorController = require('../controllers/SaldoDevedorController')
-// const ComissaoController = require('../controllers/ComissaoController');
+const SaldoDevedorController = require('../controllers/SaldoDevedorController');
 
 
 
-
+//teste
+router.get('/',(req,res)=>{
+    res.send('ok');
+})
 // rota para fazer login no portal
 router.post('/login',UserController.Login);
 
-/*rota para envio de email de recuperação de senha*/
+//rota para envio de email de recuperação de senha/
 router.post('/email',UserController.send);
 
 //rota para alterar senha senha
@@ -113,7 +115,6 @@ router.post('/comissao/alterar',multer(ecxelConfig).single('alterar_propostas'),
  router.post('/incluirSaldo/saldoDevedor',SaldoDevedorController.IncluirSaldo);
  router.post('/alterarSaldo/saldoDevedor',SaldoDevedorController.AlterarSaldo);
  router.post('/alterar/modal',SaldoDevedorController.Modal);
-
 
 
 

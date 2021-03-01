@@ -599,7 +599,15 @@ const CadastroController = {
     }
 
      return res.status(200).send('acesso alterado');
- 
+    // try {
+    //     const tabelaAcesso = acessos.findOne({
+    //         where:{
+                
+    //         }
+    //     })
+    // } catch (error) {
+        
+    // }
     }
   
 
