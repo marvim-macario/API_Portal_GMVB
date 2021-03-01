@@ -1,7 +1,7 @@
 const {
     vw_proposta,
     acesso_completo,
-    propostas
+    propostas,
 } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
@@ -264,7 +264,6 @@ const PropostaController = {
             perfil,
             tipo_usuario,
             nome,
-
             parceiro,
             proposta,
             tipo,
@@ -281,13 +280,21 @@ const PropostaController = {
             [Op.substring]: parceiro
         }
         if (proposta) where.proposta = proposta;
-        where.status = "AGUARDANDO DOCUMENTACAO";
+        // where.status = "AGUARDANDO DOCUMENTACAO";
         if (tipo) where.tipo = tipo;
         if (cpf) where.cpf = cpf;
         if (mes) where.mes = mes;
         if (supervisor) where.supervisor = supervisor;
         if (gerente) where.gerente = gerente;
         if (data_envio) where.data_envio = data_envio;
+
+        // const propostasFiltro = await propostas.findOne({
+        //     where: {proposta: proposta}
+        // })
+
+        // if(propostasFiltro) {
+        //     res.json(propostasFiltro)
+        // }
 
         if (tipo_usuario === 'PARCEIRO') {
 
@@ -437,11 +444,11 @@ const PropostaController = {
                     where
                 });
 
-                res.status(200).send(propostasAdm);
+                res.send(propostasAdm);
                 break;
 
             default:
-                res.send("tipo usuario não aceito")
+                // res.send("tipo usuario não aceito")
         }
     },
 
@@ -529,6 +536,53 @@ const PropostaController = {
         })
         if (creatdProposta)
             res.send(creatdProposta)
+    },
+
+    PropostaIdentificacaoCreate: async (req, res) => {
+        const {
+            proposta,
+            data_envio,
+            mes,
+            status,
+            entregue,
+            banco_origi,
+            produto,
+            tipo,
+            cpf,
+            nome
+        } = req.body
+
+        const propostaAlreadyExists = await propostas.findOne({
+            where: {proposta}
+        })
+
+        if(!propostaAlreadyExists) {
+            const createIdentificacaoProposta = await propostas.create({
+                proposta,
+                data_envio,
+                mes,
+                status,
+                entregue,
+                banco_origi,
+                produto,
+                tipo,
+                cpf,
+                nome
+            })
+    
+            return res.status(201).json(createIdentificacaoProposta);
+        }
+        return res.send({resp:"Proposta já existente"})
+    },
+
+    PropostaIdentificacaoModal: async (req,res) => {
+        const cpf = req.body
+
+        const dataPropostaIdentificacao = await propostas.findOne({
+            where:cpf
+        })
+
+        return res.status(201).json(dataPropostaIdentificacao)
     },
 
     PropostaArquivos: async (req, res) => {

@@ -10,6 +10,7 @@ const CadastroController = require('../controllers/CadastroController');
 const PropostaController = require('../controllers/PropostaController');
 const PreencherCamposController = require('../controllers/PreencherCamposController');
 const ComissaoController = require('../controllers/ComissaoController');
+const SaldoDevedorController = require('../controllers/SaldoDevedorController')
 // const ComissaoController = require('../controllers/ComissaoController');
 
 
@@ -73,6 +74,9 @@ router.post('/cadstro/alterar',CadastroController.Update);
 
 router.post('/proposta/filtro',PropostaController.Interface);
 router.post('/proposta/identificacao/filtro', PropostaController.FiltroPropostaIdentificacao)
+router.post('/proposta/identificacao/inclusao', PropostaController.PropostaIdentificacaoCreate)
+router.post('/proposta/identificacao/modal', PropostaController.PropostaIdentificacaoModal)
+// router.post('/proppos')
 
 
 router.post('/proposta/inclusao',PropostaController.CreateProposta);
