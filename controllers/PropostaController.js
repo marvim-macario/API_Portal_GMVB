@@ -639,7 +639,7 @@ const PropostaController = {
         }
     },
 
-    UpdateIdentificacaoProposta: async (req,res) => {
+    UpdateIdentificacaoPropostaFiles: async (req,res) => {
         const {
             codigo,
         } = req.query
@@ -688,11 +688,55 @@ const PropostaController = {
             res.send(arquivo)
 
         } catch (error) {
-            
+            console.log(error);
         }
-        
 
-        
+    },
+
+    UpdateIdentificacaoPropostaCampos: async (req, res) => {
+        const {
+            codigo,
+            nome,
+            telefone_ddd_1,
+            telefone,
+            correntista,
+            telefone_confirmacao,
+            sistema_tel,
+            exercito,
+            senha_exercito,
+            sexo,
+            email,
+            data_nascimento,
+            endereco_uf_comercial,
+            cpf,
+            observacao
+        } = req.body
+
+        const proposta = await propostas.findOne({
+            codigo
+        })
+
+        if(proposta) {
+            proposta.nome = nome,
+            proposta.telefone_ddd_1 = telefone_ddd_1,
+            proposta.telefone = telefone,
+            proposta.correntista = correntista,
+            proposta.telefone_confirmacao = telefone_confirmacao,
+            proposta.sistema_tel = sistema_tel,
+            proposta.exercito = exercito,
+            proposta.senha_exercito = senha_exercito,
+            proposta.sexo = sexo,
+            proposta.email = email,
+            proposta.data_nascimento = data_nascimento,
+            proposta.endereco_uf_comercial = endereco_uf_comercial,
+            proposta.cpf = cpf,
+            proposta.observacao = observacao
+
+            proposta.save()
+            res.status(201).json(proposta)
+        }
+
+        return res.send("Proposta não identificada");
 
     }
 }
