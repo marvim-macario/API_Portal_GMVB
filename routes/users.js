@@ -88,7 +88,7 @@ router.post('/proposta/identificacao/atualizar/arquivos', multer(multerConfig).f
     { name: 'outros2', maxCount: 1 },
     { name: 'outros3', maxCount: 1 },
     { name: 'outros4', maxCount: 1 },
-    { name: 'gravacao', maxCount: 1}
+    { name: 'gravacao', maxCount: 1},
 ]), PropostaController.UpdateIdentificacaoPropostaFiles)
 // router.post('/proppos')
 

@@ -298,6 +298,7 @@ const PropostaController = {
 
         if (tipo_usuario === 'PARCEIRO') {
 
+
             if (perfil === 'MATRIZ') {
 
                 const idsParceiros = await acesso_completo.findAll({
@@ -318,9 +319,12 @@ const PropostaController = {
                     });
                 }
 
+
                 where.id_acesso = parceiros;
 
+
                 const propstasMatriz = await vw_proposta.findAll({
+
                     where
                 })
 
@@ -444,7 +448,7 @@ const PropostaController = {
                     where
                 });
 
-                res.send(propostasAdm);
+                res.status(200).send(propostasAdm);
                 break;
 
             default:
@@ -553,10 +557,12 @@ const PropostaController = {
         } = req.body
 
         const propostaAlreadyExists = await propostas.findOne({
-            where: {proposta}
+            where: {
+                proposta
+            }
         })
 
-        if(!propostaAlreadyExists) {
+        if (!propostaAlreadyExists) {
             const createIdentificacaoProposta = await propostas.create({
                 proposta,
                 data_envio,
@@ -569,17 +575,19 @@ const PropostaController = {
                 cpf,
                 nome
             })
-    
+
             return res.status(201).json(createIdentificacaoProposta);
         }
-        return res.send({resp:"Proposta já existente"})
+        return res.send({
+            resp: "Proposta já existente"
+        })
     },
 
-    PropostaIdentificacaoModal: async (req,res) => {
-        const cpf = req.body
+    PropostaIdentificacaoModal: async (req, res) => {
+        const codigo = req.body
 
         const dataPropostaIdentificacao = await propostas.findOne({
-            where:cpf
+            where: codigo
         })
 
         return res.status(201).json(dataPropostaIdentificacao)
@@ -632,17 +640,17 @@ const PropostaController = {
             arquivo.arquivo9 = outros4;
 
             arquivo.save();
-            res.send(arquivo);
+            return res.send(arquivo);
 
         } catch (error) {
             console.log(error)
         }
     },
 
-    UpdateIdentificacaoPropostaFiles: async (req,res) => {
+    UpdateIdentificacaoPropostaFiles: async (req, res) => {
         const {
             codigo,
-        } = req.query
+        } = req.query;
 
         var {
             proposta,
@@ -654,25 +662,27 @@ const PropostaController = {
             outros3,
             outros4,
             gravacao
-        } = req.files
+        } = req.files;
 
         (proposta) ? proposta = req.files.proposta[0].originalname: proposta = null;
         (identificacao) ? identificacao = req.files.identificacao[0].originalname: identificacao = null;
         (endereco) ? endereco = req.files.endereco[0].originalname: endereco = null;
-        (renda) ? renda = req.files.renda[0].originalname: endereco = null;
+        (renda) ? renda = req.files.renda[0].originalname: renda = null;
         (outros1) ? outros1 = req.files.outros1[0].originalname: outros1 = null;
         (outros2) ? outros2 = req.files.outros2[0].originalname: outros2 = null;
         (outros3) ? outros3 = req.files.outros3[0].originalname: outros3 = null;
-        (outros4) ? outros4 = req.files.outros4[0].originalname: outros = null;
+        (outros4) ? outros4 = req.files.outros4[0].originalname: outros4 = null;
         (gravacao) ? gravacao = req.files.gravacao[0].originalname: gravacao = null;
 
         try {
 
             const arquivo = await propostas.findOne({
-                where: {codigo: codigo}
+                where: {
+                    codigo: codigo
+                }
             })
 
-            
+
             arquivo.arquivo1 = proposta;
             arquivo.arquivo2 = identificacao;
             arquivo.arquivo3 = endereco;
@@ -713,24 +723,26 @@ const PropostaController = {
         } = req.body
 
         const proposta = await propostas.findOne({
-            codigo
+            where: {
+                codigo: codigo
+            }
         })
 
-        if(proposta) {
+        if (proposta) {
             proposta.nome = nome,
-            proposta.telefone_ddd_1 = telefone_ddd_1,
-            proposta.telefone = telefone,
-            proposta.correntista = correntista,
-            proposta.telefone_confirmacao = telefone_confirmacao,
-            proposta.sistema_tel = sistema_tel,
-            proposta.exercito = exercito,
-            proposta.senha_exercito = senha_exercito,
-            proposta.sexo = sexo,
-            proposta.email = email,
-            proposta.data_nascimento = data_nascimento,
-            proposta.endereco_uf_comercial = endereco_uf_comercial,
-            proposta.cpf = cpf,
-            proposta.observacao = observacao
+                proposta.telefone_ddd_1 = telefone_ddd_1,
+                proposta.telefone = telefone,
+                proposta.correntista = correntista,
+                proposta.telefone_confirmacao = telefone_confirmacao,
+                proposta.sistema_tel = sistema_tel,
+                proposta.exercito = exercito,
+                proposta.senha_exercito = senha_exercito,
+                proposta.sexo = sexo,
+                proposta.email = email,
+                proposta.data_nascimento = data_nascimento,
+                proposta.endereco_uf_comercial = endereco_uf_comercial,
+                proposta.cpf = cpf,
+                proposta.observacao = observacao
 
             proposta.save()
             res.status(201).json(proposta)
