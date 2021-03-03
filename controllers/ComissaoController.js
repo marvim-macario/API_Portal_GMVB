@@ -41,7 +41,7 @@ const ComissaoController = {
             if(userTipousuario ==='PARCEIRO'&& userPerfil==='SUB ACESSO') where.cpf = userCpf
             if(userTipousuario ==='SUPERVISOR') where.supervisor = userNome;
             if(userTipousuario ==='GERENTE') where.gerente = userNome;
-            // console.log(where)
+        
             
     try {
             

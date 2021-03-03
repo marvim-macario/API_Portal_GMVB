@@ -3,15 +3,14 @@ const router = express.Router();
 const multer = require('multer');
 const multerConfig = require('../config/multer');
 const ecxelConfig = require('../config/excel');
-
-
 const UserController = require('../controllers/UserController');
 const CadastroController = require('../controllers/CadastroController');
 const PropostaController = require('../controllers/PropostaController');
 const PreencherCamposController = require('../controllers/PreencherCamposController');
 const ComissaoController = require('../controllers/ComissaoController');
 const SaldoDevedorController = require('../controllers/SaldoDevedorController');
-
+const HomeController = require('../controllers/HomeController');
+const MargemController = require('../controllers/MargemController');
 
 
 //teste
@@ -27,6 +26,8 @@ router.post('/email',UserController.send);
 //rota para alterar senha senha
 router.post('/reset',UserController.update);
 
+//pagina home 
+router.post('/home',HomeController.Grafico)
 //rotas para popular campos
 router.post('/parceiros',PreencherCamposController.Parceiro);
 router.post('/secundario',PreencherCamposController.Secundario);
@@ -47,6 +48,8 @@ router.get('/comissao/status',PreencherCamposController.StausComissao);
 router.get('/comissao/datagerente',PreencherCamposController.DataPagamentoGerente);
 router.get('/comissao/datasupervisor',PreencherCamposController.DataPagamentoSupervisor);
 router.get('/comissao/competencia',PreencherCamposController.Competencia);
+router.get('/margem/status',PreencherCamposController.StatusMargem);
+
 // router.get('/banco',PreencherCamposController)
 
 //pequisa de cadastros
@@ -105,13 +108,12 @@ router.post('/comissao/incluir',multer(ecxelConfig).single('incluir_propostas'),
 router.post('/comissao/alterar',multer(ecxelConfig).single('alterar_propostas'),ComissaoController.Alterar);
 
 
-
-
  router.post('/solicitacoes/saldoDevedor',SaldoDevedorController.SaldoDevedor);
  router.get('/statusSaldo/saldoDevedor',SaldoDevedorController.StatusSaldo);
  router.post('/incluirSaldo/saldoDevedor',SaldoDevedorController.IncluirSaldo);
  router.post('/alterarSaldo/saldoDevedor',SaldoDevedorController.AlterarSaldo);
  router.post('/alterar/modal',SaldoDevedorController.Modal);
+ router.post('/margem/pesquisa',MargemController.Pesquisar);
 
 
 
