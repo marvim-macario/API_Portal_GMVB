@@ -15,12 +15,11 @@ const PropostaController = {
     Interface: async (req, res) => {
 
         const {
-            id_aceso,
+            id_acesso,
             cnpj_matriz,
             perfil,
             tipo_usuario,
             nome,
-
             parceiro,
             tipo_parceiro,
             proposta,
@@ -120,7 +119,7 @@ const PropostaController = {
                     });
                 }
 
-
+                
                 where.id_acesso = parceiros;
 
 
@@ -257,9 +256,9 @@ const PropostaController = {
         }
     },
 
-    FiltroPropostaIdentificacao: async (req, res) => {
+     FiltroPropostaIdentificacao: async (req, res) => {
         const {
-            id_aceso,
+            id_acesso,
             cnpj_matriz,
             perfil,
             tipo_usuario,

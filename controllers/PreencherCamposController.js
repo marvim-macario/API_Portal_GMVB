@@ -1,5 +1,5 @@
 // controller para popular selects das paginas 
-const { cadastro, vw_proposta, status, tipo , empresa, banco, sub_status,filial, produto, proposta_comissao } = require('../models');
+const { cadastro,status_margem, status, tipo , empresa, banco, sub_status,filial, produto, proposta_comissao } = require('../models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
@@ -177,12 +177,6 @@ const PreencherCamposController = {
 
         res.status(200).send(supervisor);
     },
-
-    // GerenteMullti: async (req, res)=>{
-    //     const gerente
-    // },
-
-
     Gerente: async (req, res) => {
         try {
             const gerentes = await cadastro.findAll({
@@ -280,7 +274,24 @@ const PreencherCamposController = {
         })
 
         res.status(200).send(competencia);
+    },
+    StatusMargem: async (req,res)=>{
+       try {
+           
+      
+        const status = await status_margem.findAll({
+            order: [
+                ['status', 'asc']
+            ]
+        })
+
+        if(status)
+            return res.status(200).send(status);
+
+    } catch (error) {
+           console.log(error)
     }
+}
 
 
 
