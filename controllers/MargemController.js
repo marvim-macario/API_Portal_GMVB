@@ -40,10 +40,18 @@ const MargemController ={
                 console.log(error)
             }
     },
-    Incluir: async (req,res) =>{
+    Incluir: async (req,res) => {
 
         const {
-            data_cadastro,parceiro,cpf,matricula,convenio, responsavel,
+            id_parceiro,
+            data_envio,
+            parceiro,
+            cpf,
+            matricula,
+            convenio,
+            responsavel,
+            senha,
+            valor_margem,
             gerente,
             supervisor,
             userPerfil,
@@ -54,10 +62,114 @@ const MargemController ={
         } = req.body;
 
             const where = new Object();
-            if(data_cadastro) where.data_cadastro = data_cadastro;
+            if(data_envio) where.data_cadastro = data_envio;
             if(parceiro) where.parceiro = parceiro;
+            if(cpf) where.cpf = cpf;
+            if(matricula) where.matricula = matricula;
+            if(convenio) where.convenio = convenio;
+            if(senha) where.senha = senha;
+            if(valor_margem) where.valor_margem = valor_margem;
+            where.id_parceiro = id_parceiro;
+            where.responsavel = userNome;
+            where.gerente = gerente;
+            where.supervisor = supervisor;
+            where.cnpj =  userCpf;
 
-    }
+            try {
+
+                const pesquisaMargem = await margem.findAll({
+
+                    where
+                })
+
+                if(!pesquisaMargem)
+                    return res.status(200).json("Margem já cadastradana base de dados");
+
+                const createMargem = await margem.create({
+                  
+                        convenio,
+                        cpf,
+                        matricula,
+                        parceiro,
+                        data_envio,
+                        responsavel,
+                        id_parceiro,
+                        senha,
+                        valor_margem,
+                        cnpj_matriz:userCnpjMatriz,
+                        supervisor,
+                        gerente
+                    
+                })
+                if(createMargem)
+                    res.json(createMargem.codigo)
+            } catch (error) {
+                
+                console.log(error)
+            }
+
+    },
+
+     Anexo: async(req, res) =>{
+
+        const { codigo } = req.query;
+        const{ anexo_print_margem } = req.file;
+
+        const arquivo1 = req.file.originalname;
+        console.log(req.file)
+        try {
+    
+            const margemPesquisa = await margem.findOne({
+                where:{
+                    codigo
+                }
+            })
+
+            if(margemPesquisa){
+                margemPesquisa.arquivo1 = arquivo1;
+                margemPesquisa.save()
+
+                res.status(201).json(margemPesquisa)
+            }
+        } catch (error) {
+              console.log(error)  
+        }    
+
+     },
+
+     Update: async (req, res) => {
+
+        const { codigo,data_envio,parceiro,cpf,matricula,convenio,senha,valor_margem } = req.body;
+
+        try {
+
+        const BuscaMargem = await margem.findOne({
+
+            where:{
+                codigo
+            }
+        })
+
+           
+            if(BuscaMargem){
+                
+                BuscaMargem.data_envio = data_envio
+                BuscaMargem.parceiro = parceiro
+                BuscaMargem.cpf = cpf
+                BuscaMargem.matricula = matricula
+                BuscaMargem.convenio = convenio
+                BuscaMargem.senha = senha
+                BuscaMargem.valor_margem = valor_margem
+
+                BuscaMargem.save();
+
+                res.status(200).send(BuscaMargem)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+     }
+     
 
 };
 

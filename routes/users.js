@@ -114,6 +114,9 @@ router.post('/comissao/alterar',multer(ecxelConfig).single('alterar_propostas'),
  router.post('/alterarSaldo/saldoDevedor',SaldoDevedorController.AlterarSaldo);
  router.post('/alterar/modal',SaldoDevedorController.Modal);
  router.post('/margem/pesquisa',MargemController.Pesquisar);
+ router.post('/margem/incluir',MargemController.Incluir);
+ router.post('/margem/incluir/anexo',multer(multerConfig).single('anexo_print_margem'),MargemController.Anexo)
+ router.post('/margem/alterar',MargemController.Update);
 
 
 
