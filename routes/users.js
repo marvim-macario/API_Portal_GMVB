@@ -79,6 +79,21 @@ router.post('/cadstro/alterar',CadastroController.Update);
 
 router.post('/proposta/filtro',PropostaController.Interface);
 router.post('/proposta/identificacao/filtro', PropostaController.FiltroPropostaIdentificacao)
+router.post('/proposta/identificacao/inclusao', PropostaController.PropostaIdentificacaoCreate)
+router.post('/proposta/identificacao/atualizar', PropostaController.UpdateIdentificacaoPropostaCampos)
+router.post('/proposta/identificacao/modal', PropostaController.PropostaIdentificacaoModal)
+router.post('/proposta/identificacao/atualizar/arquivos', multer(multerConfig).fields([
+    {name: 'proposta', maxCount: 1},
+    { name: 'identificacao', maxCount: 1 },
+    { name: 'endereco', maxCount: 1 },
+    { name: 'renda', maxCount: 1 },
+    { name: 'outros1', maxCount: 1 },
+    { name: 'outros2', maxCount: 1 },
+    { name: 'outros3', maxCount: 1 },
+    { name: 'outros4', maxCount: 1 },
+    { name: 'gravacao', maxCount: 1},
+]), PropostaController.UpdateIdentificacaoPropostaFiles)
+// router.post('/proppos')
 
 
 router.post('/proposta/inclusao',PropostaController.CreateProposta);
