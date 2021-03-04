@@ -12,7 +12,6 @@ const MargemController ={
                 userTipousuario,
                 userNome,
                 userCnpjMatriz,
-
                 parceiro,
                 status,
                 data_atualizacao,
@@ -25,7 +24,7 @@ const MargemController ={
             if(data_atualizacao) where.data_atualizacao = data_atualizacao;
             if(data_envio) where.data_envio = data_envio;
             if(cpf) where.cpf = cpf
-            if(userTipousuario ==='PARCEIRO'&& userPerfil==='MATRIZ' || userTipousuario ==='PARCEIRO'&& userPerfil==='SUB ACESSO') where.cnpj_matriz = userCpf;
+            if(userTipousuario ==='PARCEIRO'&& userPerfil==='MATRIZ' || userTipousuario ==='PARCEIRO'&& userPerfil==='SUB ACESSO') where.cnpj = userCpf;
             if(userTipousuario ==='SUPERVISOR') where.supervisor = userNome;
             if(userTipousuario ==='GERENTE') where.gerente = userNome;
             console.log(where);

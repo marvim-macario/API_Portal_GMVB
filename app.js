@@ -29,7 +29,8 @@ app.use((req, res, next) => {
     next();
 });
 
-//imprementando rotas
+
+//implementando rotas
 // app.use('/', index);
 app.use('/user', usersRoute);
 app.use(
