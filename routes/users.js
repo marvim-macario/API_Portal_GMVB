@@ -15,6 +15,7 @@ const SaldoFerController = require('../controllers/SaldoFerController')
 const AtualizacaoClienteController = require('../controllers/AtualizacaoClienteController');
 const AverbacaoGoiasController = require('../controllers/AverbacaoGoiasController');
 const AutorizacaoInssController = require('../controllers/AutorizacaoInssController');
+const ListaNegraController = require('../controllers/ListaNegraController');
 
 //teste
 router.get('/', (req, res) => {
@@ -231,4 +232,9 @@ router.post('/autorizacao/inss/modal', AutorizacaoInssController.Modal)
 router.post('/autorizacao/inss/inserir', AutorizacaoInssController.Inserir)
 router.post('/autorizacao/inss/anexo', multer(multerConfig).single('anexo_print_margem') ,AutorizacaoInssController.Anexo)
 router.post('/autorizacao/inss/atualizar', AutorizacaoInssController.Atualizar)
+
+//Lista negra
+router.post('/lista/negra/inserir', ListaNegraController.inclusao)
+
+
 module.exports = router;
