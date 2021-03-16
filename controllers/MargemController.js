@@ -14,6 +14,7 @@ const MargemController = {
                 userTipousuario,
                 userNome,
                 userCnpjMatriz,
+
                 parceiro,
                 status,
                 data_atualizacao,
@@ -55,11 +56,14 @@ const MargemController = {
             valor_margem,
             gerente,
             supervisor,
+            id_acesso,
             userPerfil,
             userCpf,
             userTipousuario,
             userNome,
             userCnpjMatriz,
+            data_inclusao
+
         } = req.body;
 
         const where = new Object();
@@ -70,11 +74,13 @@ const MargemController = {
         if (convenio) where.convenio = convenio;
         if (senha) where.senha = senha;
         if (valor_margem) where.valor_margem = valor_margem;
+        if (data_inclusao) where.data_inclusao = data_inclusao;
         where.id_parceiro = id_parceiro;
         where.responsavel = userNome;
         where.gerente = gerente;
         where.supervisor = supervisor;
         where.cnpj = userCpf;
+        where.data_inclusao = data_inclusao
 
         try {
 
@@ -98,7 +104,8 @@ const MargemController = {
                 valor_margem,
                 cnpj_matriz: userCnpjMatriz,
                 supervisor,
-                gerente
+                gerente,
+                data_inclusao
 
             })
             if (createMargem)
@@ -151,7 +158,9 @@ const MargemController = {
             matricula,
             convenio,
             senha,
-            valor_margem
+            valor_margem,
+            responsavel,
+            data_atualizacao
         } = req.body;
 
         try {
@@ -173,6 +182,8 @@ const MargemController = {
                 BuscaMargem.convenio = convenio
                 BuscaMargem.senha = senha
                 BuscaMargem.valor_margem = valor_margem
+                BuscaMargem.responsavel =responsavel
+                BuscaMargem.data_atualizacao = data_atualizacao
 
                 BuscaMargem.save();
 
@@ -191,7 +202,7 @@ const MargemController = {
 
             const dadosMargem = await margem.findOne({
                 where: {
-                    cpf
+                    cpf: cpf
                 }
             })
 
@@ -208,25 +219,6 @@ const MargemController = {
         }
     },
 
-    Modal: async (req, res) => {
-        try {
-            const {
-                codigo
-            } = req.body;
-
-            const dadosDeSaldoFer = await saldo_fer.findOne({
-                where: {
-                    codigo
-                }
-            })
-            return res.status(200).send(dadosDeSaldoFer)
-
-        } catch (error) {
-            res.json({message: error});
-        }
-
-
-    }
 
 };
 
