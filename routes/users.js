@@ -11,7 +11,11 @@ const ComissaoController = require('../controllers/ComissaoController');
 const SaldoDevedorController = require('../controllers/SaldoDevedorController');
 const HomeController = require('../controllers/HomeController');
 const MargemController = require('../controllers/MargemController');
-const SaldoFerController = require('../controllers/SaldoFerController')
+const SaldoFerController = require('../controllers/SaldoFerController');
+const CancelamentoContreller = require('../controllers/CancelamentoController');
+const AprovacaoPropostaController = require('../controllers/AprovacaoPropostaController');
+const MargemGovernoController = require('../controllers/MargemGovernoController');
+const ParceirosRestritosController = require('../controllers/ParceirosRestritosController');
 const AtualizacaoClienteController = require('../controllers/AtualizacaoClienteController');
 const AverbacaoGoiasController = require('../controllers/AverbacaoGoiasController');
 const AutorizacaoInssController = require('../controllers/AutorizacaoInssController');
@@ -36,26 +40,27 @@ router.post('/buscar', UserController.BuscaCpf);
 //pagina home 
 router.post('/home', HomeController.Grafico)
 //rotas para popular campos
-router.post('/parceiros', PreencherCamposController.Parceiro);
-router.post('/secundario', PreencherCamposController.Secundario);
-router.post('/terceario', PreencherCamposController.Terceario)
-router.get('/funcionario', PreencherCamposController.Funcionario);
-router.get('/supervisor', PreencherCamposController.Supervisor);
-router.get('/gerente', PreencherCamposController.Gerente);
-router.get('/filial', PreencherCamposController.Filial);
-router.get('/proposta/status', PreencherCamposController.Status);
-router.get('/proposta/tipo', PreencherCamposController.Tipo);
-router.get('/proposta/empresas', PreencherCamposController.Empresa);
-router.get('/proposta/bancos', PreencherCamposController.Banco);
-router.get('/proposta/substatus', PreencherCamposController.SubStatus);
-router.get('/proposta/produto', PreencherCamposController.Produto);
-router.get('/supervisormulti', PreencherCamposController.SupervisorMulti);
-router.get('/comissao/promotor', PreencherCamposController.Promotor);
-router.get('/comissao/status', PreencherCamposController.StausComissao);
-router.get('/comissao/datagerente', PreencherCamposController.DataPagamentoGerente);
-router.get('/comissao/datasupervisor', PreencherCamposController.DataPagamentoSupervisor);
-router.get('/comissao/competencia', PreencherCamposController.Competencia);
-router.get('/margem/status', PreencherCamposController.StatusMargem);
+router.post('/parceiros',PreencherCamposController.Parceiro);
+router.post('/secundario',PreencherCamposController.Secundario);
+router.post('/terceario',PreencherCamposController.Terceario)
+router.get('/funcionario',PreencherCamposController.Funcionario);
+router.get('/supervisor',PreencherCamposController.Supervisor);
+router.get('/gerente',PreencherCamposController.Gerente);
+router.get('/filial',PreencherCamposController.Filial);
+router.get('/proposta/status',PreencherCamposController.Status);
+router.get('/proposta/tipo',PreencherCamposController.Tipo);
+router.get('/proposta/empresas',PreencherCamposController.Empresa);
+router.get('/proposta/bancos',PreencherCamposController.Banco);
+router.get('/proposta/substatus',PreencherCamposController.SubStatus);
+router.get('/proposta/produto',PreencherCamposController.Produto);
+router.get('/supervisormulti',PreencherCamposController.SupervisorMulti);
+router.get('/comissao/promotor',PreencherCamposController.Promotor);
+router.get('/comissao/status',PreencherCamposController.StausComissao);
+router.get('/comissao/datagerente',PreencherCamposController.DataPagamentoGerente);
+router.get('/comissao/datasupervisor',PreencherCamposController.DataPagamentoSupervisor);
+router.get('/comissao/competencia',PreencherCamposController.Competencia);
+router.get('/margem/status',PreencherCamposController.StatusMargem);
+router.get('/bancoOrigi', PreencherCamposController.BancoOrigi);
 
 // router.get('/banco',PreencherCamposController)
 
@@ -182,24 +187,47 @@ router.post('/comissao/modal', ComissaoController.PreecherModal);
 //incluir comissao
 router.post('/comissao/incluir', multer(ecxelConfig).single('incluir_propostas'), ComissaoController.Incluir);
 //alterar comissao
-router.post('/comissao/alterar', multer(ecxelConfig).single('alterar_propostas'), ComissaoController.Alterar);
+router.post('/comissao/alterar',multer(ecxelConfig).single('alterar_propostas'),ComissaoController.Alterar);
 
 
-router.post('/solicitacoes/saldoDevedor', SaldoDevedorController.SaldoDevedor);
-router.get('/statusSaldo/saldoDevedor', SaldoDevedorController.StatusSaldo);
-router.post('/incluirSaldo/saldoDevedor', SaldoDevedorController.IncluirSaldo);
-router.post('/alterarSaldo/saldoDevedor', SaldoDevedorController.AlterarSaldo);
-router.post('/alterar/modal', SaldoDevedorController.Modal);
-router.post('/margem/pesquisa', MargemController.Pesquisar);
-router.post('/margem/incluir', MargemController.Incluir);
-router.post('/margem/incluir/anexo', multer(multerConfig).single('anexo_print_margem'), MargemController.Anexo)
-router.post('/margem/alterar', MargemController.Update);
-router.post('/margem/modal', MargemController.Modal);
-router.post('/saldofer/atualizar', SaldoFerController.Atualizar)
-router.post('/saldofer/incluir', SaldoFerController.Incluir);
-router.post('/saldofer/modal', SaldoFerController.Modal)
-router.post('/saldofer/filtro', SaldoFerController.Filtro)
-router.post('/saldofer/incluir/arquivos', multer(multerConfig).single('anexo_print_fer'), SaldoFerController.Anexo)
+ router.post('/solicitacoes/saldoDevedor',SaldoDevedorController.SaldoDevedor);
+ router.get('/statusSaldo/saldoDevedor',SaldoDevedorController.StatusSaldo);
+ router.post('/incluirSaldo/saldoDevedor',SaldoDevedorController.IncluirSaldo);
+ router.post('/alterarSaldo/saldoDevedor',SaldoDevedorController.AlterarSaldo);
+ router.post('/alterar/modal',SaldoDevedorController.Modal);
+ router.post('/margem/pesquisa',MargemController.Pesquisar);
+ router.post('/margem/incluir',MargemController.Incluir);
+ router.post('/margem/incluir/anexo',multer(multerConfig).single('anexo_print_margem'),MargemController.Anexo)
+ router.post('/margem/alterar',MargemController.Update);
+ router.post('/margem/modal', MargemController.Modal);
+ router.post('/saldofer/incluir',SaldoFerController.IncluirSaldoFer);
+ router.post('/saldofer/atualizar', SaldoFerController.Atualizar);
+ router.post('/saldofer/modal', SaldoFerController.Modal);
+ router.post('/saldofer/filtro', SaldoFerController.Filtro)
+ router.post('/saldofer/incluir/arquivos',multer(multerConfig).single('anexo_print_fer'),SaldoFerController.Anexo)
+
+ //Solicitação cancelamento
+ router.post('/cancelamento/incluir',CancelamentoContreller.IncluirCancelamento);
+ router.post('/cancelamento/filtro', CancelamentoContreller.Filtro);
+ router.post('/cancelamento/modal', CancelamentoContreller.Modal);
+ router.post('/cancelamento/alterar', CancelamentoContreller.Alterar);
+
+ //Aprovação proposta digittal
+ router.post('/aprovacaoproposta/incluir', AprovacaoPropostaController.IncluirAprovacao);
+ router.post('/aprovacaoproposta/filtro', AprovacaoPropostaController.Filtro);
+ router.post('/aprovacaoproposta/modal', AprovacaoPropostaController.Modal);
+ router.post('/aprovacaoproposta/alterar', AprovacaoPropostaController.Alterar);
+
+ //Margem governo gov sp
+ router.post('/margemgoverno/incluir', MargemGovernoController.IncluirMargemGoverno);
+ router.post('/margemgoverno/filtro', MargemGovernoController.Filtro);
+
+//Parceiros restritos
+ router.post('/parceirosrestritos/incluir', ParceirosRestritosController.InluirParcRest);
+ router.post('/parceirosrestritos/filtro', ParceirosRestritosController.Filtro);
+ router.post('/parceirosrestritos/modal', ParceirosRestritosController.Modal);
+router.post('/parceirosrestritos/alterar', ParceirosRestritosController.Alterar);
+
 router.post('/atualizacao/cliente/filtro', AtualizacaoClienteController.Filtro)
 router.post('/atualizacao/cliente/inserir', AtualizacaoClienteController.Inserir)
 router.post('/atualizacao/cliente/anexo', multer(multerConfig).fields([
@@ -238,6 +266,5 @@ router.post('/autorizacao/inss/atualizar', AutorizacaoInssController.Atualizar)
 
 //Lista negra
 router.post('/lista/negra/inserir', ListaNegraController.inclusao)
-
 
 module.exports = router;

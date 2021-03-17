@@ -1,50 +1,71 @@
 const {
     saldo_fer
-} = require('../models')
+} = require('../models/');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 const SaldoFerController = {
-    Incluir: async (req, res) => {
-        const {
-            convenio,
-            cpf,
-            matricula,
-            saldo_devedor,
-            prazo_restante,
-            taxa_juros,
-            parceiro,
-            data_envio,
-            responsavel,
-            data_atualizacao,
-            status,
-            parcela,
-            arquivo1,
-            id_parceiro
-        } = req.body;
 
+IncluirSaldoFer: async (req, res) => {
+    const {
+        convenio,
+        cpf,
+        matricula,
+        saldo_devedor,
+        prazo_restante,
+        taxa_juros,
+        parceiro,
+        data_envio,
+        responsavel,
+        data_atualizacao,
+        status,
+        parcela,
+        arquivo1,
+        id_parceiro
+    } = req.body;
 
-        const IncluirSaldoFer = await saldo_fer.create({
-            convenio,
-            cpf,
-            matricula,
-            saldo_devedor,
-            prazo_restante,
-            taxa_juros,
-            parceiro,
-            data_envio,
-            responsavel,
-            data_atualizacao,
-            status: "AGUARDANDO CONSULTA FER",
-            parcela,
-            arquivo1,
-            id_parceiro
-        });
-        return res.status(200).json(IncluirSaldoFer);
+            const IncluirSaldoFer = await saldo_fer.create({
+                convenio:convenio,
+                cpf:cpf,
+                matricula:matricula,
+                saldo_devedor:saldo_devedor,
+                prazo_restante:prazo_restante,
+                taxa_juros:taxa_juros,
+                parceiro:parceiro,
+                data_envio:data_envio,
+                responsavel:responsavel,
+                data_atualizacao:data_atualizacao,
+                status:'AGUARDANDO CONSULTA FER',
+                parcela:parcela,
+                arquivo1:arquivo1,
+                id_parceiro:id_parceiro
+            });
+            return res.status(200).send(IncluirSaldoFer);
     },
 
+    Anexo:async (req, res) => {
 
+        const { codigo } = req.query;
+        const{ anexo_print_fer } = req.file;
 
+        const arquivo1 = req.file.originalname;
+        try {
+    
+            const saldoferPesquisa = await saldo_fer.findOne({
+                where:{
+                    codigo
+                }
+            })
+            if(saldoferPesquisa){
+                saldoferPesquisa.arquivo1 = arquivo1;
+                saldoferPesquisa.save()
+
+                res.status(201).json(saldoferPesquisa)
+            }
+        } catch (error) {
+              console.log(error)  
+        }
+    },
 
     Atualizar: async (req, res) => {
         const {
@@ -55,25 +76,24 @@ const SaldoFerController = {
         } = req.body
 
         try {
-
+            
             const BuscaSaldofer = await saldo_fer.findOne({
-                where: {
-                    codigo
-                }
+                where: {codigo}
             })
 
-            if (!BuscaSaldofer) {
+            if(!BuscaSaldofer) {
                 return res.send("Saldo FER inexistente")
             }
 
             BuscaSaldofer.data_envio = data_envio,
             BuscaSaldofer.parceiro = parceiro,
             BuscaSaldofer.cpf = cpf
-            BuscaSaldofer.status = "FER RESPONDIDO"
+
+            BuscaSaldofer.status = 'FER RESPONDIDO'
 
             BuscaSaldofer.save()
+        
             return res.status(200).json(BuscaSaldofer)
-
 
         } catch (error) {
             console.log(error)

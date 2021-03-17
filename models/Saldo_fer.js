@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
     const Saldo_fer = sequelize.define('saldo_fer', {
         codigo: {
-            autoIncrement: true,
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
         },
         convenio:DataTypes.STRING,
         cpf:DataTypes.STRING,
@@ -31,6 +31,5 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'saldo_fer',
         timestamps: false
     })
-    return Saldo_fer
- 
+    return Saldo_fer;
 };

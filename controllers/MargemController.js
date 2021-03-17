@@ -157,7 +157,24 @@ const MargemController = {
 
     },
 
-    Update: async (req, res) => {
+     Modal: async(req, res) =>{
+        try{
+            const {
+                cpf
+            } = req.body;
+
+            const dadosMargem = await margem.findOne({
+                where: {cpf}
+            })
+            return res.status(200).send(dadosMargem)
+
+        }   catch (error) {
+            console.log(error)
+            res.send(error);
+        }
+     },
+
+     Update: async (req, res) => {
 
         const {
             codigo,
