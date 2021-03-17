@@ -25,7 +25,7 @@ const MargemController ={
             if(data_atualizacao) where.data_atualizacao = data_atualizacao;
             if(data_envio) where.data_envio = data_envio;
             if(cpf) where.cpf = cpf
-            if(userTipousuario ==='PARCEIRO'&& userPerfil==='MATRIZ' || userTipousuario ==='PARCEIRO'&& userPerfil==='SUB ACESSO') where.cnpj_matriz = userCpf;
+            if(userTipousuario ==='PARCEIRO'&& userPerfil==='MATRIZ' || userTipousuario ==='PARCEIRO'&& userPerfil==='SUB ACESSO') where.cnpj = userCpf;
             if(userTipousuario ==='SUPERVISOR') where.supervisor = userNome;
             if(userTipousuario ==='GERENTE') where.gerente = userNome;
             console.log(where);
@@ -83,7 +83,7 @@ const MargemController ={
                 })
 
                 if(!pesquisaMargem)
-                    return res.status(200).json("Margem já cadastradana base de dados");
+                    return res.status(200).json({resp:"Margem já cadastradana base de dados"});
 
                 const createMargem = await margem.create({
                   
@@ -135,6 +135,23 @@ const MargemController ={
               console.log(error)  
         }    
 
+     },
+
+     Modal: async(req, res) =>{
+        try{
+            const {
+                cpf
+            } = req.body;
+
+            const dadosMargem = await margem.findOne({
+                where: {cpf}
+            })
+            return res.status(200).send(dadosMargem)
+
+        }   catch (error) {
+            console.log(error)
+            res.send(error);
+        }
      },
 
      Update: async (req, res) => {

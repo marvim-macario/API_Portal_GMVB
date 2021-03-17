@@ -1,5 +1,5 @@
 // controller para popular selects das paginas 
-const { cadastro,status_margem, status, tipo , empresa, banco, sub_status,filial, produto, proposta_comissao } = require('../models');
+const { cadastro,status_margem, status, tipo , empresa, banco, sub_status,filial, produto, proposta_comissao, banco_origi } = require('../models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
@@ -291,9 +291,41 @@ const PreencherCamposController = {
     } catch (error) {
            console.log(error)
     }
-}
+},
 
+/* Supervisor: async (req, res) => {
 
+        const supervisor = await cadastro.findAll({
+            attributes: ['parceiro'],
+            where: {
+                tipo_func: {
+                    [Op.in]: ['SUPERVISOR MEI', 'SUPERVISOR'],
+                },
+                status: 'ATIVO'
+            },
+            order: [
+                ['parceiro', 'asc']
+            ]
+        });
+
+        res.status(200).send(supervisor);
+    }*/
+
+    BancoOrigi: async (req, res) =>{
+
+        const bancoOrigi = await banco_origi.findAll({
+            attributes: ['banco'],
+            where: {
+                tipo_banco: {
+                    [Op.in]: ['MULTI BANCOS'],
+                }
+            },
+            order: [
+                ['banco', 'asc']
+            ]
+        });
+        res.status(200).send(bancoOrigi);
+    }
 
 }
 

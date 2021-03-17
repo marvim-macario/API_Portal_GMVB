@@ -11,7 +11,11 @@ const ComissaoController = require('../controllers/ComissaoController');
 const SaldoDevedorController = require('../controllers/SaldoDevedorController');
 const HomeController = require('../controllers/HomeController');
 const MargemController = require('../controllers/MargemController');
-
+const SaldoFerController = require('../controllers/SaldoFerController');
+const CancelamentoContreller = require('../controllers/CancelamentoController');
+const AprovacaoPropostaController = require('../controllers/AprovacaoPropostaController');
+const MargemGovernoController = require('../controllers/MargemGovernoController');
+const ParceirosRestritosController = require('../controllers/ParceirosRestritosController');
 
 //teste
 router.get('/',(req,res)=>{
@@ -49,6 +53,7 @@ router.get('/comissao/datagerente',PreencherCamposController.DataPagamentoGerent
 router.get('/comissao/datasupervisor',PreencherCamposController.DataPagamentoSupervisor);
 router.get('/comissao/competencia',PreencherCamposController.Competencia);
 router.get('/margem/status',PreencherCamposController.StatusMargem);
+router.get('/bancoOrigi', PreencherCamposController.BancoOrigi);
 
 // router.get('/banco',PreencherCamposController)
 
@@ -132,7 +137,27 @@ router.post('/comissao/alterar',multer(ecxelConfig).single('alterar_propostas'),
  router.post('/margem/incluir',MargemController.Incluir);
  router.post('/margem/incluir/anexo',multer(multerConfig).single('anexo_print_margem'),MargemController.Anexo)
  router.post('/margem/alterar',MargemController.Update);
+ router.post('/margem/modal', MargemController.Modal);
+ router.post('/saldofer/incluir',SaldoFerController.IncluirSaldoFer);
+ router.post('/saldofer/atualizar', SaldoFerController.Atualizar);
+ router.post('/saldofer/modal', SaldoFerController.Modal);
+ router.post('/saldofer/filtro', SaldoFerController.Filtro)
+ router.post('/saldofer/incluir/arquivos',multer(multerConfig).single('anexo_print_fer'),SaldoFerController.Anexo)
 
+ router.post('/cancelamento/incluir',CancelamentoContreller.IncluirCancelamento);
+ router.post('/cancelamento/filtro', CancelamentoContreller.Filtro);
+ router.post('/cancelamento/modal', CancelamentoContreller.Modal);
+ router.post('/cancelamento/alterar', CancelamentoContreller.Alterar);
+ router.post('/aprovacaoproposta/incluir', AprovacaoPropostaController.IncluirAprovacao);
+ router.post('/aprovacaoproposta/filtro', AprovacaoPropostaController.Filtro);
+ router.post('/aprovacaoproposta/modal', AprovacaoPropostaController.Modal);
+ router.post('/aprovacaoproposta/alterar', AprovacaoPropostaController.Alterar);
+ router.post('/margemgoverno/incluir', MargemGovernoController.IncluirMargemGoverno);
+ router.post('/margemgoverno/filtro', MargemGovernoController.Filtro);
+ router.post('/parceirosrestritos/incluir', ParceirosRestritosController.InluirParcRest);
+ router.post('/parceirosrestritos/filtro', ParceirosRestritosController.Filtro);
+ router.post('/parceirosrestritos/modal', ParceirosRestritosController.Modal);
+router.post('/parceirosrestritos/alterar', ParceirosRestritosController.Alterar);
 
 
 module.exports = router;
