@@ -1,9 +1,11 @@
-const { margem } = require('../models');
+const {
+    margem
+} = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
 
 
-const MargemController ={
+const MargemController = {
 
     Pesquisar: async (req, res)=>{
         const { 
@@ -40,7 +42,7 @@ const MargemController ={
                 console.log(error)
             }
     },
-    Incluir: async (req,res) => {
+    Incluir: async (req, res) => {
 
         const {
             id_parceiro,
@@ -54,88 +56,97 @@ const MargemController ={
             valor_margem,
             gerente,
             supervisor,
+            id_acesso,
             userPerfil,
             userCpf,
             userTipousuario,
             userNome,
-            userCnpjMatriz, 
+            userCnpjMatriz,
+            data_inclusao
+
         } = req.body;
 
-            const where = new Object();
-            if(data_envio) where.data_cadastro = data_envio;
-            if(parceiro) where.parceiro = parceiro;
-            if(cpf) where.cpf = cpf;
-            if(matricula) where.matricula = matricula;
-            if(convenio) where.convenio = convenio;
-            if(senha) where.senha = senha;
-            if(valor_margem) where.valor_margem = valor_margem;
-            where.id_parceiro = id_parceiro;
-            where.responsavel = userNome;
-            where.gerente = gerente;
-            where.supervisor = supervisor;
-            where.cnpj =  userCpf;
+        const where = new Object();
+        if (data_envio) where.data_cadastro = data_envio;
+        if (parceiro) where.parceiro = parceiro;
+        if (cpf) where.cpf = cpf;
+        if (matricula) where.matricula = matricula;
+        if (convenio) where.convenio = convenio;
+        if (senha) where.senha = senha;
+        if (valor_margem) where.valor_margem = valor_margem;
+        if (data_inclusao) where.data_inclusao = data_inclusao;
+        where.id_parceiro = id_parceiro;
+        where.responsavel = userNome;
+        where.gerente = gerente;
+        where.supervisor = supervisor;
+        where.cnpj = userCpf;
+        where.data_inclusao = data_inclusao
 
-            try {
+        try {
 
-                const pesquisaMargem = await margem.findAll({
+            const pesquisaMargem = await margem.findAll({
+                where
+            })
 
-                    where
-                })
+            if (!pesquisaMargem)
+                return res.status(200).json("Margem já cadastradana base de dados");
 
-                if(!pesquisaMargem)
-                    return res.status(200).json({resp:"Margem já cadastradana base de dados"});
+            const createMargem = await margem.create({
 
-                const createMargem = await margem.create({
-                  
-                        convenio,
-                        cpf,
-                        matricula,
-                        parceiro,
-                        data_envio,
-                        responsavel,
-                        id_parceiro,
-                        senha,
-                        valor_margem,
-                        cnpj_matriz:userCnpjMatriz,
-                        supervisor,
-                        gerente
-                    
-                })
-                if(createMargem)
-                    res.json(createMargem.codigo)
-            } catch (error) {
-                
-                console.log(error)
-            }
+                convenio,
+                cpf,
+                matricula,
+                parceiro,
+                data_envio,
+                responsavel,
+                id_parceiro,
+                senha,
+                valor_margem,
+                cnpj_matriz: userCnpjMatriz,
+                supervisor,
+                gerente,
+                data_inclusao
+
+            })
+            if (createMargem)
+                res.json(createMargem.codigo)
+        } catch (error) {
+
+            console.log(error)
+        }
 
     },
 
-     Anexo: async(req, res) =>{
+    Anexo: async (req, res) => {
 
-        const { codigo } = req.query;
-        const{ anexo_print_margem } = req.file;
+        const {
+            codigo
+        } = req.query;
+        const {
+            anexo_print_margem
+        } = req.file;
 
         const arquivo1 = req.file.originalname;
         console.log(req.file)
         try {
-    
+
             const margemPesquisa = await margem.findOne({
-                where:{
+                where: {
                     codigo
                 }
             })
 
-            if(margemPesquisa){
+            if (margemPesquisa) {
                 margemPesquisa.arquivo1 = arquivo1;
                 margemPesquisa.save()
 
                 res.status(201).json(margemPesquisa)
             }
         } catch (error) {
-              console.log(error)  
-        }    
+            console.log(error)
+        }
 
-     },
+    },
 
      Modal: async(req, res) =>{
         try{
@@ -156,20 +167,31 @@ const MargemController ={
 
      Update: async (req, res) => {
 
-        const { codigo,data_envio,parceiro,cpf,matricula,convenio,senha,valor_margem } = req.body;
+        const {
+            codigo,
+            data_envio,
+            parceiro,
+            cpf,
+            matricula,
+            convenio,
+            senha,
+            valor_margem,
+            responsavel,
+            data_atualizacao
+        } = req.body;
 
         try {
 
-        const BuscaMargem = await margem.findOne({
+            const BuscaMargem = await margem.findOne({
 
-            where:{
-                codigo
-            }
-        })
+                where: {
+                    codigo
+                }
+            })
 
-           
-            if(BuscaMargem){
-                
+
+            if (BuscaMargem) {
+
                 BuscaMargem.data_envio = data_envio
                 BuscaMargem.parceiro = parceiro
                 BuscaMargem.cpf = cpf
@@ -177,6 +199,8 @@ const MargemController ={
                 BuscaMargem.convenio = convenio
                 BuscaMargem.senha = senha
                 BuscaMargem.valor_margem = valor_margem
+                BuscaMargem.responsavel =responsavel
+                BuscaMargem.data_atualizacao = data_atualizacao
 
                 BuscaMargem.save();
 
@@ -185,8 +209,33 @@ const MargemController ={
         } catch (error) {
             console.log(error)
         }
-     }
-     
+    },
+
+    Modal: async (req, res) => {
+        try {
+            const {
+                cpf
+            } = req.body;
+
+            const dadosMargem = await margem.findOne({
+                where: {
+                    cpf: cpf
+                }
+            })
+
+            if (dadosMargem) {
+                return res.status(200).json(dadosMargem)
+            }
+
+            return res.send("Dados de margem não encontrada")
+
+
+        } catch (error) {
+            console.log(error)
+            res.send(error);
+        }
+    },
+
 
 };
 

@@ -22,10 +22,11 @@ module.exports = (sequelize, DataTypes) => {
             cnpj:DataTypes.STRING,
             supervisor:DataTypes.STRING,
             gerente:DataTypes.STRING,
-            id_acesso:DataTypes.STRING,
-            cpf_parceiro:DataTypes.STRING,
-            cpf_gerente:DataTypes.STRING,
-            data_inclusao:DataTypes.STRING
+            id_acesso: DataTypes.STRING,
+            cpf_parceiro: DataTypes.STRING,
+            cpf_supervisor: DataTypes.STRING,
+            cpf_gerente: DataTypes.STRING,
+            data_inclusao: DataTypes.STRING
     }, {
         tableName: 'margem',
         timestamps: false

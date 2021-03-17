@@ -99,10 +99,21 @@ IncluirSaldoFer: async (req, res) => {
             console.log(error)
         }
 
-
     },
 
-    Filtro: async (req,res) => {
+    Modal: async (req, res) => {
+        const codigo = req.body
+
+        const dadosFer = await saldo_fer.findOne({
+            where: codigo
+        })
+
+        if (dadosFer) {
+            return res.status(201).json(dadosFer)
+        }
+    },
+
+    Filtro: async (req, res) => {
         const {
             userTipousuario,
             userPerfil,
@@ -138,24 +149,36 @@ IncluirSaldoFer: async (req, res) => {
         }
     },
 
-    Modal: async (req, res) => {
+    Anexo: async (req, res) => {
+        const {
+            codigo
+        } = req.query;
+        const {
+            anexo_print_fer
+        } = req.file;
+
+        const arquivo1 = req.file.originalname;
+
         try {
 
-            const {
-                codigo
-            } = req.body;
-
-            const dadosDeSaldoFer = await saldo_fer.findOne({
-                where: { codigo }
+            const saldoferPesquisa = await saldo_fer.findOne({
+                where: {
+                    codigo
+                }
             })
-            return res.status(200).send(dadosDeSaldoFer)
 
+
+            if (saldoferPesquisa) {
+                saldoferPesquisa.arquivo1 = arquivo1;
+                saldoferPesquisa.save()
+
+                res.status(201).json(saldoferPesquisa)
+            }
         } catch (error) {
             console.log(error)
-            res.send(error);
         }
+    },
 
-    }
 }
 
 module.exports = SaldoFerController;
