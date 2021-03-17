@@ -7,40 +7,42 @@ const Op = Sequelize.Op
 
 const MargemController = {
 
-    Pesquisar: async (req, res)=>{
-        const { 
-                userPerfil,
-                userCpf,
-                userTipousuario,
-                userNome,
-                userCnpjMatriz,
+    Pesquisar: async (req, res) => {
+        const {
+            userPerfil,
+            userCpf,
+            userTipousuario,
+            userNome,
+            userCnpjMatriz,
 
-                parceiro,
-                status,
-                data_atualizacao,
-                data_envio,
-                cpf
-        }=req.body;
-        var where ={};
-            if(parceiro) where.parceiro = {[Op.substring]: parceiro}; 
-            if(status) where.status = status;
-            if(data_atualizacao) where.data_atualizacao = data_atualizacao;
-            if(data_envio) where.data_envio = data_envio;
-            if(cpf) where.cpf = cpf
-            if(userTipousuario ==='PARCEIRO'&& userPerfil==='MATRIZ' || userTipousuario ==='PARCEIRO'&& userPerfil==='SUB ACESSO') where.cnpj = userCpf;
-            if(userTipousuario ==='SUPERVISOR') where.supervisor = userNome;
-            if(userTipousuario ==='GERENTE') where.gerente = userNome;
-            console.log(where);
-            try {
-                const pesquisa = await margem.findAll({
-                    where
-                })
+            parceiro,
+            status,
+            data_atualizacao,
+            data_envio,
+            cpf
+        } = req.body;
+        var where = {};
+        if (parceiro) where.parceiro = {
+            [Op.substring]: parceiro
+        };
+        if (status) where.status = status;
+        if (data_atualizacao) where.data_atualizacao = data_atualizacao;
+        if (data_envio) where.data_envio = data_envio;
+        if (cpf) where.cpf = cpf
+        if (userTipousuario === 'PARCEIRO' && userPerfil === 'MATRIZ' || userTipousuario === 'PARCEIRO' && userPerfil === 'SUB ACESSO') where.cnpj = userCpf;
+        if (userTipousuario === 'SUPERVISOR') where.supervisor = userNome;
+        if (userTipousuario === 'GERENTE') where.gerente = userNome;
+        console.log(where);
+        try {
+            const pesquisa = await margem.findAll({
+                where
+            })
 
-                if(pesquisa)
-                    return res.status(200).json(pesquisa)
-            } catch (error) {
-                console.log(error)
-            }
+            if (pesquisa)
+                return res.status(200).json(pesquisa)
+        } catch (error) {
+            console.log(error)
+        }
     },
     Incluir: async (req, res) => {
 
@@ -56,18 +58,21 @@ const MargemController = {
             valor_margem,
             gerente,
             supervisor,
-            id_acesso,
             userPerfil,
             userCpf,
             userTipousuario,
             userNome,
             userCnpjMatriz,
-            data_inclusao
+            data_inclusao,
+            id_acesso,
+            cpf_supervisor,
+            cpf_gerente
 
         } = req.body;
 
         const where = new Object();
-        if (data_envio) where.data_cadastro = data_envio;
+
+        // if (data_envio) where.data_cadastro = data_envio;
         if (parceiro) where.parceiro = parceiro;
         if (cpf) where.cpf = cpf;
         if (matricula) where.matricula = matricula;
@@ -75,12 +80,13 @@ const MargemController = {
         if (senha) where.senha = senha;
         if (valor_margem) where.valor_margem = valor_margem;
         if (data_inclusao) where.data_inclusao = data_inclusao;
+        if (cpf_supervisor) where.cpf_supervisor = cpf_supervisor;
+
         where.id_parceiro = id_parceiro;
         where.responsavel = userNome;
         where.gerente = gerente;
         where.supervisor = supervisor;
         where.cnpj = userCpf;
-        where.data_inclusao = data_inclusao
 
         try {
 
@@ -105,7 +111,10 @@ const MargemController = {
                 cnpj_matriz: userCnpjMatriz,
                 supervisor,
                 gerente,
-                data_inclusao
+                data_inclusao,
+                id_acesso,
+                cpf_supervisor,
+                cpf_gerente
 
             })
             if (createMargem)
@@ -182,7 +191,7 @@ const MargemController = {
                 BuscaMargem.convenio = convenio
                 BuscaMargem.senha = senha
                 BuscaMargem.valor_margem = valor_margem
-                BuscaMargem.responsavel =responsavel
+                BuscaMargem.responsavel = responsavel
                 BuscaMargem.data_atualizacao = data_atualizacao
 
                 BuscaMargem.save();

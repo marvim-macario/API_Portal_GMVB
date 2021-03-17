@@ -30,6 +30,9 @@ router.post('/email', UserController.send);
 //rota para alterar senha senha
 router.post('/reset', UserController.update);
 
+//Rota para buscar cpfs de gerente e supervisor
+router.post('/buscar', UserController.BuscaCpf);
+
 //pagina home 
 router.post('/home', HomeController.Grafico)
 //rotas para popular campos

@@ -23,7 +23,12 @@ module.exports = (sequelize, DataTypes) => {
         arquivo3: DataTypes.STRING,
         arquivo4: DataTypes.STRING,
         arquivo5: DataTypes.STRING,
-        arquivo6: DataTypes.STRING
+        arquivo6: DataTypes.STRING,
+        cpf_parceiro: DataTypes.STRING,
+        cpf_supervisor: DataTypes.STRING,
+        cpf_gerenete: DataTypes.STRING,
+        data_inclusao: DataTypes.STRING,
+        id_acesso: DataTypes.STRING
     }, {
         tableName: 'atualizacao_cliente',
         timestamps: false

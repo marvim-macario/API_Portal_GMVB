@@ -26,7 +26,12 @@ module.exports = (sequelize, DataTypes) => {
         proposta: DataTypes.STRING,
         cpf: DataTypes.STRING,
         matricula: DataTypes.STRING,
-        original_parcela: DataTypes.STRING
+        original_parcela: DataTypes.STRING,
+        id_acesso: DataTypes.STRING,
+        cpf_supervisor: DataTypes.STRING,
+        cpf_gerente: DataTypes.STRING,
+        cpf_parceiro: DataTypes.STRING,
+        data_inclusao: DataTypes.STRING
 
     }, {
         tableName: 'averbacao_goias',

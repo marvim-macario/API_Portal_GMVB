@@ -18,7 +18,14 @@ module.exports = (sequelize, DataTypes) => {
         status:DataTypes.STRING,
         parcela:DataTypes.STRING,
         arquivo1:DataTypes.STRING,
-        id_parceiro:DataTypes.STRING
+        id_parceiro:DataTypes.STRING,
+        id_acesso: DataTypes.STRING,
+        cpf_parceiro: DataTypes.STRING,
+        supervisor: DataTypes.STRING,
+        cpf_supervisor: DataTypes.STRING,
+        gerente: DataTypes.STRING,
+        cpf_gerente: DataTypes.STRING,
+        data_inclusao: DataTypes.STRING
     
     }, {
         tableName: 'saldo_fer',

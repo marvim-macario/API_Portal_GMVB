@@ -17,7 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         telefone: DataTypes.STRING,
         status_inss: DataTypes.STRING,
         arquivo1: DataTypes.STRING,
-        id_parceiro: DataTypes.STRING
+        id_parceiro: DataTypes.STRING,
+        cpf_parceiro: DataTypes.STRING,
+        cpf_supervisor: DataTypes.STRING,
+        cpf_gerente: DataTypes.STRING,
+        id_acesso: DataTypes.STRING,
+        data_inclusao: DataTypes.STRING
 
     }, {
         tableName: 'inss_sms',
