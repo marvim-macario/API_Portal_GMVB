@@ -66,7 +66,8 @@ const MargemController = {
             data_inclusao,
             id_acesso,
             cpf_supervisor,
-            cpf_gerente
+            cpf_gerente,
+            cpf_parceiro,
 
         } = req.body;
 
@@ -98,7 +99,7 @@ const MargemController = {
                 return res.status(200).json("Margem já cadastradana base de dados");
 
             const createMargem = await margem.create({
-
+                id_parceiro,
                 convenio,
                 cpf,
                 matricula,
@@ -114,7 +115,9 @@ const MargemController = {
                 data_inclusao,
                 id_acesso,
                 cpf_supervisor,
-                cpf_gerente
+                cpf_gerente,
+                cpf_parceiro,
+                status: "AGUARDANDO CONSULTA DE MARGEM"
 
             })
             if (createMargem)
@@ -186,7 +189,8 @@ const MargemController = {
             senha,
             valor_margem,
             responsavel,
-            data_atualizacao
+            data_atualizacao,
+            status
         } = req.body;
 
         try {
@@ -210,6 +214,7 @@ const MargemController = {
                 BuscaMargem.valor_margem = valor_margem
                 BuscaMargem.responsavel = responsavel
                 BuscaMargem.data_atualizacao = data_atualizacao
+                BuscaMargem.status = "MARGEM RESPONDIDA"
 
                 BuscaMargem.save();
 
