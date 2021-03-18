@@ -11,15 +11,9 @@ const ComissaoController = require('../controllers/ComissaoController');
 const SaldoDevedorController = require('../controllers/SaldoDevedorController');
 const HomeController = require('../controllers/HomeController');
 const MargemController = require('../controllers/MargemController');
-const SaldoFerController = require('../controllers/SaldoFerController');
-const CancelamentoContreller = require('../controllers/CancelamentoController');
-const AprovacaoPropostaController = require('../controllers/AprovacaoPropostaController');
-const MargemGovernoController = require('../controllers/MargemGovernoController');
-const ParceirosRestritosController = require('../controllers/ParceirosRestritosController');
-const AtualizacaoClienteController = require('../controllers/AtualizacaoClienteController');
-const AverbacaoGoiasController = require('../controllers/AverbacaoGoiasController');
-const AutorizacaoInssController = require('../controllers/AutorizacaoInssController');
-const ListaNegraController = require('../controllers/ListaNegraController');
+const Service = require('../service/panService');
+const ImobiliarioController = require('../controllers/ImobiliarioController')
+
 
 //teste
 router.get('/', (req, res) => {
@@ -257,7 +251,6 @@ router.post('/averbacao/goias/inserir', AverbacaoGoiasController.Inserir)
 router.post('/averbacao/goias/anexo', multer(multerConfig).single("anexo_print_margem"), AverbacaoGoiasController.Anexo)
 router.post('/averbacao/goias/atualizar', AverbacaoGoiasController.Atualizar)
 
-// autorização inss
 router.post('/autorizacao/inss/filtro', AutorizacaoInssController.Filtro)
 router.post('/autorizacao/inss/modal', AutorizacaoInssController.Modal)
 router.post('/autorizacao/inss/inserir', AutorizacaoInssController.Inserir)
@@ -266,5 +259,11 @@ router.post('/autorizacao/inss/atualizar', AutorizacaoInssController.Atualizar)
 
 //Lista negra
 router.post('/lista/negra/inserir', ListaNegraController.inclusao)
+
+ //service pan 
+ router.get('/pan',Service.Auth);
+ router.post('/pan/consulta',Service.FindUser);
+
+router.post('/imobiliario/pesquisar',ImobiliarioController.Pesquisar);
 
 module.exports = router;
