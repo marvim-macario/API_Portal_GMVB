@@ -11,6 +11,8 @@ const ComissaoController = require('../controllers/ComissaoController');
 const SaldoDevedorController = require('../controllers/SaldoDevedorController');
 const HomeController = require('../controllers/HomeController');
 const MargemController = require('../controllers/MargemController');
+const Service = require('../service/panService');
+const ImobiliarioController = require('../controllers/ImobiliarioController')
 
 
 //teste
@@ -133,6 +135,10 @@ router.post('/comissao/alterar',multer(ecxelConfig).single('alterar_propostas'),
  router.post('/margem/incluir/anexo',multer(multerConfig).single('anexo_print_margem'),MargemController.Anexo)
  router.post('/margem/alterar',MargemController.Update);
 
+ //service pan 
+ router.get('/pan',Service.Auth);
+ router.post('/pan/consulta',Service.FindUser);
 
+router.post('/imobiliario/pesquisar',ImobiliarioController.Pesquisar);
 
 module.exports = router;
