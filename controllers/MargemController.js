@@ -87,7 +87,7 @@ const MargemController = {
         where.responsavel = userNome;
         where.gerente = gerente;
         where.supervisor = supervisor;
-        where.cnpj = userCpf;
+        where.cpf = userCpf;
 
         try {
 

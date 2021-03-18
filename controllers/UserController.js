@@ -35,8 +35,22 @@ const UserController = {
             return res.status(401).send("usuario inativo")
         }
 
+        const buscaCpfSupervisor = await cadastro.findOne({
+            where: {
+                parceiro: user.supervisor
+            }
+        })
+
+        const buscaCpfGerente = await cadastro.findOne({
+            where: {
+                parceiro: user.gerente
+            }
+        })
+
         return res.status(200).send({
-            user
+            user,
+            supervisor_cpf: buscaCpfSupervisor.cnpj,
+            gerente_cpf: buscaCpfGerente.cnpj
         });
     },
 
