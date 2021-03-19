@@ -119,7 +119,7 @@ const PropostaController = {
                     });
                 }
 
-                
+
                 where.id_acesso = parceiros;
 
 
@@ -256,7 +256,7 @@ const PropostaController = {
         }
     },
 
-     FiltroPropostaIdentificacao: async (req, res) => {
+    FiltroPropostaIdentificacao: async (req, res) => {
         const {
             id_acesso,
             cnpj_matriz,

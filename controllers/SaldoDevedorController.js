@@ -101,7 +101,14 @@ const SaldoDevedorController = {
             renda,
             banco_origi,
             id_parceiro,
-            idt_margem
+            idt_margem,
+            data_inclusao,
+            id_acesso,
+            cpf_supervisor,
+            cpf_gerente,
+            cpf_parceiro,
+            supervisor,
+            gerente
         } = req.body;
 
         const user = await saldo_devedor.findOne({
@@ -131,7 +138,16 @@ const SaldoDevedorController = {
             renda: renda,
             banco_origi: banco_origi,
             id_parceiro: id_parceiro,
-            idt_margem: idt_margem
+            idt_margem: idt_margem,
+            idt_margem: idt_margem,
+            data_inclusao: data_inclusao,
+            id_acesso: id_acesso,
+            cpf_supervisor: cpf_supervisor,
+            cpf_gerente: cpf_gerente,
+            cpf_parceiro: cpf_parceiro,
+            gerente: gerente,
+            supervisor: supervisor,
+            status: "AGUARDANDO CONSULTA DE SALDO DEVEDOR"
         });
 
         return res.status(200).send(" Incluído com sucesso!");
@@ -146,7 +162,6 @@ const SaldoDevedorController = {
             taxa_juros,
             responsavel,
             data_atualizacao,
-            status,
             codigo
         } = req.body;
 
@@ -156,7 +171,7 @@ const SaldoDevedorController = {
             taxa_juros: taxa_juros,
             responsavel: responsavel,
             data_atualizacao: data_atualizacao,
-            status: status
+            status: "SALDO RESPONDIDO"
 
         }, {
             where: {

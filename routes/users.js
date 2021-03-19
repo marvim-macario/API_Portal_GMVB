@@ -11,6 +11,15 @@ const ComissaoController = require('../controllers/ComissaoController');
 const SaldoDevedorController = require('../controllers/SaldoDevedorController');
 const HomeController = require('../controllers/HomeController');
 const MargemController = require('../controllers/MargemController');
+const SaldoFerController = require('../controllers/SaldoFerController');
+const CancelamentoContreller = require('../controllers/CancelamentoController');
+const AprovacaoPropostaController = require('../controllers/AprovacaoPropostaController');
+const MargemGovernoController = require('../controllers/MargemGovernoController');
+const ParceirosRestritosController = require('../controllers/ParceirosRestritosController');
+const AtualizacaoClienteController = require('../controllers/AtualizacaoClienteController');
+const AverbacaoGoiasController = require('../controllers/AverbacaoGoiasController');
+const AutorizacaoInssController = require('../controllers/AutorizacaoInssController');
+const ListaNegraController = require('../controllers/ListaNegraController');
 const Service = require('../service/panService');
 const ImobiliarioController = require('../controllers/ImobiliarioController')
 
