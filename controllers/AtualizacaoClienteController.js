@@ -51,7 +51,12 @@ const AtualizacaoClienteController = {
             parceiro,
             supervisor,
             gerente,
-            obs
+            obs,
+            data_inclusao,
+            id_acesso,
+            cpf_supervisor,
+            cpf_gerente,
+            cpf_parceiro,
         } = req.body
 
         let where = {}
@@ -67,6 +72,11 @@ const AtualizacaoClienteController = {
         supervisor ? where.supervisor = supervisor : where.supervisor = ""
         gerente ? where.gerente = gerente : where.gerente = ""
         obs ? where.obs = obs : where.obs = ""
+        data_inclusao ? where.data_inclusao = data_inclusao  : where.data_inclusao = ""
+        id_acesso ? where.id_acesso = id_acesso  : where.id_acesso = ""
+        cpf_supervisor ? where.cpf_supervisor = cpf_supervisor  : where.cpf_supervisor = ""
+        cpf_gerente ? where.cpf_gerente = cpf_gerente : where.cpf_gerente = ""
+        cpf_parceiro ? where.cpf_parceiro = cpf_parceiro : where.cpf_parceiro = ""
 
         const atualizacaoCliente = await atualizacao_cliente.create(where)
 
@@ -87,7 +97,7 @@ const AtualizacaoClienteController = {
 
         (identificacao) ? identificacao = req.files.identificacao[0].originalname: identificacao = null;
         (endereco) ? endereco = req.files.endereco[0].originalname: endereco = null;
-        (renda) ? renda = req.files.renda[0].originalname: endereco = null;
+        (renda) ? renda = req.files.renda[0].originalname: renda = null;
 
         const alreadyClientExists = await atualizacao_cliente.findOne({
             where: {
@@ -138,11 +148,9 @@ const AtualizacaoClienteController = {
             correntista,
             cpf,
             nome,
-            parceiro,
-            supervisor,
-            gerente,
             obs,
             responsavel,
+            data_atualizacao
         } = req.body;
 
         const alreadyIdExists = await atualizacao_cliente.findOne({
@@ -167,11 +175,9 @@ const AtualizacaoClienteController = {
         alreadyIdExists.correntista = correntista;
         alreadyIdExists.cpf = cpf;
         alreadyIdExists.nome = nome;
-        alreadyIdExists.parceiro = parceiro;
-        alreadyIdExists.supervisor = supervisor;
-        alreadyIdExists.gerente = gerente;
         alreadyIdExists.obs = obs;
-        alreadyIdExists.data_atualizacao = data.toLocaleDateString();
+        alreadyIdExists.data_atualizacao = data_atualizacao;
+        alreadyIdExists.responsavel = responsavel
 
         alreadyIdExists.save();
         return res.json(alreadyIdExists);

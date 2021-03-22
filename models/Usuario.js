@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         tipo_parceiro2: DataTypes.STRING,
         cpf_usuario: DataTypes.STRING,
         supervisor: DataTypes.STRING,
-        gerente: DataTypes.STRING,
+        gerente: DataTypes.STRING
       },{
           tableName: 'acesso_completo',
           timestamps:false

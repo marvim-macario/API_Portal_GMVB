@@ -73,7 +73,15 @@ const AutorizacaoInssController = {
             cpf,
             nome,
             telefone,
-            status_inss
+            status_inss,
+            data_inclusao,
+            id_acesso,
+            cpf_supervisor,
+            cpf_gerente,
+            cpf_parceiro,
+            gerente,
+            supervisor,
+            id_parceiro
         } = req.body
 
         const insertAutorizacaoInss = await inss_sms.create({
@@ -82,7 +90,15 @@ const AutorizacaoInssController = {
             cpf,
             nome,
             telefone,
-            status_inss
+            status_inss,
+            data_inclusao,
+            id_acesso,
+            cpf_supervisor,
+            cpf_gerente,
+            cpf_parceiro,
+            gerente,
+            supervisor,
+            id_parceiro
         })
 
         return res.status(200).json(insertAutorizacaoInss)
@@ -120,7 +136,9 @@ const AutorizacaoInssController = {
     Atualizar: async (req, res) => {
         const {
             codigo,
-            status_inss
+            status_inss,
+            responsavel,
+            data_alteracao
         } = req.body;
 
         const autorizacaoInssExists = await inss_sms.findOne({
@@ -137,6 +155,9 @@ const AutorizacaoInssController = {
 
 
         autorizacaoInssExists.status_inss = status_inss;
+        autorizacaoInssExists.responsavel = responsavel;
+        autorizacaoInssExists.data_alteracao = data_alteracao;
+        
         autorizacaoInssExists.save();
         
         return res.status(200).json(autorizacaoInssExists)

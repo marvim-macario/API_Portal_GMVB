@@ -29,7 +29,9 @@ module.exports = (sequelize, DataTypes) => {
             cpf_supervisor: DataTypes.STRING,
             gerente: DataTypes.STRING,
             cpf_gerente: DataTypes.STRING,
-            data_inclusao: DataTypes.STRING
+            data_inclusao: DataTypes.STRING,
+            cpf_parceiro: DataTypes.STRING
+          
     }, {
         tableName: 'saldo_devedor',
         timestamps: false

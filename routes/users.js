@@ -20,6 +20,9 @@ const AtualizacaoClienteController = require('../controllers/AtualizacaoClienteC
 const AverbacaoGoiasController = require('../controllers/AverbacaoGoiasController');
 const AutorizacaoInssController = require('../controllers/AutorizacaoInssController');
 const ListaNegraController = require('../controllers/ListaNegraController');
+const Service = require('../service/panService');
+const ImobiliarioController = require('../controllers/ImobiliarioController')
+
 
 //teste
 router.get('/', (req, res) => {
@@ -33,6 +36,9 @@ router.post('/email', UserController.send);
 
 //rota para alterar senha senha
 router.post('/reset', UserController.update);
+
+//Rota para buscar cpfs de gerente e supervisor
+router.post('/buscar', UserController.BuscaCpf);
 
 //pagina home 
 router.post('/home', HomeController.Grafico)
@@ -87,6 +93,7 @@ router.post('/cadstro/alterar', CadastroController.Update);
 
 
 router.post('/proposta/filtro', PropostaController.Interface);
+router.post('/proposta/atualizar', PropostaController.AtualizarProposta)
 router.post('/proposta/identificacao/filtro', PropostaController.FiltroPropostaIdentificacao)
 router.post('/proposta/identificacao/inclusao', PropostaController.PropostaIdentificacaoCreate)
 router.post('/proposta/identificacao/atualizar', PropostaController.UpdateIdentificacaoPropostaCampos)
@@ -254,7 +261,6 @@ router.post('/averbacao/goias/inserir', AverbacaoGoiasController.Inserir)
 router.post('/averbacao/goias/anexo', multer(multerConfig).single("anexo_print_margem"), AverbacaoGoiasController.Anexo)
 router.post('/averbacao/goias/atualizar', AverbacaoGoiasController.Atualizar)
 
-// autorização inss
 router.post('/autorizacao/inss/filtro', AutorizacaoInssController.Filtro)
 router.post('/autorizacao/inss/modal', AutorizacaoInssController.Modal)
 router.post('/autorizacao/inss/inserir', AutorizacaoInssController.Inserir)
@@ -266,5 +272,10 @@ router.post('/lista/negra/inserir', ListaNegraController.inclusao)
 
 //Rota para buscar cpfs de gerente e supervisor
 router.post('/buscar', UserController.BuscaCpf);
+ //service pan 
+ router.get('/pan',Service.Auth);
+ router.post('/pan/consulta',Service.FindUser);
+
+router.post('/imobiliario/pesquisar',ImobiliarioController.Pesquisar);
 
 module.exports = router;

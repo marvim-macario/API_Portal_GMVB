@@ -72,7 +72,15 @@ const AverbacaoGoiasController = {
             validade_senha,
             parcela_original,
             matricula,
-            status
+            status,
+            supervisor,
+            gerente,
+            data_inclusao,
+            id_acesso,
+            cpf_supervisor,
+            cpf_gerente,
+            cpf_parceiro,
+            id_parceiro
         } = req.body;
 
         const averbacaoGoiasInserir = await averbacao_goias.create({
@@ -86,7 +94,15 @@ const AverbacaoGoiasController = {
             validade_senha,
             parcela_original,
             matricula,
-            status
+            status,
+            supervisor,
+            gerente,
+            data_inclusao,
+            id_acesso,
+            cpf_supervisor,
+            cpf_gerente,
+            cpf_parceiro,
+            id_parceiro
         })
 
         return res.status(201).json(averbacaoGoiasInserir)
@@ -124,7 +140,9 @@ const AverbacaoGoiasController = {
     Atualizar: async (req, res) => {
         const {
             codigo,
-            status
+            status,
+            responsavel,
+            data_atualizacao
         } = req.body
 
         const averbacaoExists = await averbacao_goias.findOne({
@@ -135,6 +153,9 @@ const AverbacaoGoiasController = {
 
         if(averbacaoExists) {
             averbacaoExists.status = status;
+            averbacaoExists.responsavel = responsavel;
+            averbacaoExists.data_atualizacao = data_atualizacao;
+
             averbacaoExists.save();
 
             return res.status(200).json(averbacaoExists)

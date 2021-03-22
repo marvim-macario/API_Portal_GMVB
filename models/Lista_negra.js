@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
         data_atualizacao: DataTypes.STRING,
         data_inclusao: DataTypes.STRING,
         gerente: DataTypes.STRING,
-        cpf_supervisor: DataTypes.STRING
+        cpf_supervisor: DataTypes.STRING,
+        id_parceiro: DataTypes.STRING
     }, {
         tableName: 'lista_negra',
         timestamps: false
