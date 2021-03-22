@@ -93,6 +93,7 @@ router.post('/cadstro/alterar', CadastroController.Update);
 
 
 router.post('/proposta/filtro', PropostaController.Interface);
+router.post('/proposta/atualizar', PropostaController.AtualizarProposta)
 router.post('/proposta/identificacao/filtro', PropostaController.FiltroPropostaIdentificacao)
 router.post('/proposta/identificacao/inclusao', PropostaController.PropostaIdentificacaoCreate)
 router.post('/proposta/identificacao/atualizar', PropostaController.UpdateIdentificacaoPropostaCampos)

@@ -53,7 +53,7 @@ const PropostaController = {
             horario,
             validade_contrato,
             etapa_sms,
-            tipo_banco
+            tipo_banco,
 
         } = req.body;
 
@@ -254,6 +254,109 @@ const PropostaController = {
             default:
                 res.send("tipo usuario não aceito")
         }
+    },
+
+    AtualizarProposta: async (req, res) => {
+        const {
+            codigo,
+            parceiro,
+            id_acesso,
+            supervisor,
+            gerente,
+            tipo_parceiro,
+            proposta,
+            data_envio,
+            banco,
+            status,
+            produto,
+            tipo,
+            entregue,
+            valor_troco,
+            convenio,
+            banco_port1,
+            numero_portabilidade,
+            parcela,
+            seguro,
+            qtdp_pagaport1,
+            nome,
+            cpf,
+            telefone_ddd_1,
+            telefone1,
+            correntista,
+            telefone4,
+            matricula,
+            agendamento,
+            dia,
+            horario,
+            exercito,
+            senha_exercito,
+            sexo,
+            data_nascimento,
+            email_cliente,
+            uf,
+            observacao,
+
+        } = req.body;
+
+        try {
+            const existsProposta = await propostas.findOne({
+                where: {
+                    codigo
+                }
+            })
+
+            if(!existsProposta) {
+                return res.status(401).json({message: "Proposta não encontrada"})
+            }
+
+            existsProposta.parceiro = parceiro;
+            existsProposta.id_acesso = id_acesso;
+            existsProposta.supervisor = supervisor;
+            existsProposta.gerente = gerente;
+            existsProposta.tipo_parceiro = tipo_parceiro;
+            existsProposta.proposta = proposta;
+            existsProposta.data_envio = data_envio;
+            existsProposta.banco = banco;
+            existsProposta.status = status;
+            existsProposta.produto = produto;
+            existsProposta.tipo = tipo;
+            existsProposta.entregue = entregue;
+            existsProposta.valor_troco = valor_troco;
+            existsProposta.convenio = convenio;
+            existsProposta.banco_port1 = banco_port1;
+            existsProposta.numero_portabilidade = numero_portabilidade;
+            existsProposta.parcela = parcela;
+            existsProposta.seguro = seguro;
+            existsProposta.qtdp_pagaport1 = qtdp_pagaport1;
+            existsProposta.nome = nome;
+            existsProposta.cpf = cpf;
+            existsProposta.telefone_ddd_1 = telefone_ddd_1;
+            existsProposta.telefone1 = telefone1;
+            existsProposta.correntista = correntista;
+            existsProposta.telefone4 = telefone4;
+            existsProposta.matricula = matricula;
+            existsProposta.agendamento = agendamento;
+            existsProposta.dia = dia;
+            existsProposta.horario = horario;
+            existsProposta.exercito = exercito;
+            existsProposta.senha_exercito = senha_exercito;
+            existsProposta.sexo = sexo;
+            existsProposta.data_nascimento = data_nascimento;
+            existsProposta.email_cliente = email_cliente;
+            existsProposta.uf = uf;
+            existsProposta.observacao = observacao;
+
+            existsProposta.save();
+            return res.status(200).json(existsProposta);
+
+
+        } catch (error) {
+            console.log(error)
+        }
+
+
+
+
     },
 
     FiltroPropostaIdentificacao: async (req, res) => {
@@ -749,6 +852,7 @@ const PropostaController = {
 
         return res.send("Proposta não identificada");
 
-    }
+    },
+
 }
 module.exports = PropostaController;
