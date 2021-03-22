@@ -19,7 +19,12 @@ const CancelamentoContreller = {
             responsavel,
             obs,
             empresa,
-            cpf
+            data_atualizacao,
+            cpf,
+            cpf_parceiro,
+            cpf_supervisor,
+            cpf_gerente,
+            id_acesso
         } = req.body;
 
         const IncluirCancelamento = await cancelamento.create({
@@ -34,7 +39,12 @@ const CancelamentoContreller = {
             responsavel: responsavel,
             obs: obs,
             empresa: empresa,
-            cpf: cpf
+            data_atualizacao:data_atualizacao,
+            cpf: cpf,
+            cpf_parceiro: cpf_parceiro,
+            cpf_supervisor: cpf_supervisor,
+            cpf_gerente: cpf_gerente,
+            id_acesso: id_acesso
         });
         return res.status(200).send(IncluirCancelamento);
     },
@@ -110,7 +120,9 @@ const CancelamentoContreller = {
             motivo_cancelamento1,
             parceiro,
             supervisor,
-            gerente
+            gerente,
+            responsavel,
+            data_atualizacao
         } = req.body
 
         try {
@@ -132,6 +144,8 @@ const CancelamentoContreller = {
             BuscaCancelamento.parceiro = parceiro
             BuscaCancelamento.supervisor = supervisor
             BuscaCancelamento.gerente = gerente
+            BuscaCancelamento.responsavel = responsavel
+            BuscaCancelamento.data_atualizacao = data_atualizacao
             BuscaCancelamento.save()
             return res.status(200).json(BuscaCancelamento)
 

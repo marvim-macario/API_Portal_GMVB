@@ -16,7 +16,12 @@ module.exports = (sequelize, DataTypes) => {
         supervisor: DataTypes.STRING,
         gerente: DataTypes.STRING,
         data_alteracao: DataTypes.STRING,
-        responsavel: DataTypes.STRING
+        responsavel: DataTypes.STRING,
+        cpf_supervisor: DataTypes.STRING,
+        cpf_gerente: DataTypes.STRING,
+        cpf_parceiro: DataTypes.STRING,
+        id_acesso: DataTypes.STRING,
+        data_atualizacao: DataTypes.STRING
     },{
         tableName: 'fluxo_digital',
         timestamps: false

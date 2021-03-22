@@ -18,7 +18,12 @@ const MargemGovernoController = {
             parceiro,
             data_venda,
             supervisor,
-            gerente
+            gerente,
+            id_acesso,
+            cpf_parceiro,
+            cpf_supervisor,
+            cpf_gerente,
+            responsavel
         } = req.body;
 
         const IncluirMargemGoverno = await margem_governo.create({
@@ -32,7 +37,12 @@ const MargemGovernoController = {
             parceiro: parceiro,
             data_venda: data_venda,
             supervisor: supervisor,
-            gerente: gerente
+            gerente: gerente,
+            id_acesso: id_acesso,
+            cpf_parceiro: cpf_parceiro,
+            cpf_supervisor: cpf_supervisor,
+            cpf_gerente: cpf_gerente,
+            responsavel: responsavel
         });
         return res.status(200).send(IncluirMargemGoverno);
     },

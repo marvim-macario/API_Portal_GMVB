@@ -264,4 +264,7 @@ router.post('/autorizacao/inss/atualizar', AutorizacaoInssController.Atualizar)
 //Lista negra
 router.post('/lista/negra/inserir', ListaNegraController.inclusao)
 
+//Rota para buscar cpfs de gerente e supervisor
+router.post('/buscar', UserController.BuscaCpf);
+
 module.exports = router;

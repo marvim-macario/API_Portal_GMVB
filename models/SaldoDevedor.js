@@ -23,7 +23,13 @@ module.exports = (sequelize, DataTypes) => {
             banco_origi: DataTypes.STRING, 
             id_parceiro: DataTypes.STRING, 
             idt_margem: DataTypes.STRING, 
-          
+            id_acesso: DataTypes.STRING,
+            cpf_usuario: DataTypes.STRING,
+            supervisor: DataTypes.STRING,
+            cpf_supervisor: DataTypes.STRING,
+            gerente: DataTypes.STRING,
+            cpf_gerente: DataTypes.STRING,
+            data_inclusao: DataTypes.STRING
     }, {
         tableName: 'saldo_devedor',
         timestamps: false

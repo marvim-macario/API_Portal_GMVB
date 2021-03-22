@@ -18,7 +18,12 @@ const AprovacaoPropostaController = {
             supervisor,
             gerente,
             data_alteracao,
-            responsavel
+            responsavel,
+            cpf_supervisor,
+            cpf_gerente,
+            cpf_parceiro,
+            id_acesso,
+            data_atualizacao
         } = req.body;
 
         const IncluirAprovacao = await fluxo_digital.create({
@@ -32,7 +37,12 @@ const AprovacaoPropostaController = {
             supervisor: supervisor,
             gerente: gerente,
             data_alteracao: data_alteracao,
-            responsavel: responsavel
+            responsavel: responsavel,
+            cpf_supervisor: cpf_supervisor,
+            cpf_gerente: cpf_gerente,
+            cpf_parceiro: cpf_parceiro,
+            id_acesso: id_acesso,
+            data_atualizacao: data_atualizacao
         });
         return res.status(200).send(IncluirAprovacao);
     },
@@ -99,7 +109,10 @@ const AprovacaoPropostaController = {
             status,
             banco,
             tipo,
-            cpf
+            cpf,
+            data_alteracao,
+            responsavel,
+            data_atualizacao
         }= req.body
 
         try{
@@ -118,6 +131,9 @@ const AprovacaoPropostaController = {
             BuscaAprovacao.banco = banco
             BuscaAprovacao.tipo = tipo
             BuscaAprovacao.cpf = cpf
+            BuscaAprovacao.data_alteracao = data_alteracao
+            BuscaAprovacao.responsavel = responsavel
+            BuscaAprovacao.data_atualizacao = data_atualizacao
             BuscaAprovacao.save()
             return res.status(200).json(BuscaAprovacao)
         } catch (error) {

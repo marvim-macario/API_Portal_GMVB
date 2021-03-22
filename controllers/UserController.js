@@ -1,6 +1,7 @@
 const {
     acesso_completo,
-    acessos
+    acessos,
+    cadastro
 } = require('../models');
 
 const mailer = require('../modules/mailer');
@@ -34,8 +35,22 @@ const UserController = {
             return res.status(401).send("usuario inativo")
         }
 
-        res.status(200).send({
-            user
+        const buscaCpfSupervisor = await cadastro.findOne({
+            where: {
+                parceiro: user.supervisor
+            }
+        })
+
+        const buscaCpfGerente = await cadastro.findOne({
+            where: {
+                parceiro: user.gerente
+            }
+        })
+
+        return res.status(200).send({
+            user,
+            supervisor_cpf: buscaCpfSupervisor.cnpj,
+            gerente_cpf: buscaCpfGerente.cnpj
         });
     },
 
@@ -394,6 +409,37 @@ const UserController = {
 
         user.save()
         res.send("o acesso foi alterado com sucesso")
+
+    },
+
+    BuscaCpf: async (req, res) => {
+        const {
+            supervisor,
+            gerente
+        } = req.body;
+
+        const supervisorBuscaCpf = await cadastro.findOne({
+            where: {
+                parceiro: supervisor
+            }
+        })
+
+        const gerenteBuscaCpf = await cadastro.findOne({
+            where: {
+                parceiro: gerente
+            }
+        })
+
+        if (supervisorBuscaCpf && gerenteBuscaCpf) {
+            return res.status(200).json({
+                supervisor_cpf: supervisorBuscaCpf.cnpj,
+                gerente_cpf: gerenteBuscaCpf.cnpj
+            })
+        }
+
+        return res.status(400).json({
+            message: "Supervisor ou Gerente não existem"
+        })
 
     }
 

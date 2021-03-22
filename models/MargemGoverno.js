@@ -16,7 +16,12 @@ module.exports = (sequelize, DataTypes) =>{
         parceiro: DataTypes.STRING,
         data_venda: DataTypes.STRING,
         supervisor: DataTypes.STRING,
-        gerente: DataTypes.STRING
+        gerente: DataTypes.STRING,
+        id_acesso: DataTypes.STRING,
+        cpf_parceiro: DataTypes.STRING,
+        cpf_supervisor: DataTypes.STRING,
+        cpf_gerente: DataTypes.STRING,
+        responsavel: DataTypes.STRING
     },{
         tableName: 'margem_governo',
         timestamps: false

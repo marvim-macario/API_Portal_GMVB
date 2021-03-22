@@ -21,7 +21,14 @@ IncluirSaldoFer: async (req, res) => {
         status,
         parcela,
         arquivo1,
-        id_parceiro
+        id_parceiro,
+        id_acesso,
+        cpf_parceiro,
+        supervisor,
+        cpf_supervisor,
+        gerente,
+        cpf_gerente,
+        data_inclusao
     } = req.body;
 
             const IncluirSaldoFer = await saldo_fer.create({
@@ -38,7 +45,15 @@ IncluirSaldoFer: async (req, res) => {
                 status:'AGUARDANDO CONSULTA FER',
                 parcela:parcela,
                 arquivo1:arquivo1,
-                id_parceiro:id_parceiro
+                id_parceiro:id_parceiro,
+                id_acesso:id_acesso,
+                cpf_parceiro:cpf_parceiro,
+                supervisor:supervisor,
+                cpf_supervisor:cpf_supervisor,
+                gerente:gerente,
+                cpf_gerente:cpf_gerente,
+                data_inclusao:data_inclusao
+
             });
             return res.status(200).send(IncluirSaldoFer);
     },
@@ -72,7 +87,9 @@ IncluirSaldoFer: async (req, res) => {
             codigo,
             data_envio,
             parceiro,
-            cpf
+            cpf,
+            responsavel,
+            data_atualizacao
         } = req.body
 
         try {
@@ -87,7 +104,9 @@ IncluirSaldoFer: async (req, res) => {
 
             BuscaSaldofer.data_envio = data_envio,
             BuscaSaldofer.parceiro = parceiro,
-            BuscaSaldofer.cpf = cpf
+            BuscaSaldofer.cpf = cpf,
+            BuscaSaldofer.responsavel = responsavel,
+            BuscaSaldofer.data_atualizacao = data_atualizacao
 
             BuscaSaldofer.status = 'FER RESPONDIDO'
 

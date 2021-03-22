@@ -17,7 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         responsavel: DataTypes.STRING,
         obs: DataTypes.STRING,
         empresa: DataTypes.STRING,
-        cpf: DataTypes.STRING
+        data_atualizacao: DataTypes.STRING,
+        cpf: DataTypes.STRING,
+        cpf_parceiro: DataTypes.STRING,
+        cpf_supervisor: DataTypes.STRING,
+        cpf_gerente: DataTypes.STRING,
+        id_acesso: DataTypes.STRING
     }, {
         tableName: 'cancelamento',
         timestamps: false

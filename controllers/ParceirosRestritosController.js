@@ -24,7 +24,16 @@ const ParceirosRestritosController = {
             cnpj_1,
             cnpj_2,
             cnpj_4,
-            cnpj_3
+            cnpj_3,
+            parceiro,
+            supervisor,
+            gerente,
+            id_acesso,
+            cpf_parceiro,
+            cpf_supervisor,
+            cpf_gerente,
+            data_inclusao,
+            data_atualizacao
         } = req.body;
 
         const ParceirosRestritos = await lista_cpf.create({
@@ -43,7 +52,16 @@ const ParceirosRestritosController = {
             cnpj_1:cnpj_1,
             cnpj_2:cnpj_2,
             cnpj_4:cnpj_4,
-            cnpj_3:cnpj_3
+            cnpj_3:cnpj_3,
+            parceiro:parceiro,
+            supervisor:supervisor,
+            gerente:gerente,
+            id_acesso:id_acesso,
+            cpf_parceiro:cpf_parceiro,
+            cpf_supervisor:cpf_supervisor,
+            cpf_gerente:cpf_gerente,
+            data_inclusao:data_inclusao,
+            data_atualizacao:data_atualizacao
         });
         return res.status(200).send(ParceirosRestritos);
     },
@@ -56,7 +74,7 @@ const ParceirosRestritosController = {
             userNome,
             usuario,
         
-            //parceiro
+            parceiro,
             cnpj
         } = req.body;
         
@@ -64,7 +82,8 @@ const ParceirosRestritosController = {
         if (usuario) where.usuario = {
             [Op.substring]: usuario
         };
-        //if (userCpf) where.responsavel = responsavel;
+        
+        if (parceiro) where.parceiro = parceiro;
         if (cnpj) where.cnpj = cnpj;
         if (userTipousuario === 'PARCEIRO' && userPerfil === 'MATRIZ' || userTipousuario === 'PARCEIRO' && userPerfil === 'SUB ACESSO') where.cnpj = userCpf;
         if (userTipousuario === 'SUPERVISOR') where.supervisor = userNome;
@@ -102,7 +121,7 @@ const ParceirosRestritosController = {
             id_cpf,
             cpf, 
             //data_criacao, 
-            //responsavel,
+            responsavel,
             nome,
             cnpj,
             razao_social, 
@@ -115,7 +134,8 @@ const ParceirosRestritosController = {
             cnpj_1,
             cnpj_2,
             cnpj_4,
-            cnpj_3
+            cnpj_3,
+            data_atualizacao
         } = req.body
 
         try {
@@ -140,6 +160,8 @@ const ParceirosRestritosController = {
             BuscaParcRest.cnpj_2 = cnpj_2
             BuscaParcRest.cnpj_4 = cnpj_4
             BuscaParcRest.cnpj_3 = cnpj_3
+            BuscaParcRest.responsavel = responsavel
+            BuscaParcRest.data_atualizacao = data_atualizacao
             BuscaParcRest.save()
             return res.status(200).json(BuscaParcRest)
         } catch (error) {

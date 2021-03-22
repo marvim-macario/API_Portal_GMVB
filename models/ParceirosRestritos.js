@@ -22,6 +22,15 @@ module.exports = (sequelize, DataTypes) => {
         cnpj_2: DataTypes.STRING,
         cnpj_4: DataTypes.STRING,
         cnpj_3: DataTypes.STRING,
+        id_acesso: DataTypes.STRING,
+        parceiro: DataTypes.STRING,
+        cpf_parceiro: DataTypes.STRING,
+        supervisor: DataTypes.STRING,
+        cpf_supervisor: DataTypes.STRING,
+        gerente: DataTypes.STRING,
+        cpf_gerente: DataTypes.STRING,
+        data_inclusao: DataTypes.STRING,
+        data_atualizacao: DataTypes.STRING
     },{
         tableName: 'lista_cpf',
         timestamps: false
