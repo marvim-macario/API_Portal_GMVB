@@ -1,10 +1,14 @@
-const { imobiliario } = require('../models')
+const  { imobiliario } = require('../models/')
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op
+
 const  Acesso  = require('../modules/niveisdeAcesso.js')
 
 
 const ImobiliarioController = {
     Pesquisar: async (req,res)=>{
-    const {userPerfil,userCpf,userTipousuario,userNome,userCnpjMatriz,parceiro,nome_operador,gerente,supervisor,status,imovel,
+    const {userPerfil,userCpf,userTipousuario,userNome,userCnpjMatriz,
+        parceiro,nome_operador,gerente,supervisor,status,imovel,
         tipo_imovel,
         cpf,
         proposta,
@@ -14,11 +18,13 @@ const ImobiliarioController = {
         uf,
         identificacao_imovel,
         banco} = req.body;
-        
+        console.log(req.body)
     
        let where = Acesso(userPerfil,userCpf,userTipousuario,userNome,userCnpjMatriz)
 
-        if(parceiro) where.parceiro = parceiro;
+       if (parceiro) where.parceiro = {
+        [Op.like]: parceiro
+    }
         if(nome_operador)where.nome_operador = nome_operador;
         if(gerente) where.gerente = gerente;
         if(supervisor) where.supervisor = supervisor;
@@ -71,10 +77,140 @@ const ImobiliarioController = {
             nome_operador
         } = req.body;
 
+      
+      try {
+          
+      
+        const created = await imobiliario.create({
+            proposta,
+            data_solicitacao,
+            valor_financiado,
+            modalidade,
+            status,
+            tipo_imovel,
+            banco,
+            telefone_promotor,
+            autorizacao,
+            data_retorno,
+            nome,
+            cpf,
+            data_nascimento,
+            uf,
+            telefone,
+            telefone_alternativo,
+            parceiro,
+            supervisor,
+            gerente,
+            nome_operador
+        })
+
+        if(created)
+            return res.status(201).send(created);
+
+        } catch (error) {
+          console.log(error)
+        }
+
 
         
-    }
+    },
 
+    IncluirArquivos: async (req, res)=>{
+        let { 
+         minuta,
+         comprovanteEstadoCivil,
+         comprovanteResidencia,
+         extratobancario1,
+         extatobancario2,
+         extratobancario3,
+         outros5,
+         outros6,
+         outros7
+        } = req.files;
+         const {
+            proposta,
+            data_solicitacao,
+            valor_financiado,
+            modalidade,
+            status,
+            tipo_imovel,
+            banco,
+            telefone_promotor,
+            autorizacao,
+            data_retorno,
+            nome,
+            cpf,
+            data_nascimento,
+            uf,
+            telefone,
+            telefone_alternativo,
+            parceiro,
+            supervisor,
+            gerente,
+            nome_operador,
+            observacao
+        } = req.body;
+
+
+
+        (minuta) ? minuta = req.files.minuta[0].originalname: minuta = null;
+        (comprovanteEstadoCivil) ? comprovanteEstadoCivil = req.files.comprovanteEstadoCivil[0].originalname: comprovanteEstadoCivil =null;
+        (comprovanteResidencia) ? comprovanteResidencia = req.files.comprovanteResidencia[0].originalname: comprovanteResidencia = null;
+        (extratobancario1) ? extratobancario1 = req.files.extratobancario1[0].originalname: extratobancario1 = null;
+        (extatobancario2) ?  extratobancario2 = req.files.extratobancario2[0].originalname: extratobancario2 = null;
+        (extratobancario3) ?  extratobancario3 = req.files.extratobancario3[0].originalname: extratobancario3 = null;
+        (outros5) ? outros5 = req.files.outros5[0].originalname: outros5=null;
+        (outros6) ? outros6 = req.files.outros6[0].originalname: outros6=null;
+        (outros7) ? outros7 = req.files.outros7[0].originalname: outros7=null;
+
+        try {
+          
+      
+            const created = await imobiliario.create({
+                proposta,
+                data_solicitacao,
+                valor_financiado,
+                modalidade,
+                status,
+                tipo_imovel,
+                banco,
+                telefone_promotor,
+                autorizacao,
+                data_retorno,
+                nome,
+                cpf,
+                data_nascimento,
+                uf,
+                telefone,
+                telefone_alternativo,
+                parceiro,
+                supervisor,
+                gerente,
+                nome_operador,
+                observacao,
+                arquivo1: minuta,
+                arquivo2:comprovanteEstadoCivil,
+                arquivo3:comprovanteResidencia,
+                arquivo5:extratobancario1,
+                arquivo6:extatobancario2,
+                arquivo7:extratobancario3,
+                arquivo8:outros5,
+                arquivo9:outros6,
+                arquivo10:outros7
+            })
+    
+            if(created)
+               res.status(201).send(created)
+            
+    
+            } catch (error) {
+              console.log(error)
+            //   res.send(error)
+            }
+    
+  
+    }
+    
 }
 
 module.exports = ImobiliarioController

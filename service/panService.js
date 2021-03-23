@@ -46,7 +46,30 @@ const PanService = {
        
         res.status(400).json(error)
       });
-}
+  },
+  ConsultarContratos: async(req, res)=>{
+    const {codigo_promotora,codigo_convenio,cpf,matricula}= req.body
+
+    res.status(200).send({
+      
+        "contratos":[{
+          "Saldo": "5000,00",
+          "Valor Parcela": 231.00,
+          "Total Parcelas": 44,
+          "Parcelas em Aberto": 30,
+          "Há Vencer": 16,
+          "Vencidas": 0
+        },{
+          "Saldo": "5000,00",
+          "Valor Parcela": 231.00,
+          "Total Parcelas": 44,
+          "Parcelas em Aberto": 30,
+          "Há Vencer": 16,
+          "Vencidas": 0
+        }]
+      
+    })
+  }
 }
 
 module.exports = PanService
