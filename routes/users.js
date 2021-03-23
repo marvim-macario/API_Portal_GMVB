@@ -22,15 +22,8 @@ const AutorizacaoInssController = require('../controllers/AutorizacaoInssControl
 const ListaNegraController = require('../controllers/ListaNegraController');
 const Service = require('../service/panService');
 const ImobiliarioController = require('../controllers/ImobiliarioController');
-const SaldoFerController = require('../controllers/SaldoFerController');
 const CancelamentoController = require('../controllers/CancelamentoController');
-const AprovacaoPropostaController = require('../controllers/AprovacaoPropostaController');
-const MargemGovernoController = require('../controllers/MargemGovernoController');
-const ParceirosRestritosController = require('../controllers/ParceirosRestritosController');
-const AtualizacaoClienteController = require('../controllers/AtualizacaoClienteController');
-const AverbacaoGoiasController = require('../controllers/AverbacaoGoiasController');
-const AutorizacaoInssController =require('../controllers/AutorizacaoInssController');
-const ListaNegraController = require('../controllers/ListaNegraController');
+
 const { ConsultarContratos } = require('../service/panService');
 
 
