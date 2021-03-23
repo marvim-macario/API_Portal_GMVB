@@ -8,6 +8,7 @@ const MargemGovernoController = {
 
     IncluirMargemGoverno: async (req, res) => {
         const {
+            data_inclusao,
             cpf,
             agencia,
             conta,
@@ -27,6 +28,7 @@ const MargemGovernoController = {
         } = req.body;
 
         const IncluirMargemGoverno = await margem_governo.create({
+            data_inclusao,
             cpf: cpf,
             agencia: agencia,
             conta: conta,

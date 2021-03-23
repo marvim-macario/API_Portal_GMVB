@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         arquivo6: DataTypes.STRING,
         cpf_parceiro: DataTypes.STRING,
         cpf_supervisor: DataTypes.STRING,
-        cpf_gerenete: DataTypes.STRING,
+        cpf_gerente: DataTypes.STRING,
         data_inclusao: DataTypes.STRING,
         id_acesso: DataTypes.STRING
     }, {
