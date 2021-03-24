@@ -363,7 +363,11 @@ module.exports = (sequelize, DataTypes) => {
         digito_conta:DataTypes.STRING,
         email:DataTypes.STRING, 
         id_sim:DataTypes.STRING,
-        url:DataTypes.STRING 
+        url:DataTypes.STRING,
+        cpf_parceiro:DataTypes.STRING,
+        cpf_gerente:DataTypes.STRING,
+        cpf_supervisor:DataTypes.STRING,
+        data_inclusao:DataTypes.STRING
     }, 
         {
         tableName: 'propostas',

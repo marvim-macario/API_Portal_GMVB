@@ -277,5 +277,47 @@ router.post('/buscar', UserController.BuscaCpf);
  router.post('/pan/consulta',Service.FindUser);
 
 router.post('/imobiliario/pesquisar',ImobiliarioController.Pesquisar);
+// router.post('/imobiliario/inclusao',ImobiliarioController.Incluir)
+// router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
+//     name: 'minuta',
+//     maxCount: 1
+// },
+// {
+//     name: 'comprovanteEstadoCivil',
+//     maxCount: 1
+// },
+// {
+//     name: 'comprovanteResidencia',
+//     maxCount: 1
+// },
+// {
+//     name: 'extratobancario1',
+//     maxCount: 1
+// },
+// {
+//     name: 'extatobancario2',
+//     maxCount: 1
+// },
+// {
+//     name: 'extratobancario3',
+//     maxCount: 1
+// },
+// {
+//     name: 'outros5',
+//     maxCount: 1
+// },
+// {
+//     name: 'outros6',
+//     maxCount: 1
+// },
+// {
+//     name: 'outros7',
+//     maxCount: 1
+// },
+
+
+
+
+// ]), ImobiliarioController.IncluirArquivos);
 
 module.exports = router;

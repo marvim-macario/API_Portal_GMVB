@@ -295,6 +295,8 @@ const PropostaController = {
             email_cliente,
             uf,
             observacao,
+            responsavel,
+            data_atualizacao
 
         } = req.body;
 
@@ -305,8 +307,10 @@ const PropostaController = {
                 }
             })
 
-            if(!existsProposta) {
-                return res.status(401).json({message: "Proposta não encontrada"})
+            if (!existsProposta) {
+                return res.status(401).json({
+                    message: "Proposta não encontrada"
+                })
             }
 
             existsProposta.parceiro = parceiro;
@@ -345,6 +349,8 @@ const PropostaController = {
             existsProposta.email_cliente = email_cliente;
             existsProposta.uf = uf;
             existsProposta.observacao = observacao;
+            existsProposta.responsavel = responsavel;
+            existsProposta.data_atualizacao = data_atualizacao;
 
             existsProposta.save();
             return res.status(200).json(existsProposta);
@@ -599,6 +605,10 @@ const PropostaController = {
             email_cliente,
             uf,
             observacao,
+            cpf_supervisor,
+            cpf_gerente,
+            cpf_parceiro,
+            data_inclusao,
 
         } = req.body;
 
@@ -639,6 +649,10 @@ const PropostaController = {
             email_cliente,
             uf,
             observacao,
+            cpf_supervisor,
+            cpf_gerente,
+            cpf_parceiro,
+            data_inclusao
         })
         if (creatdProposta)
             res.send(creatdProposta)
@@ -655,7 +669,15 @@ const PropostaController = {
             produto,
             tipo,
             cpf,
-            nome
+            nome,
+            parceiro,
+            supervisor,
+            gerente,
+            id_acesso,
+            cpf_parceiro,
+            cpf_supervisor,
+            cpf_gerente,
+            data_inclusao
         } = req.body
 
         const propostaAlreadyExists = await propostas.findOne({
@@ -675,7 +697,15 @@ const PropostaController = {
                 produto,
                 tipo,
                 cpf,
-                nome
+                nome,
+                parceiro,
+                supervisor,
+                gerente,
+                cpf_parceiro,
+                cpf_supervisor,
+                cpf_gerente,
+                data_inclusao,
+                id_acesso
             })
 
             return res.status(201).json(createIdentificacaoProposta);
@@ -821,7 +851,9 @@ const PropostaController = {
             data_nascimento,
             endereco_uf_comercial,
             cpf,
-            observacao
+            observacao,
+            responsavel,
+            data_atualizacao
         } = req.body
 
         const proposta = await propostas.findOne({
@@ -844,7 +876,9 @@ const PropostaController = {
                 proposta.data_nascimento = data_nascimento,
                 proposta.endereco_uf_comercial = endereco_uf_comercial,
                 proposta.cpf = cpf,
-                proposta.observacao = observacao
+                proposta.observacao = observacao,
+                proposta.responsavel = responsavel,
+                proposta.data_atualizacao = data_atualizacao
 
             proposta.save()
             res.status(201).json(proposta)
