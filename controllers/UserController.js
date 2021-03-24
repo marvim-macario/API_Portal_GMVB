@@ -441,6 +441,20 @@ const UserController = {
             message: "Supervisor ou Gerente não existem"
         })
 
+    },
+
+    BuscaVinculo: async (req, res) => {
+        const nome = req.body.nome;
+
+        const vinculoExists = await acesso_completo.findOne({
+            where: {
+                nome
+            }
+        })
+
+        const retorno = vinculoExists.nome
+
+        return res.status(200).json(retorno)
     }
 
 }
