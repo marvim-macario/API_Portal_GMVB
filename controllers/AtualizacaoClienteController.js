@@ -44,7 +44,7 @@ const AtualizacaoClienteController = {
             data_cadastro,
             status,
             sub_status,
-            tipo_atualizacao,
+            tipo,
             correntista,
             cpf,
             nome,
@@ -64,7 +64,7 @@ const AtualizacaoClienteController = {
         data_cadastro ? where.data_cadastro = data_cadastro : where.data_cadastro = ""
         status ? where.status = status : where.status = ""
         sub_status ? where.sub_status = sub_status : where.sub_status = ""
-        tipo_atualizacao ? where.tipo = tipo_atualizacao : where.tipo = ""
+        tipo ? where.tipo = tipo : where.tipo = ""
         correntista ? where.correntista = correntista : where.correntista = ""
         cpf ? where.cpf = cpf : where.cpf = ""
         nome ? where.nome = nome : where.nome = ""

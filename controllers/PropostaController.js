@@ -759,7 +759,7 @@ const PropostaController = {
                 }
             });
 
-            // console.log(arquivo);
+          
 
             arquivo.arquivo1 = proposta;
             arquivo.arquivo2 = identificacao;

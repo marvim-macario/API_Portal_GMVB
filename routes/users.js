@@ -21,7 +21,12 @@ const AverbacaoGoiasController = require('../controllers/AverbacaoGoiasControlle
 const AutorizacaoInssController = require('../controllers/AutorizacaoInssController');
 const ListaNegraController = require('../controllers/ListaNegraController');
 const Service = require('../service/panService');
-const ImobiliarioController = require('../controllers/ImobiliarioController')
+const ImobiliarioController = require('../controllers/ImobiliarioController');
+const CancelamentoController = require('../controllers/CancelamentoController');
+
+const { ConsultarContratos } = require('../service/panService');
+
+
 
 
 //teste
@@ -87,7 +92,7 @@ router.post('/cadastro/busca/acesso', UserController.PreencherAcesso)
 
 
 //busca cadastros para preencher acessos vinculados no cpf
-router.post('/cadastro/buscar', UserController.BuscarAcesso)
+router.post('/cadastro/buscar', UserController.BuscarAcesso);
 router.post('/cadstro/alterar', CadastroController.Update);
 
 
@@ -211,10 +216,10 @@ router.post('/comissao/alterar',multer(ecxelConfig).single('alterar_propostas'),
  router.post('/saldofer/incluir/arquivos',multer(multerConfig).single('anexo_print_fer'),SaldoFerController.Anexo)
 
  //Solicitação cancelamento
- router.post('/cancelamento/incluir',CancelamentoContreller.IncluirCancelamento);
- router.post('/cancelamento/filtro', CancelamentoContreller.Filtro);
- router.post('/cancelamento/modal', CancelamentoContreller.Modal);
- router.post('/cancelamento/alterar', CancelamentoContreller.Alterar);
+ router.post('/cancelamento/incluir',CancelamentoController.IncluirCancelamento);
+ router.post('/cancelamento/filtro', CancelamentoController.Filtro);
+ router.post('/cancelamento/modal', CancelamentoController.Modal);
+ router.post('/cancelamento/alterar', CancelamentoController.Alterar);
 
  //Aprovação proposta digittal
  router.post('/aprovacaoproposta/incluir', AprovacaoPropostaController.IncluirAprovacao);
@@ -275,49 +280,52 @@ router.post('/buscar', UserController.BuscaCpf);
  //service pan 
  router.get('/pan',Service.Auth);
  router.post('/pan/consulta',Service.FindUser);
+ router.post('/pan/consultar/contratos',ConsultarContratos);
 
+
+ //imobiliario
 router.post('/imobiliario/pesquisar',ImobiliarioController.Pesquisar);
-// router.post('/imobiliario/inclusao',ImobiliarioController.Incluir)
-// router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
-//     name: 'minuta',
-//     maxCount: 1
-// },
-// {
-//     name: 'comprovanteEstadoCivil',
-//     maxCount: 1
-// },
-// {
-//     name: 'comprovanteResidencia',
-//     maxCount: 1
-// },
-// {
-//     name: 'extratobancario1',
-//     maxCount: 1
-// },
-// {
-//     name: 'extatobancario2',
-//     maxCount: 1
-// },
-// {
-//     name: 'extratobancario3',
-//     maxCount: 1
-// },
-// {
-//     name: 'outros5',
-//     maxCount: 1
-// },
-// {
-//     name: 'outros6',
-//     maxCount: 1
-// },
-// {
-//     name: 'outros7',
-//     maxCount: 1
-// },
+router.post('/imobiliario/inclusao',ImobiliarioController.Incluir)
+router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
+    name: 'minuta',
+    maxCount: 1
+},
+{
+    name: 'comprovanteEstadoCivil',
+    maxCount: 1
+},
+{
+    name: 'comprovanteResidencia',
+    maxCount: 1
+},
+{
+    name: 'extratobancario1',
+    maxCount: 1
+},
+{
+    name: 'extatobancario2',
+    maxCount: 1
+},
+{
+    name: 'extratobancario3',
+    maxCount: 1
+},
+{
+    name: 'outros5',
+    maxCount: 1
+},
+{
+    name: 'outros6',
+    maxCount: 1
+},
+{
+    name: 'outros7',
+    maxCount: 1
+},
 
 
 
 
-// ]), ImobiliarioController.IncluirArquivos);
+]), ImobiliarioController.IncluirArquivos);
 
 module.exports = router;

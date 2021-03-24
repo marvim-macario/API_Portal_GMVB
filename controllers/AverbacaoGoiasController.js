@@ -62,7 +62,7 @@ const AverbacaoGoiasController = {
 
     Inserir: async (req, res) => {
         const {
-            data_cadastro,
+            data_envio,
             parceiro,
             tipo,
             valor_solicitado,
@@ -84,7 +84,7 @@ const AverbacaoGoiasController = {
         } = req.body;
 
         const averbacaoGoiasInserir = await averbacao_goias.create({
-            data_cadastro,
+            data_envio,
             parceiro,
             tipo,
             valor_solicitado,

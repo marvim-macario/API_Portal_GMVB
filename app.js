@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 
 
 //implementando rotas
-// app.use('/', index);
+
 app.use('/user', usersRoute);
 app.use(
     "/arquivos",
