@@ -287,6 +287,8 @@ router.post('/buscar', UserController.BuscaCpf);
 
 
  //imobiliario
+router.get('/imobiliario/status', ImobiliarioController.StatusImobiliario);
+router.get('/imobiliario/imovel', ImobiliarioController.ImovelImobiliario);
 router.post('/imobiliario/pesquisar',ImobiliarioController.Pesquisar);
 router.post('/imobiliario/inclusao',ImobiliarioController.Incluir)
 router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
@@ -325,8 +327,6 @@ router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
     name: 'outros7',
     maxCount: 1
 },
-
-
 
 
 ]), ImobiliarioController.IncluirArquivos);

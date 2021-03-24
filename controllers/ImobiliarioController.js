@@ -209,6 +209,27 @@ const ImobiliarioController = {
             }
     
   
+    },
+
+    StatusImobiliario: async (req, res) => {
+        const listaStatus = await imobiliario.findAll({
+            attributes: [
+                // specify an array where the first element is the SQL function and the second is the alias
+                [Sequelize.fn('DISTINCT', Sequelize.col('status')) ,'status']
+            ]
+        })
+
+        return res.status(200).json(listaStatus);
+    },
+
+    ImovelImobiliario: async (req, res) => {
+        const listaImovel = await imobiliario.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('imovel')), 'imovel']
+            ]
+        })
+
+        return res.status(200).json(listaImovel);
     }
     
 }
