@@ -8,7 +8,6 @@ const mailer = require('../modules/mailer');
 const crypto = require('crypto');
 
 
-
 const UserController = {
 
     //metodo de login 
@@ -48,7 +47,7 @@ const UserController = {
         })
 
         return res.status(200).send({
-            user,
+            user : user,
             supervisor_cpf: buscaCpfSupervisor.cnpj,
             gerente_cpf: buscaCpfGerente.cnpj
         });
@@ -455,7 +454,7 @@ const UserController = {
         const retorno = vinculoExists.nome
 
         return res.status(200).json(retorno)
-    }
+    },
 
 }
 

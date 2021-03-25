@@ -331,4 +331,7 @@ router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
 
 ]), ImobiliarioController.IncluirArquivos);
 
+router.post('/imobiliario/logs', ImobiliarioController.BuscaLogs);
+router.post('/imobiliario/alterar', ImobiliarioController.Alterar)
+
 module.exports = router;
