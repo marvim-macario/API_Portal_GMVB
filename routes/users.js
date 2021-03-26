@@ -45,6 +45,9 @@ router.post('/reset', UserController.update);
 //Rota para buscar cpfs de gerente e supervisor
 router.post('/buscar', UserController.BuscaCpf);
 
+//Seta víncula em propostas
+router.post('/vinculo', UserController.BuscaVinculo);
+
 //pagina home 
 router.post('/home', HomeController.Grafico)
 //rotas para popular campos
@@ -285,6 +288,8 @@ router.post('/buscar', UserController.BuscaCpf);
 
 
  //imobiliario
+router.get('/imobiliario/status', ImobiliarioController.StatusImobiliario);
+router.get('/imobiliario/imovel', ImobiliarioController.ImovelImobiliario);
 router.post('/imobiliario/pesquisar',ImobiliarioController.Pesquisar);
 router.post('/imobiliario/inclusao',ImobiliarioController.Incluir)
 router.post('/imobiliario/alterar', ImobiliarioController.Alterar)
@@ -326,8 +331,9 @@ router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
 },
 
 
-
-
 ]), ImobiliarioController.IncluirArquivos);
+
+router.post('/imobiliario/logs', ImobiliarioController.BuscaLogs);
+router.post('/imobiliario/alterar', ImobiliarioController.Alterar)
 
 module.exports = router;
