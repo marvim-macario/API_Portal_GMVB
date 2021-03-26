@@ -69,6 +69,7 @@ router.get('/comissao/datasupervisor',PreencherCamposController.DataPagamentoSup
 router.get('/comissao/competencia',PreencherCamposController.Competencia);
 router.get('/margem/status',PreencherCamposController.StatusMargem);
 router.get('/bancoOrigi', PreencherCamposController.BancoOrigi);
+router.get('/imobiliario/status', ImobiliarioController.StatusImobiliario)
 
 // router.get('/banco',PreencherCamposController)
 
@@ -286,6 +287,7 @@ router.post('/buscar', UserController.BuscaCpf);
  //imobiliario
 router.post('/imobiliario/pesquisar',ImobiliarioController.Pesquisar);
 router.post('/imobiliario/inclusao',ImobiliarioController.Incluir)
+router.post('/imobiliario/alterar', ImobiliarioController.Alterar)
 router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
     name: 'minuta',
     maxCount: 1

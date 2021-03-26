@@ -209,6 +209,75 @@ const ImobiliarioController = {
             }
     
   
+    },
+
+    StatusImobiliario: async (req, res) => {
+        const listaStatus = await imobiliario.findAll({
+            attributes: [
+                // specify an array where the first element is the SQL function and the second is the alias
+                [Sequelize.fn('DISTINCT', Sequelize.col('status')) ,'status']
+            ]
+        })
+
+        return res.status(200).json(listaStatus);
+    },
+
+    Alterar: async (req, res) => {
+        const{
+            codigo,
+            proposta,
+            data_solicitacao,
+            valor_financiado,
+            modalidade,
+            status,
+            tipo_imovel,
+            banco,
+            telefone_promotor,
+            autorizacao,
+            data_retorno,
+            nome,
+            cpf,
+            data_nascimento,
+            uf,
+            telefone,
+            telefone_alternativo,
+            responsavel,
+            data_atualizacao
+        }= req.body
+
+        try {
+            const BuscaImobiliario = await imobiliario.findOne({
+                where: {
+                    codigo
+                }
+            })
+
+            if(!BuscaImobiliario){
+                return res.send("Imobiliario inexistente")
+            }
+            BuscaImobiliario.proposta = proposta
+            BuscaImobiliario.data_solicitacao = data_solicitacao
+            BuscaImobiliario.valor_financiado = valor_financiado
+            BuscaImobiliario.modalidade = modalidade
+            BuscaImobiliario.status = status
+            BuscaImobiliario.tipo_imovel = tipo_imovel
+            BuscaImobiliario.banco = banco
+            BuscaImobiliario.telefone_promotor = telefone_promotor
+            BuscaImobiliario.autorizacao = autorizacao
+            BuscaImobiliario.data_retorno = data_retorno
+            BuscaImobiliario.nome = nome
+            BuscaImobiliario.cpf = cpf
+            BuscaImobiliario.data_nascimento = data_nascimento
+            BuscaImobiliario.uf = uf
+            BuscaImobiliario.telefone = telefone
+            BuscaImobiliario.telefone_alternativo = telefone_alternativo
+            BuscaImobiliario.responsavel = responsavel
+            BuscaImobiliario.data_atualizacao = data_atualizacao
+            BuscaImobiliario.save()
+            return res.status(200).json(BuscaImobiliario)
+        } catch (error) {
+            
+        }
     }
     
 }
