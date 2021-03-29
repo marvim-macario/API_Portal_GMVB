@@ -23,6 +23,7 @@ const ListaNegraController = require('../controllers/ListaNegraController');
 const Service = require('../service/panService');
 const ImobiliarioController = require('../controllers/ImobiliarioController');
 const CancelamentoController = require('../controllers/CancelamentoController');
+const SacController = require('../controllers/SacController');
 
 const { ConsultarContratos } = require('../service/panService');
 
@@ -334,6 +335,27 @@ router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
 ]), ImobiliarioController.IncluirArquivos);
 
 router.post('/imobiliario/logs', ImobiliarioController.BuscaLogs);
-router.post('/imobiliario/alterar', ImobiliarioController.Alterar)
+router.post('/imobiliario/alterar', ImobiliarioController.Alterar);
+router.post('/sac/filtro', SacController.Filtro);
+router.post('/sac/incluir', SacController.IncluirSac);
+router.post('/sac/atualizar', SacController.Atualizar);
+router.post('/sac/anexo', multer(multerConfig).fields([
+    {
+        name: 'arquivo1',
+        macCount: 1
+    },
+    {
+        name: 'arquivo2',
+        maxCount: 1
+    },
+    {
+        name: 'arquivo3',
+        macCount: 1
+    },
+    {
+        name: 'arquivo4',
+        maxCount: 1
+    }
+]), SacController.Anexo)
 
 module.exports = router;
