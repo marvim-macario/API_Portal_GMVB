@@ -252,7 +252,7 @@ const ImobiliarioController = {
         const listaLogs = await logs_imobiliario.findAll({
             where: {
                 codigo: codigo
-            }}),
+            }})
             if (listaLogs.length > 0) {
                 return res.status(200).json(listaLogs);
             }
