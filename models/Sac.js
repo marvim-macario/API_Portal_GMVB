@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
         id_sac: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: true,           
+            autoIncrement: true,
         },
         nome:DataTypes.STRING,
         cpf:DataTypes.STRING,
@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         id_acesso:DataTypes.STRING
     },{
         tableName: 'sac',
-        timestamps: false    
+        timestamps: false
     })
     return Sac;
 };
