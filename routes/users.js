@@ -24,7 +24,6 @@ const Service = require('../service/panService');
 const ImobiliarioController = require('../controllers/ImobiliarioController');
 const CancelamentoController = require('../controllers/CancelamentoController');
 const SacController = require('../controllers/SacController');
-
 const { ConsultarContratos } = require('../service/panService');
 
 

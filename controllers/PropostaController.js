@@ -49,7 +49,7 @@ const PropostaController = {
             data_corte,
             empresa_sms,
             convenio,
-            data_vinculo,
+            // data_vinculo,
             horario,
             validade_contrato,
             etapa_sms,
@@ -90,7 +90,7 @@ const PropostaController = {
         if (data_corte) where.data_corte = data_corte;
         if (empresa_sms) where.empresa_sms = empresa;
         if (convenio) where.convenio = convenio;
-        if (data_vinculo) where.data_vinculo = data_vinculo;
+        // if (data_vinculo) where.data_vinculo = data_vinculo;
         if (horario) where.horario = horario;
         if (etapa_sms) where.etapa_sms = etapa_sms;
         if (data_envio) where.data_envio = data_envio;

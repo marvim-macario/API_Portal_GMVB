@@ -9,6 +9,7 @@ const Acesso = require('../modules/niveisdeAcesso.js')
 
 const SacController = {
     Filtro: async (req, res) => {
+
         const {
             classificacao,
             status,
@@ -44,13 +45,15 @@ const SacController = {
             const filtroExiste = await sac.findAll({
                 where
             })
-            res.status(200).send(filtroExiste);
+
+            res.status(200).json(filtroExiste)
+
         } catch (error) {
             console.log(error)
         }
 
     },
-
+    
     IncluirSac: async (req, res) => {
         const {
             nome,
@@ -63,7 +66,6 @@ const SacController = {
             resposta,
             questionamento,
             banco,
-            status,
             data_alteracao,
             responsavel,
             protocolo,
@@ -99,7 +101,7 @@ const SacController = {
             resposta: resposta,
             questionamento: questionamento,
             banco: banco,
-            status: status,
+            status: "EM ANDAMENTO",
             data_alteracao: data_alteracao,
             responsavel: responsavel,
             protocolo: protocolo,
@@ -123,57 +125,71 @@ const SacController = {
             cpf_gerente: cpf_gerente,
             id_acesso: id_acesso
         });
+
         return res.status(200).send(IncluirSac);
     },
 
     Atualizar: async (req, res) => {
-        const {
-            id_sac,
+        const codigo_sac = req.body.id_sac;
 
+        const {
             nome,
             cpf,
             telefone,
             email,
             data_recebimento,
-            data_inclusao,
             data_resposta,
             resposta,
             questionamento,
             banco,
-            status,
             data_alteracao,
             responsavel,
             protocolo,
             classificacao,
             valor_operacao,
             contrato,
-            parceiro,
-            supervisor,
-            gerente,
             tempo_atuacao,
-            arquivo2,
-            arquivo1,
-            mes,
-            arquivo3,
-            arquivo4,
             protocolo_banco,
             procedente,
-            empresa,
-            cpf_parceiro,
-            cpf_supervisor,
-            cpf_gerente,
-            id_acesso
+            empresa
         } = req.body;
 
         const IncluirSac = await sac.findOne({
             where: {
-                id_sac: id_sac
+                id_sac: codigo_sac
             }
         });
 
-        if(IncluirSac) {
-            return res.status(200).send(IncluirSac);        
+        if (IncluirSac) {
+            IncluirSac.nome = nome
+            IncluirSac.cpf = cpf
+            IncluirSac.telefone = telefone
+            IncluirSac.email = email
+            IncluirSac.data_recebimento = data_recebimento
+            IncluirSac.data_resposta = data_resposta
+            IncluirSac.resposta = resposta
+            IncluirSac.questionamento = questionamento
+            IncluirSac.banco = banco
+            IncluirSac.data_alteracao = data_alteracao
+            IncluirSac.responsavel = responsavel
+            IncluirSac.protocolo = protocolo
+            IncluirSac.classificacao = classificacao
+            IncluirSac.valor_operacao = valor_operacao
+            IncluirSac.contrato = contrato
+            IncluirSac.tempo_atuacao = tempo_atuacao
+            IncluirSac.protocolo_banco = protocolo_banco
+            IncluirSac.procedente = procedente
+            IncluirSac.empresa = empresa
+            IncluirSac.status = "RESPONDIDO"
+
+            IncluirSac.save();
+            return res.status(200).json(IncluirSac);
         }
+
+        return res.status(401).json({
+            message: "Ocorreu um erro durante a atualização"
+        })
+
     },
 
     Anexo: async (req, res) => {
@@ -189,10 +205,10 @@ const SacController = {
             id_sac
         } = req.query;
 
-        (arquivo1) ?  arquivo1 = req.files.arquivo1[0].originalname : arquivo1 = null;
-        (arquivo2) ?  arquivo2 = req.files.arquivo2[0].originalname : arquivo2 = null;
-        (arquivo3) ?  arquivo3 = req.files.arquivo3[0].originalname : arquivo3 = null;
-        (arquivo4) ?  arquivo4 = req.files.arquivo4[0].originalname : arquivo4 = null;
+        (arquivo1) ? arquivo1 = req.files.arquivo1[0].originalname: arquivo1 = null;
+        (arquivo2) ? arquivo2 = req.files.arquivo2[0].originalname: arquivo2 = null;
+        (arquivo3) ? arquivo3 = req.files.arquivo3[0].originalname: arquivo3 = null;
+        (arquivo4) ? arquivo4 = req.files.arquivo4[0].originalname: arquivo4 = null;
 
         try {
             const Sac = await sac.findOne({
@@ -214,6 +230,8 @@ const SacController = {
             console.log(error)
         }
     },
+
+
 
 }
 
