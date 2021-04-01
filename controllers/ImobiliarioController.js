@@ -39,6 +39,7 @@ const ImobiliarioController = {
         if (parceiro) where.parceiro = {
             [Op.like]: parceiro
         }
+        
         if (nome_operador) where.nome_operador = nome_operador;
         if (gerente) where.gerente = gerente;
         if (supervisor) where.supervisor = supervisor;
