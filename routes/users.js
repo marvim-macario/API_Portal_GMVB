@@ -25,7 +25,7 @@ const ImobiliarioController = require('../controllers/ImobiliarioController');
 const CancelamentoController = require('../controllers/CancelamentoController');
 const SacController = require('../controllers/SacController');
 const { ConsultarContratos } = require('../service/panService');
-
+const LancamentosController = require('../controllers/LancamentosController');
 
 
 
@@ -379,6 +379,8 @@ router.post('/sac/anexo', multer(multerConfig).fields([
 ]), SacController.Anexo)
 
 router.post('/sac/atualizar', SacController.Atualizar);
-
+router.post('/financeiro/filtro', LancamentosController.Filtro);
+router.post('/financeiro/incluir', LancamentosController.IncluirLancamento);
+router.post('/financeiro/alterar', LancamentosController.Alterar);
 
 module.exports = router;

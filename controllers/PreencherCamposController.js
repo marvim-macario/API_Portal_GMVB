@@ -1,5 +1,5 @@
 // controller para popular selects das paginas 
-const { cadastro,status_margem, status, tipo , empresa, banco, sub_status,filial, produto, proposta_comissao, banco_origi } = require('../models');
+const { cadastro,status_margem, status, tipo , empresa, banco, sub_status,filial, produto, proposta_comissao, banco_origi, lancamentos } = require('../models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
@@ -326,7 +326,6 @@ const PreencherCamposController = {
         });
         res.status(200).send(bancoOrigi);
     }
-
 }
 
 module.exports = PreencherCamposController
