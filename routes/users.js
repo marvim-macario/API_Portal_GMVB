@@ -387,4 +387,9 @@ router.post('/financeiro/busca', LancamentosController.BuscarCnpj);
 router.post('/financeiro/incluir', LancamentosController.IncluirLancamento);
 router.post('/financeiro/alterar', LancamentosController.Alterar);
 
+//Relatórios de cadastros
+router.get('/pagamento', PreencherCamposController.BasePagamento);
+router.get('/emails', PreencherCamposController.BaseEmails);
+router.get('/comissionamento', PreencherCamposController.Comissionamento);
+router.get('/propostabb', PreencherCamposController.PropostaBB);
 module.exports = router;

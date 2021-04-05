@@ -1,39 +1,60 @@
 // controller para popular selects das paginas 
-const { cadastro,status_margem, status, tipo , empresa, banco, sub_status,filial, produto, proposta_comissao, banco_origi } = require('../models');
+const {
+    cadastro,
+    status_margem,
+    status,
+    tipo,
+    empresa,
+    banco,
+    sub_status,
+    filial,
+    produto,
+    proposta_comissao,
+    banco_origi,
+    proposta_chavej
+} = require('../models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
 
 const PreencherCamposController = {
 
-    Parceiro: async( req, res )=>{
+    Parceiro: async (req, res) => {
 
-        const { cnpj } = req.body;
+        const {
+            cnpj
+        } = req.body;
 
         try {
             const parceiro = await cadastro.findAll({
 
-                attributes:['parceiro'],
-                where:{
+                attributes: ['parceiro'],
+                where: {
                     cnpj
                 }
             })
 
-            if(!parceiro)
-                return res.status(400).send({erro:"nao encontrado"});
+            if (!parceiro)
+                return res.status(400).send({
+                    erro: "nao encontrado"
+                });
 
             return res.status(200).send(parceiro);
         } catch (error) {
 
-            return res.status(500).send({erro:"erro interno"});
+            return res.status(500).send({
+                erro: "erro interno"
+            });
         }
-      
+
 
     },
 
-    Secundario:async( req, res )=>{
+    Secundario: async (req, res) => {
 
-        const { cnpj } = req.body;
+        const {
+            cnpj
+        } = req.body;
 
         const supervisor = await cadastro.findAll({
             attributes: ['parceiro'],
@@ -42,37 +63,39 @@ const PreencherCamposController = {
                     [Op.in]: ['SUPERVISOR MEI', 'SUPERVISOR'],
                 },
                 status: 'ATIVO',
-                cnpj:cnpj
+                cnpj: cnpj
             },
-           
+
         });
 
         res.status(200).send(supervisor);
     },
-    Terceario: async( req, res )=>{
-        const { cnpj } = req.body;
+    Terceario: async (req, res) => {
+        const {
+            cnpj
+        } = req.body;
 
-    try {
-        const gerentes = await cadastro.findAll({
-            attributes: ['gerente'],
-            where: {
-                tipo_func: {
-                    [Op.in]: ['GERENTE MEI', 'GERENTE'],
-                },
-                status: 'ATIVO',
-                cnpj:cnpj
-            }
-        });
-        res.status(200).send(gerentes)
+        try {
+            const gerentes = await cadastro.findAll({
+                attributes: ['gerente'],
+                where: {
+                    tipo_func: {
+                        [Op.in]: ['GERENTE MEI', 'GERENTE'],
+                    },
+                    status: 'ATIVO',
+                    cnpj: cnpj
+                }
+            });
+            res.status(200).send(gerentes)
 
-    } catch (error) {
-        console.log(error)
-        res.status(500).send(error)
-    }
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error)
+        }
 
-   
-},
-    
+
+    },
+
     Status: async (req, res) => {
 
         try {
@@ -82,7 +105,7 @@ const PreencherCamposController = {
             })
             res.status(200).send(statusPropostas);
 
-        }catch(error) {
+        } catch (error) {
 
             res.status(500).send(error)
         }
@@ -102,7 +125,7 @@ const PreencherCamposController = {
         }
     },
 
-    Empresa: async (req,res) => {
+    Empresa: async (req, res) => {
         try {
             const Empresa = await empresa.findAll({
                 attributes: ['empresa']
@@ -115,7 +138,7 @@ const PreencherCamposController = {
         }
     },
 
-    Banco: async(req, res) => {
+    Banco: async (req, res) => {
         try {
             const bancos = await banco.findAll({})
             res.send(bancos)
@@ -128,16 +151,16 @@ const PreencherCamposController = {
         // console.log(req)
         try {
             const sub = await sub_status.findAll({
-                attributes:['sub_status']
-                
+                attributes: ['sub_status']
+
             })
             res.send(sub);
-           
+
         } catch (error) {
             console.log(error)
         }
     },
-    
+
 
     Produto: async (req, res) => {
 
@@ -150,10 +173,10 @@ const PreencherCamposController = {
     },
 
     ///retirar
-    SupervisorMulti: async(req, res)=>{
+    SupervisorMulti: async (req, res) => {
         const supervisorMulti = await cadastro.findAll({
-            attributes:['supervisor_sant'],
-           
+            attributes: ['supervisor_sant'],
+
         });
 
         res.send(supervisorMulti);
@@ -197,9 +220,9 @@ const PreencherCamposController = {
             console.log(error)
             res.status(500).send(error)
         }
-       
 
-       
+
+
     },
 
     Funcionario: async (req, res) => {
@@ -227,91 +250,91 @@ const PreencherCamposController = {
         });
         res.status(200).send(filiais);
     },
-    
+
     Promotor: async (req, res) => {
-        
+
         const promotor = await proposta_comissao.findAll({
-            attributes:['parceiro'],
-            group:['parceiro']
+            attributes: ['parceiro'],
+            group: ['parceiro']
 
         })
 
-        res.status(200).send(promotor); 
+        res.status(200).send(promotor);
     },
 
-    StausComissao: async (req, res ) => {
+    StausComissao: async (req, res) => {
 
         const statusComissao = await proposta_comissao.findAll({
 
-            attributes:['status'],
-            group:['status']
+            attributes: ['status'],
+            group: ['status']
         })
 
         res.status(200).send(statusComissao)
     },
-    DataPagamentoGerente: async ( req, res ) => {
+    DataPagamentoGerente: async (req, res) => {
 
         const dataPagamentoGerente = await proposta_comissao.findAll({
-            attributes:['data_ger'],
-            group:['data_ger']
+            attributes: ['data_ger'],
+            group: ['data_ger']
         })
 
         res.status(200).send(dataPagamentoGerente);
     },
-    DataPagamentoSupervisor: async ( req, res ) => {
+    DataPagamentoSupervisor: async (req, res) => {
 
         const dataPagamentoSupervisor = await proposta_comissao.findAll({
-            attributes:['data_sup'],
-            group:['data_sup']
+            attributes: ['data_sup'],
+            group: ['data_sup']
         })
 
         res.status(200).send(dataPagamentoSupervisor);
     },
-    Competencia: async ( req, res ) => {
+    Competencia: async (req, res) => {
         const competencia = await proposta_comissao.findAll({
-            attributes:['competencia'],
-            group:['competencia']
+            attributes: ['competencia'],
+            group: ['competencia']
         })
 
         res.status(200).send(competencia);
     },
-    StatusMargem: async (req,res)=>{
-       try {
-           
-      
-        const status = await status_margem.findAll({
-            order: [
-                ['status', 'asc']
-            ]
-        })
+    StatusMargem: async (req, res) => {
+        try {
 
-        if(status)
-            return res.status(200).send(status);
 
-    } catch (error) {
-           console.log(error)
-    }
-},
+            const status = await status_margem.findAll({
+                order: [
+                    ['status', 'asc']
+                ]
+            })
 
-/* Supervisor: async (req, res) => {
+            if (status)
+                return res.status(200).send(status);
 
-        const supervisor = await cadastro.findAll({
-            attributes: ['parceiro'],
-            where: {
-                tipo_func: {
-                    [Op.in]: ['SUPERVISOR MEI', 'SUPERVISOR'],
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
+    /* Supervisor: async (req, res) => {
+
+            const supervisor = await cadastro.findAll({
+                attributes: ['parceiro'],
+                where: {
+                    tipo_func: {
+                        [Op.in]: ['SUPERVISOR MEI', 'SUPERVISOR'],
+                    },
+                    status: 'ATIVO'
                 },
-                status: 'ATIVO'
-            },
-            order: [
-                ['parceiro', 'asc']
-            ]
-        });
+                order: [
+                    ['parceiro', 'asc']
+                ]
+            });
 
-        res.status(200).send(supervisor);
-    }*/
+            res.status(200).send(supervisor);
+        }*/
 
-    BancoOrigi: async (req, res) =>{
+    BancoOrigi: async (req, res) => {
 
         const bancoOrigi = await banco_origi.findAll({
             attributes: ['banco'],
@@ -325,8 +348,65 @@ const PreencherCamposController = {
             ]
         });
         res.status(200).send(bancoOrigi);
+    },
+
+    BasePagamento: async (req, res) => {
+        const AllBasePagamento = await cadastro.findAll({
+            attributes: ['cnpj', 'parceiro', 'nome_completo', 'tipo_pgto', 'banco', 'agencia', 'conta', 'numero_cartao', 'supervisor', 'gerente', 'supervisor_sant', 'gerente_sant', 'status', 'data_admissao', 'data_inativacao', 'data_inativacao', 'classificacao', 'naturalidade', 'tipo_func'],
+
+            where: {
+                classificacao: 1
+            }
+        })
+
+        return res.status(200).json(AllBasePagamento);
+    },
+
+    BaseEmails: async (req, res) => {
+        const AllBaseEmails = await cadastro.findAll({
+            attributes: ['cnpj', 'parceiro', 'email'],
+
+            where: {
+                status: 'ATIVO',
+
+                email: {
+                    [Op.not]: ['-', ''],
+                },
+
+                tipo_func: {
+                    [Op.not]: ['FUNCIONARIO', 'CLT', 'SUPERVISOR', 'GERENTE'],
+                },
+            },
+
+            order: [
+                ['parceiro']
+            ]
+        })
+
+        return res.status(200).json(AllBaseEmails)
+    },
+
+    Comissionamento: async (req, res) => {
+
+        const Comissionamento = await cadastro.findAll({
+            attributes: ['cnpj', 'parceiro', 'comissao_novo', 'comissao_inss', 'governo_minas', 'prefeitura_rio', 'tabela_multi', 'tabela_sim', 'tabela_crefisa'],
+            where: {
+                classificacao: 1
+            }
+        });
+
+        res.status(200).json(Comissionamento);
+    },
+
+    PropostaBB: async (req, res) => {
+
+        const PropostaBB = await proposta_chavej.findOne({
+            attributes: ['proposta' ,'tipo','valor','codigo_convenio','linha','prazo','cnpj','parceiro','chavej','data_movimento','supervisor','taxa','ref','gerente','banco']
+        });
+
+        res.status(200).json(PropostaBB);
     }
 
 }
 
-module.exports = PreencherCamposController
+module.exports = PreencherCamposController;
