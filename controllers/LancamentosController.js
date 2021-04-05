@@ -156,10 +156,12 @@ const LancamentosController = {
                 where
             })
 
-            filtroExiste.length > 0 ? res.status(200).json(filtroExiste) : res.status(401).json({message: "Filtro não existe"})
+            filtroExiste.length > 0 ? res.status(200).json(filtroExiste) : res.status(401).json({
+                message: "Filtro não existe"
+            })
 
         } catch (error) {
-            console.log("Ops! Deu ruim durante a execução",error)
+            console.log("Ops! Deu ruim durante a execução", error)
         }
     },
 
@@ -281,6 +283,6 @@ const LancamentosController = {
             console.log(error)
         }
     }
-}
 
+}
 module.exports = LancamentosController;
