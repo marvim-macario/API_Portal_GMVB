@@ -1,11 +1,12 @@
 const {
-    lancamentos
-} = require('../models/');
+    lancamentos,
+    cadastro
+} = require('../models');
+
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 const LancamentosController = {
-
     IncluirLancamento: async (req, res) => {
         const {
             data_movimento,
@@ -55,50 +56,50 @@ const LancamentosController = {
         } = req.body;
 
         const IncluirLancamento = await lancamentos.create({
-            data_movimento: data_movimento,
-            ref: ref,
-            banco: banco,
-            filial: filial,
-            uf: uf,
-            grupo: grupo,
-            sub_grupo: sub_grupo,
-            projeto: projeto,
-            cnpj: cnpj,
-            parceiro: parceiro,
-            cpf: cpf,
-            favorecido: favorecido,
-            supervisor: supervisor,
-            gerente: gerente,
-            tipo_pagamento: tipo_pagamento,
-            banco_parceiro: banco_parceiro,
-            agencia_parceiro: agencia_parceiro,
-            conta_parceiro: conta_parceiro,
-            numero_cartao: numero_cartao,
-            solicitante: solicitante,
-            descricao: descricao,
-            obs: obs,
-            valor: valor,
-            empresa: empresa,
-            data_cadastro: data_cadastro,
-            data_alteracao: data_alteracao,
-            responsavel: responsavel,
-            tp_lancamento: tp_lancamento,
-            cod_lancamento: cod_lancamento,
-            arquivo1: arquivo1,
-            arquivo2: arquivo2,
-            arquivo3: arquivo3,
-            arquivo4: arquivo4,
-            codigo_barra: codigo_barra,
-            digitacao: digitacao,
-            data_vencimento: data_vencimento,
-            status_pag: status_pag,
-            tipo_lancamento: tipo_lancamento,
-            tipo_funcionario: tipo_funcionario,
-            tipo_despesa: tipo_despesa,
-            cpf_parceiro: cpf_parceiro,
-            cpf_supervisor: cpf_supervisor,
-            cpf_gerente: cpf_gerente,
-            id_acesso: id_acesso
+            data_movimento:data_movimento,
+            ref:ref,
+            banco:banco,
+            filial:filial,
+            uf:uf,
+            grupo:grupo,
+            sub_grupo:sub_grupo,
+            projeto:projeto,
+            cnpj:cnpj,
+            parceiro:parceiro,
+            cpf:cpf,
+            favorecido:favorecido,
+            supervisor:supervisor,
+            gerente:gerente,
+            tipo_pagamento:tipo_pagamento,
+            banco_parceiro:banco_parceiro,
+            agencia_parceiro:agencia_parceiro,
+            conta_parceiro:conta_parceiro,
+            numero_cartao:numero_cartao,
+            solicitante:solicitante,
+            descricao:descricao,
+            obs:obs,
+            valor:valor,
+            empresa:empresa,
+            data_cadastro:data_cadastro,
+            data_alteracao:data_alteracao,
+            responsavel:responsavel,
+            tp_lancamento:tp_lancamento,
+            cod_lancamento:cod_lancamento,
+            arquivo1:arquivo1,
+            arquivo2:arquivo2,
+            arquivo3:arquivo3,
+            arquivo4:arquivo4,
+            codigo_barra:codigo_barra,
+            digitacao:digitacao,
+            data_vencimento:data_vencimento,
+            status_pag:status_pag,
+            tipo_lancamento:tipo_lancamento,
+            tipo_funcionario:tipo_funcionario,
+            tipo_despesa:tipo_despesa,
+            cpf_parceiro:cpf_parceiro,
+            cpf_supervisor:cpf_supervisor,
+            cpf_gerente:cpf_gerente,
+            id_acesso:id_acesso
         });
         return res.status(200).send(IncluirLancamento);
     },
@@ -164,11 +165,49 @@ const LancamentosController = {
         }
     },
 
+    BuscarCnpj: async (req, res) => {
+        const cnpj = req.body.cnpj;
+
+
+        const buscaNaCadastro = await cadastro.findOne({
+            attributes: ['parceiro', 'supervisor', 'gerente', 'cpf', 'nome_completo', 'tipo_pgto', 'banco', 'agencia', 'conta', 'numero_cartao'],
+
+            where: {
+                cnpj
+            },
+
+            order: [
+                ['classificacao', 'asc'],
+                ['status', 'asc']
+            ]
+        })
+
+        if(buscaNaCadastro) 
+            return res.status(200).json(buscaNaCadastro);
+
+        //Caso n ache nesta tabela
+        const buscaNaLancamento = await lancamentos.findOne({
+            attributes: ['parceiro', 'supervisor', 'gerente', 'cpf', 'favorecido', 'tipo_pagamento', 'banco_parceiro', 'agencia_parceiro', 'conta_parceiro', 'numero_cartao'],
+
+            where: {
+                cnpj
+            },
+        })
+
+        if(buscaNaLancamento) 
+            return res.status(200).json(buscaNaLancamento);
+
+        
+        return res.status(400).json({
+            message: "Não encontramos estes dados"
+        })
+    },
+
     Alterar: async (req, res) => {
         const {
             id_lancamento,
             data_movimento,
-            //competencia
+            ref,
             empresa,
             filial,
             uf,
@@ -212,6 +251,7 @@ const LancamentosController = {
             //competencia
             BuscaLancamento.empresa = empresa
             BuscaLancamento.filial = filial
+            BuscaLancamento.ref = ref
             BuscaLancamento.uf = uf
             BuscaLancamento.grupo = grupo
             BuscaLancamento.sub_grupo = sub_grupo
