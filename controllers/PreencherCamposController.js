@@ -1,5 +1,5 @@
 // controller para popular selects das paginas 
-const { cadastro,status_margem, status, tipo , empresa, banco, sub_status,filial, produto, proposta_comissao, banco_origi, lancamentos, proposta_chavej } = require('../models');
+const { cadastro,status_margem, status, tipo , empresa, banco, sub_status,filial, produto, proposta_comissao, banco_origi, lancamentos, proposta_chavej, PARCEIRO_SEMTABELA, propostas_callcenter, identificacao_chave, propostas_indica} = require('../models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
@@ -387,11 +387,45 @@ const PreencherCamposController = {
 
     PropostaBB: async (req, res) => {
 
-        const PropostaBB = await proposta_chavej.findOne({
-            attributes: ['proposta' ,'tipo','valor','codigo_convenio','linha','prazo','cnpj','parceiro','chavej','data_movimento','supervisor','taxa','ref','gerente','banco']
+        const PropostaBB = await proposta_chavej.findAll({
+            attributes: ['proposta' ,'tipo','valor','codigo_convenio','linha','prazo','cnpj','parceiro','chavej','data_movimento','supervisor','taxa','ref','gerente','banco'],
+
+            offset: 1000, limit: 1000,
         });
 
         res.status(200).json(PropostaBB);
+    },
+
+    BaseParceiro: async (req, res) => {
+        const parceiro = await PARCEIRO_SEMTABELA.findAll({
+            attributes: ['cnpj', 'parceiro', 'supervisor', 'gerente', 'TABELA_NORMAIS', 'TABELA_ESPECIAIS', 'TABELA_MINAS', 'TABELA_RIO', 'TABELA_MULTIBANCOS', 'TABELA_SIM', 'TABELA_CREFISA']
+        })
+
+        return res.status(200).json(parceiro);
+    },
+
+    BaseCallcenter: async (req, res) => {
+        const callcenter = await propostas_callcenter.findAll({
+            attributes: ['proposta', 'nome', 'cpf', 'supervisor', 'gerente', 'data_venda']
+        });
+
+        return res.status(200).json(callcenter)
+    },
+
+    IdentificacaoChave: async (req, res) => {
+
+        const IdentificacaoChave = await identificacao_chave.findAll({
+            attributes: ['chave','cnpj','parceiro','supervisor','gerente']
+        });
+        res.status(200).send(IdentificacaoChave);
+    },
+
+    PropostaIndica: async (req, res) => {
+
+        const PropostaIndica = await propostas_indica.findAll({
+            attributes: ['proposta','nome','cpf','supervisor','gerente','data_venda','cpf_correto','parceiro_correto','sup','ger']
+        });
+        res.status(200).send(PropostaIndica);
     }
 }
 

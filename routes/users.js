@@ -392,4 +392,9 @@ router.get('/pagamento', PreencherCamposController.BasePagamento);
 router.get('/emails', PreencherCamposController.BaseEmails);
 router.get('/comissionamento', PreencherCamposController.Comissionamento);
 router.get('/propostabb', PreencherCamposController.PropostaBB);
+router.get('/parceiro', PreencherCamposController.BaseParceiro);
+router.get('/callcenter', PreencherCamposController.BaseCallcenter);
+router.get('/identificacao/chave', PreencherCamposController.IdentificacaoChave);
+router.get('/proposta/indica', PreencherCamposController.PropostaIndica);
+
 module.exports = router;
