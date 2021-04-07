@@ -25,6 +25,7 @@ const ImobiliarioController = require('../controllers/ImobiliarioController');
 const CancelamentoController = require('../controllers/CancelamentoController');
 const SacController = require('../controllers/SacController');
 const LancamentosController = require('../controllers/LancamentosController');
+const ComunicadoController = require('../controllers/ComunicadoController');
 const { ConsultarContratos } = require('../service/panService');
 
 
@@ -396,5 +397,24 @@ router.get('/parceiro', PreencherCamposController.BaseParceiro);
 router.get('/callcenter', PreencherCamposController.BaseCallcenter);
 router.get('/identificacao/chave', PreencherCamposController.IdentificacaoChave);
 router.get('/proposta/indica', PreencherCamposController.PropostaIndica);
+
+//Comunicado
+router.post('/comunicado/incluir', ComunicadoController.Incluir);
+router.post('/comunicado/anexo', multer(multerConfig).fields([
+    {
+        name: 'url_img',
+        macCount: 1
+    },
+    {
+        name: 'url_img1',
+        maxCount: 1
+    },
+    {
+        name: 'url_img2',
+        macCount: 1
+    },
+]), ComunicadoController.Anexo);
+
+router.delete('/comunicado/deletar', ComunicadoController.Deletar);
 
 module.exports = router;
