@@ -26,6 +26,7 @@ const CancelamentoController = require('../controllers/CancelamentoController');
 const SacController = require('../controllers/SacController');
 const LancamentosController = require('../controllers/LancamentosController');
 const { ConsultarContratos } = require('../service/panService');
+const ComunicadoController = require('../controllers/ComunicadoController');
 
 
 
@@ -386,5 +387,32 @@ router.post('/financeiro/filtro', LancamentosController.Filtro);
 router.post('/financeiro/busca', LancamentosController.BuscarCnpj);
 router.post('/financeiro/incluir', LancamentosController.IncluirLancamento);
 router.post('/financeiro/alterar', LancamentosController.Alterar);
+
+//Relatórios de cadastros
+router.get('/pagamento', PreencherCamposController.BasePagamento);
+router.get('/emails', PreencherCamposController.BaseEmails);
+router.get('/comissionamento', PreencherCamposController.Comissionamento);
+router.get('/propostabb', PreencherCamposController.PropostaBB);
+router.get('/parceiro', PreencherCamposController.BaseParceiro);
+router.get('/callcenter', PreencherCamposController.BaseCallcenter);
+router.get('/identificacao/chave', PreencherCamposController.IdentificacaoChave);
+router.get('/proposta/indica', PreencherCamposController.PropostaIndica);
+
+router.post('/comunicado/incluir', ComunicadoController.Incluir);
+router.delete('/comunicado/deletar', ComunicadoController.Deletar)
+router.post('/comunicado/anexo', multer(multerConfig).fields([
+    {
+        name: 'url_img',
+        macCount: 1
+    },
+    {
+        name: 'url_img1',
+        macCount: 1
+    },
+    {
+        name: 'url_img2',
+        macCount: 1
+    }
+]), ComunicadoController.Anexo)
 
 module.exports = router;
