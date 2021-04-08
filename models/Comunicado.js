@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         flg_ativo: DataTypes.STRING,
         data_comunicado: DataTypes.STRING,
         url_img1: DataTypes.STRING,
-        url_img2: DataTypes.STRING
+        url_img2: DataTypes.STRING,
+        status: DataTypes.STRING
     }, {
         tableName: 'comunicado',
         timestamps: false

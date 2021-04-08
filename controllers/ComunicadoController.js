@@ -13,13 +13,15 @@ const ComunicadoController = {
 
         const {
             titulo,
-            obs
+            obs,
+            status
         } = req.body
 
         const result = await comunicado.create({
             titulo,
             obs,
-            data_comunicado: dataAgora()
+            data_comunicado: dataAgora(),
+            status
         })
 
         return res.status(200).json(result);
