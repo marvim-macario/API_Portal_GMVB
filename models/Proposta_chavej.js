@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const proposta_chavej = sequelize.define('proposta_chavej', {
+    const Proposta_chavej = sequelize.define('proposta_chavej', {
         id_proposta: {
             autoIncrement: true,
             type: DataTypes.INTEGER,
@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         status_pagamento: DataTypes.STRING, 
         receita_liquida: DataTypes.STRING, 
         valor_pagamento: DataTypes.STRING, 
-       // data_calculo: DataTypes.STRING, //datetime 
+        data_calculo: DataTypes.STRING, //datetime 
         pct: DataTypes.STRING, 
         tabela: DataTypes.STRING, 
         pct_parceiro: DataTypes.STRING, 
@@ -69,5 +69,5 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'proposta_chavej',
         timestamps: false
     })
-    return proposta_chavej;
-};
+    return Proposta_chavej;
+}

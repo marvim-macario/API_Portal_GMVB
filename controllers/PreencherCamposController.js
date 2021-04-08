@@ -389,7 +389,8 @@ const PreencherCamposController = {
 
         const PropostaBB = await proposta_chavej.findAll({
             attributes: ['proposta' ,'tipo','valor','codigo_convenio','linha','prazo','cnpj','parceiro','chavej','data_movimento','supervisor','taxa','ref','gerente','banco'],
-            offset: 1000, limit: 1000
+
+            offset: 1000, limit: 1000,
         });
 
         res.status(200).json(PropostaBB);

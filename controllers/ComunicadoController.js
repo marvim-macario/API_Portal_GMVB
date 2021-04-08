@@ -58,7 +58,9 @@ const ComunicadoController = {
                 Comunicado.save()
                 return res.json(Comunicado)
             }
-        } catch (error){
+
+            return res.status(400).json({message: "ID n existe"})
+        } catch (error) {
             console.log(error)
         }
     },
