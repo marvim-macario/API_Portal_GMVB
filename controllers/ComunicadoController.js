@@ -1,8 +1,9 @@
-const {
-    comunicado
-} = require('../models');
+const {comunicado} = require('../models');
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 
 const ComunicadoController = {
+
     Incluir: async (req, res) => {
         const dataAgora = () => {
             let date = new Date();
@@ -49,7 +50,7 @@ const ComunicadoController = {
                 }
             })
 
-            if (Comunicado) {
+            if(Comunicado){
                 Comunicado.url_img = url_img
                 Comunicado.url_img1 = url_img1
                 Comunicado.url_img2 = url_img2
@@ -81,13 +82,9 @@ const ComunicadoController = {
             })
             return res.status(200).json(ComunicadoExcluido);
         }
-
         return res.status(400).json({
             message: "Este Comunicado não existe"
         })
-
     }
-
 }
-
 module.exports = ComunicadoController;
