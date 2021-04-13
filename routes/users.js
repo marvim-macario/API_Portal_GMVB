@@ -26,6 +26,7 @@ const CancelamentoController = require('../controllers/CancelamentoController');
 const SacController = require('../controllers/SacController');
 const LancamentosController = require('../controllers/LancamentosController');
 const ComunicadoController = require('../controllers/ComunicadoController');
+const CalculadoraController = require('../controllers/CalculadoraController');
 const { ConsultarContratos } = require('../service/panService');
 
 
@@ -74,7 +75,8 @@ router.get('/comissao/datasupervisor',PreencherCamposController.DataPagamentoSup
 router.get('/comissao/competencia',PreencherCamposController.Competencia);
 router.get('/margem/status',PreencherCamposController.StatusMargem);
 router.get('/bancoOrigi', PreencherCamposController.BancoOrigi);
-router.get('/imobiliario/status', ImobiliarioController.StatusImobiliario)
+router.get('/imobiliario/status', ImobiliarioController.StatusImobiliario);
+
 
 // router.get('/banco',PreencherCamposController)
 
@@ -417,4 +419,7 @@ router.post('/comunicado/anexo', multer(multerConfig).fields([
 
 router.delete('/comunicado/deletar', ComunicadoController.Deletar);
 
+// EndPoints / rotas de calculadora
+router.post('/calculadora/convenios', CalculadoraController.Convenios);
+router.post('/calculadora/regras', CalculadoraController.Regras);
 module.exports = router;
