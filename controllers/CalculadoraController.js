@@ -46,6 +46,38 @@ const CalculadoraController = {
         regras.length > 0 ? res.status(200).json(regras) : res.status(401).json({
             message: "Banco não cadastrado na base de dados"
         })
+    },
+
+    CoefTaxa: async (req, res) => {
+        const {
+            prazo,
+            banco,
+            convenio,
+            regra
+        } = req.body;
+
+        try {
+            const resultado = await calculadora.findOne({
+                where: {
+                    prazo,
+                    banco,
+                    convenio,
+                    regra
+                },
+
+                attributes: ['coef', 'taxa']
+            });
+
+            if (resultado) {
+                return res.status(200).json(resultado);
+            }
+
+            return res.status(401).json({
+                message: "Não encontrado"
+            });
+        } catch (error) {
+            console.error("Erro durante a consulta", error);
+        }
     }
 }
 

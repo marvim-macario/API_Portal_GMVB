@@ -422,4 +422,5 @@ router.delete('/comunicado/deletar', ComunicadoController.Deletar);
 // EndPoints / rotas de calculadora
 router.post('/calculadora/convenios', CalculadoraController.Convenios);
 router.post('/calculadora/regras', CalculadoraController.Regras);
+router.post('/calculadora/coef', CalculadoraController.CoefTaxa);
 module.exports = router;
