@@ -26,6 +26,7 @@ const CancelamentoController = require('../controllers/CancelamentoController');
 const SacController = require('../controllers/SacController');
 const LancamentosController = require('../controllers/LancamentosController');
 const ComunicadoController = require('../controllers/ComunicadoController');
+const CalculadoraController = require('../controllers/CalculadoraController');
 const { ConsultarContratos } = require('../service/panService');
 
 
@@ -416,5 +417,11 @@ router.post('/comunicado/anexo', multer(multerConfig).fields([
 ]), ComunicadoController.Anexo);
 
 router.delete('/comunicado/deletar', ComunicadoController.Deletar);
+
+router.post('/calculadora/convenios', CalculadoraController.Convenios);
+
+router.post('/calculadora/regras', CalculadoraController.Regras);
+
+router.post('/calculadora/coef', CalculadoraController.Coef);
 
 module.exports = router;
