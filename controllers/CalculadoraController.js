@@ -1,11 +1,10 @@
 const {
     calculadora
 } = require('../models');
+
 const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 
 const CalculadoraController = {
-
     Convenios: async (req, res) => {
         const banco = req.body.banco;
 
@@ -22,7 +21,9 @@ const CalculadoraController = {
             ]
         })
 
-        return res.status(200).json(convenios);
+        convenios.length > 0 ? res.status(200).json(convenios) : res.status(401).json({
+            message: "Banco não cadastrado na base de dados"
+        })
     },
 
     Regras: async (req, res) => {
@@ -47,7 +48,7 @@ const CalculadoraController = {
         })
     },
 
-    Coef: async (req, res) => {
+    CoefTaxa: async (req, res) => {
         const {
             prazo,
             banco,
@@ -77,8 +78,7 @@ const CalculadoraController = {
         } catch (error) {
             console.error("Erro durante a consulta", error);
         }
-
     }
-
 }
+
 module.exports = CalculadoraController;
