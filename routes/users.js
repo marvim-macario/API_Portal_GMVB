@@ -27,6 +27,7 @@ const SacController = require('../controllers/SacController');
 const LancamentosController = require('../controllers/LancamentosController');
 const ComunicadoController = require('../controllers/ComunicadoController');
 const CalculadoraController = require('../controllers/CalculadoraController');
+const RelatorioSemanalController = require('../controllers/RelatorioSemanalController');
 const { ConsultarContratos } = require('../service/panService');
 
 
@@ -423,4 +424,9 @@ router.delete('/comunicado/deletar', ComunicadoController.Deletar);
 router.post('/calculadora/convenios', CalculadoraController.Convenios);
 router.post('/calculadora/regras', CalculadoraController.Regras);
 router.post('/calculadora/coef', CalculadoraController.CoefTaxa);
+
+// Relatorio Semanal
+router.post('/semanal/busca', RelatorioSemanalController.Lista);
+router.get('/semanal/faixa', RelatorioSemanalController.Faixa);
+
 module.exports = router;
