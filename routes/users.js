@@ -29,6 +29,7 @@ const ComunicadoController = require('../controllers/ComunicadoController');
 const CalculadoraController = require('../controllers/CalculadoraController');
 const RelatorioSemanalController = require('../controllers/RelatorioSemanalController');
 const { ConsultarContratos } = require('../service/panService');
+const AssistenciaController = require ('../controllers/AssistenciaController')
 
 
 
@@ -428,5 +429,10 @@ router.post('/calculadora/coef', CalculadoraController.CoefTaxa);
 // Relatorio Semanal
 router.post('/semanal/busca', RelatorioSemanalController.Lista);
 router.get('/semanal/faixa', RelatorioSemanalController.Faixa);
+
+//Assistencia 24hs
+router.post('/assistencia/incluir', AssistenciaController.AssIncluir);
+router.post('/assistencia/alterar', AssistenciaController.AssAlterar);  
+
 
 module.exports = router;
