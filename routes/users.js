@@ -437,7 +437,8 @@ router.post('/logs/filtro', RelatorioLogController.Filtro);
 
 //Assistencia 24hs
 router.post('/assistencia/incluir', AssistenciaController.AssIncluir);
-router.post('/assistencia/alterar', AssistenciaController.AssAlterar);  
+router.post('/assistencia/alterar', AssistenciaController.AssAlterar); 
+router.post('/assistencia/filtrar', AssistenciaController.AssFiltrar);
 
 
 module.exports = router;
