@@ -7,6 +7,7 @@ const Op = Sequelize.Op;
 
 const AssistenciaController = {
 
+
     AssIncluir: async (req, res) => {
         const {
             cliente_nome,
@@ -35,8 +36,40 @@ const AssistenciaController = {
             data_inclusao,
             responsavel_alteracao,
             data_alteracao
-        } = req.body;
+        } = req.body;//colocar como dados obrigatorios
 
+
+
+        if (
+                typeof cliente_nome != undefined && cliente_nome !='' &&
+                typeof  cliente_cpf != undefined && cliente_cpf !='' &&
+                typeof  data_nascimento != undefined && data_nascimento !='' &&
+                typeof   cep != undefined && cep !='' &&
+                typeof   rua  != undefined &&   rua !='' &&
+                typeof   bairro != undefined && bairro !='' &&
+                typeof   numero != undefined && numero !='' &&
+                typeof   complemento != undefined && complemento !='' &&
+                typeof  email != undefined && email !='' &&
+                typeof   telefone != undefined && telefone !='' &&
+                typeof   tipo_contratacao != undefined && tipo_contratacao !='' &&
+                typeof   banco != undefined && banco !='' &&
+                typeof   agencia != undefined && agencia !='' &&
+                typeof   conta != undefined && conta !='' &&
+                typeof   tipo_conta != undefined && tipo_conta !='' &&
+                typeof   status != undefined && status !='' &&
+                typeof    tipo_assistencia != undefined && tipo_assistencia !='' &&
+                typeof    forma_contratacao != undefined && forma_contratacao !='' &&
+                typeof   parceiro != undefined && parceiro !='' &&
+                typeof   id_parceiro != undefined && id_parceiro !='' &&
+                typeof   cpf_parceiro != undefined && cpf_parceiro !='' &&
+                typeof   supervisor != undefined && supervisor !='' &&
+                typeof   gerente != undefined && gerente !='' &&
+                typeof   data_inclusao != undefined && data_inclusao !='' &&
+                typeof   responsavel_alteracao != undefined && responsavel_alteracao !='' &&
+                typeof   data_alteracao!= undefined && data_alteracao !='' 
+       
+        
+        ){ 
         const assistenciaInserir = await assistencia.create({
             cliente_nome,
             cliente_cpf,
@@ -67,8 +100,8 @@ const AssistenciaController = {
         })
 
         return res.status(201).json(assistenciaInserir)
-    },
-
+    }else{return res.status(500).send({erro:"Por favor, preencha os dados obrigatórios"})}
+},
 
     
     AssAlterar: async (req, res) => {
