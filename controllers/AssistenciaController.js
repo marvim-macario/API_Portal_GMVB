@@ -36,9 +36,9 @@ const AssistenciaController = {
             data_inclusao,
             responsavel_alteracao,
             data_alteracao
-        } = req.body;//colocar como dados obrigatorios
+        } = req.body;
 
-
+//colocar aqui um if de altenticacao
 
         if (
                 typeof cliente_nome != undefined && cliente_nome !='' &&
@@ -168,7 +168,33 @@ const AssistenciaController = {
             plain: true 
         })
         return res.status(200).json(assistenciaInserir)
-    }
+    },
+
+
+        AssFiltrar: async (req, res) => {
+            const {
+                cliente_cpf,
+                tipo_contratacao,
+                banco,
+                tipo_assistencia,
+                forma_contratacao
+            } = req.body;
+
+            const assistenciaInserir = await assistencia.findAll({ 
+                where: {
+                    [Op.or]: [
+                      { cliente_cpf: cliente_cpf },
+                      { tipo_contratacao: tipo_contratacao },
+                      { banco: banco },
+                      { tipo_assistencia: tipo_assistencia },
+                      { forma_contratacao: forma_contratacao }
+                    ]}
+            })
+            return res.status(200).json(assistenciaInserir)
+        }
+
+
+
 
 }
 module.exports = AssistenciaController;
