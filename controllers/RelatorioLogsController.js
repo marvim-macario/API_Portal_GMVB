@@ -19,7 +19,6 @@ const RelatorioLogsController = {
             };
 
             const query = `%${where.mes}`
-            console.log(query);
 
             (where.status) ? where.status: delete where.status;
             (where.mes) ? where.mes = {
@@ -27,6 +26,7 @@ const RelatorioLogsController = {
             }: delete where.mes;
             (where.tipo) ? where.tipo: delete where.tipo;
 
+            console.log(where);
 
             const logs = await relatorio_sms.findAll({
                 where
@@ -39,8 +39,6 @@ const RelatorioLogsController = {
                 message: "Lista Vazia"
             })
         }
-
-
     }
 }
 
