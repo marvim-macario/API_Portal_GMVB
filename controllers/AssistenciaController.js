@@ -24,6 +24,7 @@ const AssistenciaController = {
             banco,
             agencia,
             conta,
+            digito,
             tipo_conta,
             status,
             tipo_assistencia,
@@ -55,6 +56,7 @@ const AssistenciaController = {
                 typeof   banco != undefined && banco !='' &&
                 typeof   agencia != undefined && agencia !='' &&
                 typeof   conta != undefined && conta !='' &&
+                typeof   digito != undefined && digito !='' &&
                 typeof   tipo_conta != undefined && tipo_conta !='' &&
                 typeof   status != undefined && status !='' &&
                 typeof    tipo_assistencia != undefined && tipo_assistencia !='' &&
@@ -85,6 +87,7 @@ const AssistenciaController = {
             banco,
             agencia,
             conta,
+            digito,
             tipo_conta,
             status,
             tipo_assistencia,
@@ -121,6 +124,7 @@ const AssistenciaController = {
             banco,
             agencia,
             conta,
+            digito,
             tipo_conta,
             status,
             tipo_assistencia,
@@ -150,6 +154,7 @@ const AssistenciaController = {
             banco,
             agencia,
             conta,
+            digito,
             tipo_conta,
             status,
             tipo_assistencia,
