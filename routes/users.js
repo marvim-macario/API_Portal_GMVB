@@ -32,7 +32,7 @@ const { ConsultarContratos } = require('../service/panService');
 const AssistenciaController = require ('../controllers/AssistenciaController')
 const RelatorioLogController = require('../controllers/RelatorioLogController');
 const RelatorioSmsController = require('../controllers/RelatorioSmsController');
-
+const RelatorioPendenciasController = require('../controllers/RelatorioPendenciasController');
 
 
 //teste
@@ -439,5 +439,9 @@ router.post('/assistencia/filtrar', AssistenciaController.AssFiltrar);
 //Relatorio SMS
 router.get('/sms/substatus', RelatorioSmsController.SubStatus);
 router.post('/sms/filtro', RelatorioSmsController.Buscar);
+
+//Relatorio Pendências
+router.post('/pendencia/usuario', RelatorioPendenciasController.Usuario);
+router.post('/pendencia/buscar', RelatorioPendenciasController.Buscar);
 
 module.exports = router;
