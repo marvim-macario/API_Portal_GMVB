@@ -186,6 +186,7 @@ const AssistenciaController = {
             } = req.body;
 
             const assistenciaInserir = await assistencia.findAll({ 
+                attributes: ['cliente_cpf', 'cliente_nome', 'tipo_contratacao', 'tipo_assistencia'],
                 where: {
                     [Op.or]: [
                       { cliente_cpf: cliente_cpf },
@@ -196,6 +197,16 @@ const AssistenciaController = {
                     ]}
             })
             return res.status(200).json(assistenciaInserir)
+        },
+
+
+        AssTodos: async (req, res) => {
+
+            const assistenciaTodos = await assistencia.findAll({ 
+                attributes: ['cliente_cpf', 'cliente_nome', 'tipo_contratacao', 'tipo_assistencia']
+            })
+            if(assistenciaTodos)
+            return res.status(200).json(assistenciaTodos)
         }
 
 

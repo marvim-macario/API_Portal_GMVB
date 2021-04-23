@@ -435,6 +435,7 @@ router.post('/logs/filtro', RelatorioLogController.Filtro);
 router.post('/assistencia/incluir', AssistenciaController.AssIncluir);
 router.post('/assistencia/alterar', AssistenciaController.AssAlterar); 
 router.post('/assistencia/filtrar', AssistenciaController.AssFiltrar);
+router.get('/assistencia/todos', AssistenciaController.AssTodos);
 
 //Relatorio SMS
 router.get('/sms/substatus', RelatorioSmsController.SubStatus);
