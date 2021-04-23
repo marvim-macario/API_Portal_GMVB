@@ -186,6 +186,7 @@ const AssistenciaController = {
             } = req.body;
 
             const assistenciaInserir = await assistencia.findAll({ 
+                attributes: ['cliente_cpf', 'cliente_nome', 'tipo_contratacao', 'tipo_assistencia'],
                 where: {
                     [Op.or]: [
                       { cliente_cpf: cliente_cpf },
