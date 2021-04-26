@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         data_log: DataTypes.STRING,
         venda_sms: DataTypes.STRING,
         auditoria_sms: DataTypes.STRING,
-        produto: DataTypes.STRING
+        produto: DataTypes.STRING,
+        tipo: DataTypes.STRING
     },{
         tableName: 'status_sms',
         timestamps: false 

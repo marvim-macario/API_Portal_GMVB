@@ -9,16 +9,18 @@ const RelatorioSmsController = {
     SubStatus: async (req, res) => {
         try {
             const substatus = await status_sms.findAll({
-                attributes: ['sub_status'],
-                group: ['sub_status']
+                attributes: [
+                    [Sequelize.fn('DISTINCT', Sequelize.col('sub_status')), 'sub_status']
+                ]
+
             })
 
             return res.status(200).json(substatus);
         } catch (error) {
-            return res.status(400).json({ error });
+            return res.status(400).json({
+                error
+            });
         }
-
-
     },
 
     Buscar: async (req, res) => {
@@ -53,7 +55,6 @@ const RelatorioSmsController = {
             })
         }
     }
-
 }
 
 module.exports = RelatorioSmsController;

@@ -32,9 +32,7 @@ const { ConsultarContratos } = require('../service/panService');
 const AssistenciaController = require ('../controllers/AssistenciaController')
 const RelatorioLogController = require('../controllers/RelatorioLogController');
 const RelatorioSmsController = require('../controllers/RelatorioSmsController');
-const RelatorioPendenciasController = require('../controllers/RelatorioPendenciasControllers');
-
-
+const RelatorioPendenciasController = require('../controllers/RelatorioPendenciasController');
 
 
 //teste
@@ -437,14 +435,14 @@ router.post('/logs/filtro', RelatorioLogController.Filtro);
 router.post('/assistencia/incluir', AssistenciaController.AssIncluir);
 router.post('/assistencia/alterar', AssistenciaController.AssAlterar); 
 router.post('/assistencia/filtrar', AssistenciaController.AssFiltrar);
+router.get('/assistencia/todos', AssistenciaController.AssTodos);
 
 //Relatorio SMS
 router.get('/sms/substatus', RelatorioSmsController.SubStatus);
 router.post('/sms/filtro', RelatorioSmsController.Buscar);
 
-//Relatorio Pendencias
-router.get('/pendencia/usuario', RelatorioPendenciasController.Usuario);
-router.post('pendencia/buscar', RelatorioPendenciasController.Buscar);
-
+//Relatorio Pendências
+router.post('/pendencia/usuario', RelatorioPendenciasController.Usuario);
+router.post('/pendencia/buscar', RelatorioPendenciasController.Buscar);
 
 module.exports = router;
