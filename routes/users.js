@@ -29,8 +29,10 @@ const ComunicadoController = require('../controllers/ComunicadoController');
 const CalculadoraController = require('../controllers/CalculadoraController');
 const RelatorioSemanalController = require('../controllers/RelatorioSemanalController');
 const { ConsultarContratos } = require('../service/panService');
-
-
+const AssistenciaController = require ('../controllers/AssistenciaController')
+const RelatorioLogController = require('../controllers/RelatorioLogController');
+const RelatorioSmsController = require('../controllers/RelatorioSmsController');
+const RelatorioPendenciasController = require('../controllers/RelatorioPendenciasController');
 
 
 //teste
@@ -55,26 +57,26 @@ router.post('/vinculo', UserController.BuscaVinculo);
 //pagina home 
 router.post('/home', HomeController.Grafico)
 //rotas para popular campos
-router.post('/parceiros',PreencherCamposController.Parceiro);
-router.post('/secundario',PreencherCamposController.Secundario);
-router.post('/terceario',PreencherCamposController.Terceario)
-router.get('/funcionario',PreencherCamposController.Funcionario);
-router.get('/supervisor',PreencherCamposController.Supervisor);
-router.get('/gerente',PreencherCamposController.Gerente);
-router.get('/filial',PreencherCamposController.Filial);
-router.get('/proposta/status',PreencherCamposController.Status);
-router.get('/proposta/tipo',PreencherCamposController.Tipo);
-router.get('/proposta/empresas',PreencherCamposController.Empresa);
-router.get('/proposta/bancos',PreencherCamposController.Banco);
-router.get('/proposta/substatus',PreencherCamposController.SubStatus);
-router.get('/proposta/produto',PreencherCamposController.Produto);
-router.get('/supervisormulti',PreencherCamposController.SupervisorMulti);
-router.get('/comissao/promotor',PreencherCamposController.Promotor);
-router.get('/comissao/status',PreencherCamposController.StausComissao);
-router.get('/comissao/datagerente',PreencherCamposController.DataPagamentoGerente);
-router.get('/comissao/datasupervisor',PreencherCamposController.DataPagamentoSupervisor);
-router.get('/comissao/competencia',PreencherCamposController.Competencia);
-router.get('/margem/status',PreencherCamposController.StatusMargem);
+router.post('/parceiros', PreencherCamposController.Parceiro);
+router.post('/secundario', PreencherCamposController.Secundario);
+router.post('/terceario', PreencherCamposController.Terceario)
+router.get('/funcionario', PreencherCamposController.Funcionario);
+router.get('/supervisor', PreencherCamposController.Supervisor);
+router.get('/gerente', PreencherCamposController.Gerente);
+router.get('/filial', PreencherCamposController.Filial);
+router.get('/proposta/status', PreencherCamposController.Status);
+router.get('/proposta/tipo', PreencherCamposController.Tipo);
+router.get('/proposta/empresas', PreencherCamposController.Empresa);
+router.get('/proposta/bancos', PreencherCamposController.Banco);
+router.get('/proposta/substatus', PreencherCamposController.SubStatus);
+router.get('/proposta/produto', PreencherCamposController.Produto);
+router.get('/supervisormulti', PreencherCamposController.SupervisorMulti);
+router.get('/comissao/promotor', PreencherCamposController.Promotor);
+router.get('/comissao/status', PreencherCamposController.StausComissao);
+router.get('/comissao/datagerente', PreencherCamposController.DataPagamentoGerente);
+router.get('/comissao/datasupervisor', PreencherCamposController.DataPagamentoSupervisor);
+router.get('/comissao/competencia', PreencherCamposController.Competencia);
+router.get('/margem/status', PreencherCamposController.StatusMargem);
 router.get('/bancoOrigi', PreencherCamposController.BancoOrigi);
 router.get('/imobiliario/status', ImobiliarioController.StatusImobiliario);
 
@@ -205,51 +207,50 @@ router.post('/comissao/modal', ComissaoController.PreecherModal);
 //incluir comissao
 router.post('/comissao/incluir', multer(ecxelConfig).single('incluir_propostas'), ComissaoController.Incluir);
 //alterar comissao
-router.post('/comissao/alterar',multer(ecxelConfig).single('alterar_propostas'),ComissaoController.Alterar);
+router.post('/comissao/alterar', multer(ecxelConfig).single('alterar_propostas'), ComissaoController.Alterar);
 
 
- router.post('/solicitacoes/saldoDevedor',SaldoDevedorController.SaldoDevedor);
- router.get('/statusSaldo/saldoDevedor',SaldoDevedorController.StatusSaldo);
- router.post('/incluirSaldo/saldoDevedor',SaldoDevedorController.IncluirSaldo);
- router.post('/alterarSaldo/saldoDevedor',SaldoDevedorController.AlterarSaldo);
- router.post('/alterar/modal',SaldoDevedorController.Modal);
- router.post('/margem/pesquisa',MargemController.Pesquisar);
- router.post('/margem/incluir',MargemController.Incluir);
- router.post('/margem/incluir/anexo',multer(multerConfig).single('anexo_print_margem'),MargemController.Anexo)
- router.post('/margem/alterar',MargemController.Update);
- router.post('/margem/modal', MargemController.Modal);
- router.post('/saldofer/incluir',SaldoFerController.IncluirSaldoFer);
- router.post('/saldofer/atualizar', SaldoFerController.Atualizar);
- router.post('/saldofer/modal', SaldoFerController.Modal);
- router.post('/saldofer/filtro', SaldoFerController.Filtro)
- router.post('/saldofer/incluir/arquivos',multer(multerConfig).single('anexo_print_fer'),SaldoFerController.Anexo)
+router.post('/solicitacoes/saldoDevedor', SaldoDevedorController.SaldoDevedor);
+router.get('/statusSaldo/saldoDevedor', SaldoDevedorController.StatusSaldo);
+router.post('/incluirSaldo/saldoDevedor', SaldoDevedorController.IncluirSaldo);
+router.post('/alterarSaldo/saldoDevedor', SaldoDevedorController.AlterarSaldo);
+router.post('/alterar/modal', SaldoDevedorController.Modal);
+router.post('/margem/pesquisa', MargemController.Pesquisar);
+router.post('/margem/incluir', MargemController.Incluir);
+router.post('/margem/incluir/anexo', multer(multerConfig).single('anexo_print_margem'), MargemController.Anexo)
+router.post('/margem/alterar', MargemController.Update);
+router.post('/margem/modal', MargemController.Modal);
+router.post('/saldofer/incluir', SaldoFerController.IncluirSaldoFer);
+router.post('/saldofer/atualizar', SaldoFerController.Atualizar);
+router.post('/saldofer/modal', SaldoFerController.Modal);
+router.post('/saldofer/filtro', SaldoFerController.Filtro)
+router.post('/saldofer/incluir/arquivos', multer(multerConfig).single('anexo_print_fer'), SaldoFerController.Anexo)
 
- //Solicitação cancelamento
- router.post('/cancelamento/incluir',CancelamentoController.IncluirCancelamento);
- router.post('/cancelamento/filtro', CancelamentoController.Filtro);
- router.post('/cancelamento/modal', CancelamentoController.Modal);
- router.post('/cancelamento/alterar', CancelamentoController.Alterar);
+//Solicitação cancelamento
+router.post('/cancelamento/incluir', CancelamentoController.IncluirCancelamento);
+router.post('/cancelamento/filtro', CancelamentoController.Filtro);
+router.post('/cancelamento/modal', CancelamentoController.Modal);
+router.post('/cancelamento/alterar', CancelamentoController.Alterar);
 
- //Aprovação proposta digittal
- router.post('/aprovacaoproposta/incluir', AprovacaoPropostaController.IncluirAprovacao);
- router.post('/aprovacaoproposta/filtro', AprovacaoPropostaController.Filtro);
- router.post('/aprovacaoproposta/modal', AprovacaoPropostaController.Modal);
- router.post('/aprovacaoproposta/alterar', AprovacaoPropostaController.Alterar);
+//Aprovação proposta digittal
+router.post('/aprovacaoproposta/incluir', AprovacaoPropostaController.IncluirAprovacao);
+router.post('/aprovacaoproposta/filtro', AprovacaoPropostaController.Filtro);
+router.post('/aprovacaoproposta/modal', AprovacaoPropostaController.Modal);
+router.post('/aprovacaoproposta/alterar', AprovacaoPropostaController.Alterar);
 
- //Margem governo gov sp
- router.post('/margemgoverno/incluir', MargemGovernoController.IncluirMargemGoverno);
- router.post('/margemgoverno/filtro', MargemGovernoController.Filtro);
+//Margem governo gov sp
+router.post('/margemgoverno/incluir', MargemGovernoController.IncluirMargemGoverno);
+router.post('/margemgoverno/filtro', MargemGovernoController.Filtro);
 
 //Parceiros restritos
- router.post('/parceirosrestritos/incluir', ParceirosRestritosController.InluirParcRest);
- router.post('/parceirosrestritos/filtro', ParceirosRestritosController.Filtro);
- router.post('/parceirosrestritos/modal', ParceirosRestritosController.Modal);
+router.post('/parceirosrestritos/incluir', ParceirosRestritosController.InluirParcRest);
+router.post('/parceirosrestritos/filtro', ParceirosRestritosController.Filtro);
+router.post('/parceirosrestritos/modal', ParceirosRestritosController.Modal);
 router.post('/parceirosrestritos/alterar', ParceirosRestritosController.Alterar);
 
 router.post('/atualizacao/cliente/filtro', AtualizacaoClienteController.Filtro)
 router.post('/atualizacao/cliente/inserir', AtualizacaoClienteController.Inserir)
-router.post('/atualizacao/cliente/anexo', multer(multerConfig).fields([
-    {
+router.post('/atualizacao/cliente/anexo', multer(multerConfig).fields([{
         name: 'identificacao',
         maxCount: 1
     },
@@ -278,7 +279,7 @@ router.post('/averbacao/goias/atualizar', AverbacaoGoiasController.Atualizar)
 router.post('/autorizacao/inss/filtro', AutorizacaoInssController.Filtro)
 router.post('/autorizacao/inss/modal', AutorizacaoInssController.Modal)
 router.post('/autorizacao/inss/inserir', AutorizacaoInssController.Inserir)
-router.post('/autorizacao/inss/anexo', multer(multerConfig).single('anexo_print_margem') ,AutorizacaoInssController.Anexo)
+router.post('/autorizacao/inss/anexo', multer(multerConfig).single('anexo_print_margem'), AutorizacaoInssController.Anexo)
 router.post('/autorizacao/inss/atualizar', AutorizacaoInssController.Atualizar)
 
 //Lista negra
@@ -286,54 +287,54 @@ router.post('/lista/negra/inserir', ListaNegraController.inclusao)
 
 //Rota para buscar cpfs de gerente e supervisor
 router.post('/buscar', UserController.BuscaCpf);
- //service pan 
- router.get('/pan',Service.Auth);
- router.post('/pan/consulta',Service.FindUser);
- router.post('/pan/consultar/contratos',ConsultarContratos);
+//service pan 
+router.get('/pan', Service.Auth);
+router.post('/pan/consulta', Service.FindUser);
+router.post('/pan/consultar/contratos', ConsultarContratos);
 
 
- //imobiliario
+//imobiliario
 router.get('/imobiliario/status', ImobiliarioController.StatusImobiliario);
 router.get('/imobiliario/imovel', ImobiliarioController.ImovelImobiliario);
-router.post('/imobiliario/pesquisar',ImobiliarioController.Pesquisar);
-router.post('/imobiliario/inclusao',ImobiliarioController.Incluir)
+router.post('/imobiliario/pesquisar', ImobiliarioController.Pesquisar);
+router.post('/imobiliario/inclusao', ImobiliarioController.Incluir)
 router.post('/imobiliario/alterar', ImobiliarioController.Alterar)
 router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
-    name: 'minuta',
-    maxCount: 1
-},
-{
-    name: 'comprovanteEstadoCivil',
-    maxCount: 1
-},
-{
-    name: 'comprovanteResidencia',
-    maxCount: 1
-},
-{
-    name: 'extratobancario1',
-    maxCount: 1
-},
-{
-    name: 'extatobancario2',
-    maxCount: 1
-},
-{
-    name: 'extratobancario3',
-    maxCount: 1
-},
-{
-    name: 'outros5',
-    maxCount: 1
-},
-{
-    name: 'outros6',
-    maxCount: 1
-},
-{
-    name: 'outros7',
-    maxCount: 1
-},
+        name: 'minuta',
+        maxCount: 1
+    },
+    {
+        name: 'comprovanteEstadoCivil',
+        maxCount: 1
+    },
+    {
+        name: 'comprovanteResidencia',
+        maxCount: 1
+    },
+    {
+        name: 'extratobancario1',
+        maxCount: 1
+    },
+    {
+        name: 'extatobancario2',
+        maxCount: 1
+    },
+    {
+        name: 'extratobancario3',
+        maxCount: 1
+    },
+    {
+        name: 'outros5',
+        maxCount: 1
+    },
+    {
+        name: 'outros6',
+        maxCount: 1
+    },
+    {
+        name: 'outros7',
+        maxCount: 1
+    },
 
 
 ]), ImobiliarioController.IncluirArquivos);
@@ -343,8 +344,7 @@ router.post('/imobiliario/alterar', ImobiliarioController.Alterar);
 router.post('/sac/filtro', SacController.Filtro);
 router.post('/sac/incluir', SacController.IncluirSac);
 router.post('/sac/atualizar', SacController.Atualizar);
-router.post('/sac/anexo', multer(multerConfig).fields([
-    {
+router.post('/sac/anexo', multer(multerConfig).fields([{
         name: 'arquivo1',
         macCount: 1
     },
@@ -364,8 +364,7 @@ router.post('/sac/anexo', multer(multerConfig).fields([
 
 router.post('/sac/incluir', SacController.IncluirSac)
 router.post('/sac/filtro', SacController.Filtro)
-router.post('/sac/anexo', multer(multerConfig).fields([
-    {
+router.post('/sac/anexo', multer(multerConfig).fields([{
         name: 'arquivo1',
         macCount: 1
     },
@@ -403,8 +402,7 @@ router.get('/proposta/indica', PreencherCamposController.PropostaIndica);
 
 //Comunicado
 router.post('/comunicado/incluir', ComunicadoController.Incluir);
-router.post('/comunicado/anexo', multer(multerConfig).fields([
-    {
+router.post('/comunicado/anexo', multer(multerConfig).fields([{
         name: 'url_img',
         macCount: 1
     },
@@ -425,8 +423,26 @@ router.post('/calculadora/convenios', CalculadoraController.Convenios);
 router.post('/calculadora/regras', CalculadoraController.Regras);
 router.post('/calculadora/coef', CalculadoraController.CoefTaxa);
 
+// Relatorio Semanal
 router.post('/semanal/busca', RelatorioSemanalController.Lista);
 router.get('/semanal/faixa', RelatorioSemanalController.Faixa);
 
+//Relatorio logs
 router.get('/logs/status', PreencherCamposController.Status);
+router.post('/logs/filtro', RelatorioLogController.Filtro);
+
+//Assistencia 24hs
+router.post('/assistencia/incluir', AssistenciaController.AssIncluir);
+router.post('/assistencia/alterar', AssistenciaController.AssAlterar); 
+router.post('/assistencia/filtrar', AssistenciaController.AssFiltrar);
+router.get('/assistencia/todos', AssistenciaController.AssTodos);
+
+//Relatorio SMS
+router.get('/sms/substatus', RelatorioSmsController.SubStatus);
+router.post('/sms/filtro', RelatorioSmsController.Buscar);
+
+//Relatorio Pendências
+router.post('/pendencia/usuario', RelatorioPendenciasController.Usuario);
+router.post('/pendencia/buscar', RelatorioPendenciasController.Buscar);
+
 module.exports = router;

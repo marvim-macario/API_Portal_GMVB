@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         },
 
         proposta: DataTypes.STRING,
-        cnpj: DataTypes.STRING,
         parceiro: DataTypes.STRING,
+        cnpj: DataTypes.STRING,
         supervisor: DataTypes.STRING,
         valor_liberado: DataTypes.STRING,
         tipo: DataTypes.STRING,

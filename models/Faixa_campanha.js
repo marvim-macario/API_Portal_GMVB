@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'faixa_campanha',
         timestamps: false
     })
+    
     Faixa_campanha.removeAttribute('id'); 
     return Faixa_campanha;
 }

@@ -426,7 +426,8 @@ const PreencherCamposController = {
             attributes: ['proposta','nome','cpf','supervisor','gerente','data_venda','cpf_correto','parceiro_correto','sup','ger']
         });
         res.status(200).send(PropostaIndica);
-    }
+    },
+
 }
 
 module.exports = PreencherCamposController;
