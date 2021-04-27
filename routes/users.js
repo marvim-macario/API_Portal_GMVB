@@ -33,6 +33,7 @@ const AssistenciaController = require ('../controllers/AssistenciaController')
 const RelatorioLogController = require('../controllers/RelatorioLogController');
 const RelatorioSmsController = require('../controllers/RelatorioSmsController');
 const RelatorioPendenciasController = require('../controllers/RelatorioPendenciasController');
+const MotorController = require('../controllers/MotorController');
 
 
 //teste
@@ -444,5 +445,6 @@ router.post('/sms/filtro', RelatorioSmsController.Buscar);
 //Relatorio Pendências
 router.post('/pendencia/usuario', RelatorioPendenciasController.Usuario);
 router.post('/pendencia/buscar', RelatorioPendenciasController.Buscar);
+router.post('/motor/calculo', MotorController.create)
 
 module.exports = router;
