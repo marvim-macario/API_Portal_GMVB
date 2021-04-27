@@ -1,5 +1,8 @@
-const { propostas, fila_precadastro, fila_acompanhamento} = require("../models");
-const config = require("../config/database")
+const {
+    propostas,
+    fila_precadastro
+} = require("../models");
+const config = require("../config/database");
 
 const Sequelize = require("sequelize");
 
@@ -14,7 +17,7 @@ const ControleFilasController = {
         });
 
 
-        const resultOfFilter = await sequelize.query("SELECT count(*) qtd,min(STR_TO_DATE(data_atualizacao,'%d/%m/%Y' '%H:%i:%s')) data_atualizacao,min(STR_TO_DATE(data_envio,'%d/%m/%Y' '%H:%i:%s')) data_envio, REPLACE(FORMAT(SUM(REPLACE(entregue, '.', '')),2), '.', ',') valor FROM propostas where status in ('IDENTIFICACAO PROPOSTA - AGUARDANDO DOCUMENTACAO','CADASTRADO BANCO - AGUARDANDO DOCUMENTACAO','CADASTRO - AGUARDANDO CONTRATO','AGUARDANDO ANALISE DE TAXA ESPECIAL')  ORDER BY qtd desc");
+        const [resultOfFilter] = await sequelize.query("SELECT count(*) qtd,min(STR_TO_DATE(data_atualizacao,'%d/%m/%Y' '%H:%i:%s')) data_atualizacao,min(STR_TO_DATE(data_envio,'%d/%m/%Y' '%H:%i:%s')) data_envio, REPLACE(FORMAT(SUM(REPLACE(entregue, '.', '')),2), '.', ',') valor FROM propostas where status in ('IDENTIFICACAO PROPOSTA - AGUARDANDO DOCUMENTACAO','CADASTRADO BANCO - AGUARDANDO DOCUMENTACAO','CADASTRO - AGUARDANDO CONTRATO','AGUARDANDO ANALISE DE TAXA ESPECIAL')  ORDER BY qtd desc");
 
         const searchPreCadastro = await fila_precadastro.findAll({
             attributes: [
@@ -29,7 +32,6 @@ const ControleFilasController = {
             quantidades: searchPreCadastro
         });
     },
-
     BuscaDadosPropostas: async (req, res) => {
         const data_cadastro = `0${new Date().getDate()}/0${new Date().getMonth()+1}/${new Date().getFullYear()}`;
         // console.log(data_cadastro);
@@ -53,10 +55,11 @@ const ControleFilasController = {
         return res.json(resultFilter);
     },
     FarolTotal: async (req, res) => {
-        const resultFilter = await sequelize.query(`SELECT sum(qtd_dentro) qtd_dentro,sum(qtd_fora) qtd_fora FROM fila_total3`)
+        const resultFilter = await sequelize.query(`SELECT sum(qtd_dentro) qtd_dentro,sum(qtd_fora) qtd_fora FROM fila_total3`);
 
         return res.json(resultFilter);
-    },
+    }
+
 }
 
 module.exports = ControleFilasController;
