@@ -447,5 +447,9 @@ router.post('/pendencia/buscar', RelatorioPendenciasController.Buscar);
 
 //Controle de Filas
 router.get("/filas/precadastro/busca", ControleFilasController.BuscaPreCadastros);
+router.get("/filas/dadospropostas/busca", ControleFilasController.BuscaDadosPropostas);
+router.get("/filas/integradasdia/buscar", ControleFilasController.BuscaIntegradasDia);
+router.get("/filas/integradasmes/buscar", ControleFilasController.BuscaIntegradasMes);
+router.get("/filas/faroltotal/buscar", ControleFilasController.FarolTotal);
 
 module.exports = router;
