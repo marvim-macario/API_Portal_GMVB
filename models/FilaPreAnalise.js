@@ -11,5 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false
     })
 
+    FilaPreAnalise.removeAttribute('id');
     return FilaPreAnalise;
 }

@@ -5,11 +5,12 @@ module.exports = (sequelize, DataTypes) => {
         valor: DataTypes.STRING,
         qtd_fora: DataTypes.DECIMAL,
         qtd_dentro: DataTypes.DECIMAL,
-        datatime: DataTypes.DATE
+        data_envio: DataTypes.DATE
     }, {
         tableName: "fila_precadastro",
         timestamps: false
     })
 
+    FilaPreCadastro.removeAttribute('id');
     return FilaPreCadastro;
 }
