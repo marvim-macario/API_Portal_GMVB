@@ -11,5 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false
     })
 
+    Fila_Portabilidade.removeAttribute('id');
     return Fila_Portabilidade;
 }

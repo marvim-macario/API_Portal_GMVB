@@ -10,5 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'fila_regularizacao',
         timestamps: false
     })
-        return Fila_Regularizacao;
+
+    Fila_Regularizacao.removeAttribute('id');
+    return Fila_Regularizacao;
 }

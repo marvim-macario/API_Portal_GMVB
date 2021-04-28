@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const FilaConfirmacao = sequelize.define("fila_saldo", {
+    const FilaSaldo = sequelize.define("fila_saldo", {
         status: DataTypes.STRING,
         qtd: DataTypes.INTEGER,
         valor: DataTypes.STRING,
@@ -11,5 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false
     })
 
-    return FilaConfirmacao;
+    FilaSaldo.removeAttribute('id');
+    return FilaSaldo;
 }

@@ -33,7 +33,7 @@ const AssistenciaController = require ('../controllers/AssistenciaController')
 const RelatorioLogController = require('../controllers/RelatorioLogController');
 const RelatorioSmsController = require('../controllers/RelatorioSmsController');
 const RelatorioPendenciasController = require('../controllers/RelatorioPendenciasController');
-const ControleFilasController = require('../controllers/ControleFilasController');
+const ControleFilasController = require("../controllers/ControleFilasController");
 
 //teste
 router.get('/', (req, res) => {
@@ -445,6 +445,16 @@ router.post('/sms/filtro', RelatorioSmsController.Buscar);
 router.post('/pendencia/usuario', RelatorioPendenciasController.Usuario);
 router.post('/pendencia/buscar', RelatorioPendenciasController.Buscar);
 
-router.get('/filas/precadastro', ControleFilasController.BuscaPreCadastros);
+//Controle de Filas
+router.get("/filas/precadastro/busca", ControleFilasController.BuscaPreCadastros);
+router.get("/filas/dadospropostas/busca", ControleFilasController.BuscaDadosPropostas);
+router.get("/filas/integradasdia/buscar", ControleFilasController.BuscaIntegradasDia);
+router.get("/filas/integradasmes/buscar", ControleFilasController.BuscaIntegradasMes);
+router.get("/filas/faroltotal/buscar", ControleFilasController.FarolTotal);
+router.get("/filas/preanalise/buscar", ControleFilasController.BuscaPreAnalisa);
+router.get("/filas/confirmacao/buscar", ControleFilasController.BuscaFaseConfirmacao);
+router.get("/filas/digitacao/buscar", ControleFilasController.BuscaFilaDigitacao);
+router.get("/filas/saldo/buscar", ControleFilasController.BuscaFilaSaldo);
+router.get("/filas/acompanhamento/buscar", ControleFilasController.BuscaFaseAcompanhamento);
 
 module.exports = router;
