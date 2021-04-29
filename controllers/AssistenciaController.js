@@ -16,6 +16,8 @@ const AssistenciaController = {
             cep,
             rua,      
             bairro,
+            cidade,
+            estado,
             numero,
             complemento,
             email,
@@ -48,6 +50,8 @@ const AssistenciaController = {
                 typeof   cep != undefined && cep !='' &&
                 typeof   rua  != undefined &&   rua !='' &&
                 typeof   bairro != undefined && bairro !='' &&
+                typeof   cidade != undefined && cidade !='' &&
+                typeof   estado != undefined && estado !='' &&
                 typeof   numero != undefined && numero !='' &&
                 typeof   complemento != undefined && complemento !='' &&
                 typeof  email != undefined && email !='' &&
@@ -79,6 +83,8 @@ const AssistenciaController = {
             cep,
             rua,      
             bairro,
+            cidade,
+            estado,
             numero,
             complemento,
             email,
@@ -116,6 +122,8 @@ const AssistenciaController = {
             cep,
             rua,      
             bairro,
+            cidade,
+            estado,
             numero,
             complemento,
             email,
@@ -139,13 +147,15 @@ const AssistenciaController = {
             data_alteracao
         } = req.body;
 
-        const assistenciaInserir = await assistencia.update({ 
+        const assistenciaAlterar = await assistencia.update({ 
             cliente_nome,
             cliente_cpf,
             data_nascimento,
             cep,
             rua,      
             bairro,
+            cidade,
+            estado,
             numero,
             complemento,
             email,
@@ -172,45 +182,98 @@ const AssistenciaController = {
             returning: true, 
             plain: true 
         })
-        return res.status(200).json(assistenciaInserir)
+        return res.status(200).json(assistenciaAlterar)
     },
 
+    AssFiltrarSelecionadasPorId: async (req, res) => {
+        const {
+        id_parceiro,
+        cliente_cpf,
+        tipo_contratacao,
+        banco,
+        tipo_assistencia,
+        forma_contratacao
+        } = req.body;
 
-        AssFiltrar: async (req, res) => {
+        const assistenciaInserir = await assistencia.findAll({
+            attributes: ['cliente_cpf', 'cliente_nome', 'tipo_contratacao', 'tipo_assistencia'],
+            where: {
+
+                [Op.and]:
+                  [
+                    { id_parceiro: id_parceiro }
+                  ],
+                [Op.or]: 
+                [
+                  { cliente_cpf: cliente_cpf },
+                  { tipo_contratacao: tipo_contratacao },
+                  { banco: banco },
+                  { tipo_assistencia: tipo_assistencia },
+                  { forma_contratacao: forma_contratacao }
+                ]
+            }
+        })
+        return res.status(200).json(assistenciaInserir)
+    },
+        AssFiltrarTodasPorId: async (req, res) => {
             const {
-                cliente_cpf,
-                tipo_contratacao,
-                banco,
-                tipo_assistencia,
-                forma_contratacao
+            id_parceiro
             } = req.body;
 
-            const assistenciaInserir = await assistencia.findAll({ 
+            const assistenciaInserir = await assistencia.findAll({ //Operador OR , busca propostas por id 
                 attributes: ['cliente_cpf', 'cliente_nome', 'tipo_contratacao', 'tipo_assistencia'],
                 where: {
-                    [Op.or]: [
-                      { cliente_cpf: cliente_cpf },
-                      { tipo_contratacao: tipo_contratacao },
-                      { banco: banco },
-                      { tipo_assistencia: tipo_assistencia },
-                      { forma_contratacao: forma_contratacao }
+                    [Op.and]: [
+                      { id_parceiro: id_parceiro }
                     ]}
             })
             return res.status(200).json(assistenciaInserir)
         },
 
+        AssFiltrarParaAlterar: async (req, res) => {
+            const {
+            cliente_nome,
+            cliente_cpf,
+            tipo_contratacao,
+            tipo_assistencia
+            } = req.body;
 
-        AssTodos: async (req, res) => {
-
-            const assistenciaTodos = await assistencia.findAll({ 
-                attributes: ['cliente_cpf', 'cliente_nome', 'tipo_contratacao', 'tipo_assistencia']
+            const assistenciaInserir = await assistencia.findOne({ 
+                attributes: [            
+                    'codigo',//colocar input hidden 
+                    'cliente_nome',
+                    'cliente_cpf',
+                    'data_nascimento',
+                    'cep',
+                    'rua',      
+                    'bairro',
+                    'cidade',
+                    'estado',
+                    'numero',
+                    'complemento',
+                    'email',
+                    'telefone',
+                    'tipo_contratacao',
+                    'banco',
+                    'agencia',
+                    'conta',
+                    'digito',
+                    'tipo_conta',
+                    'status',
+                    'tipo_assistencia',
+                    'forma_contratacao',
+                    'id_parceiro',
+                   ],
+                where: {
+                    [Op.and]: [
+                     { cliente_nome: cliente_nome },
+                      { cliente_cpf: cliente_cpf },
+                      { tipo_contratacao: tipo_contratacao },
+                      { tipo_assistencia: tipo_assistencia }
+                    ]}
             })
-            if(assistenciaTodos)
-            return res.status(200).json(assistenciaTodos)
+            return res.status(200).json(assistenciaInserir)
         }
-
-
-
 
 }
 module.exports = AssistenciaController;
