@@ -23,6 +23,9 @@ const AverbacaoGoiasController = require('../controllers/AverbacaoGoiasControlle
 const AutorizacaoInssController =require('../controllers/AutorizacaoInssController');
 const ListaNegraController = require('../controllers/ListaNegraController');
 const { ConsultarContratos } = require('../service/panService');
+const IntegracoesController = require('../controllers/IntegracoesController');
+const MotorController = require('../controllers/MotorControlller');
+
 
 
 
@@ -45,6 +48,8 @@ router.post('/buscar', UserController.BuscaCpf);
 
 //pagina home 
 router.post('/home', HomeController.Grafico)
+router.get('/home/integracoes',IntegracoesController.Read);
+router.get('/home/integracoes/naoperturbe',IntegracoesController.login);
 //rotas para popular campos
 router.post('/parceiros',PreencherCamposController.Parceiro);
 router.post('/secundario',PreencherCamposController.Secundario);
@@ -318,9 +323,8 @@ router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
     maxCount: 1
 },
 
-
-
-
 ]), ImobiliarioController.IncluirArquivos);
+
+router.post('/motor/calculo',MotorController.index)
 
 module.exports = router;

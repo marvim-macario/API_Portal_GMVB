@@ -2,6 +2,7 @@
 const { acesso_completo,acessos,vw_proposta,proposta_comissao  } = require('../models');
 
 
+
 const HomeController = {
     
     Grafico: async(req, res)=>{
@@ -29,6 +30,9 @@ const HomeController = {
         }
       
 
+        
+    },
+    Integracoes: (req, res) => {
         
     }
 

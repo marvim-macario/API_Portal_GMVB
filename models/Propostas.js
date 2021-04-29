@@ -277,7 +277,7 @@ module.exports = (sequelize, DataTypes) => {
         obs_pendencia: DataTypes.STRING,
         refin_ole:DataTypes.STRING,
         empresa_sms:DataTypes.STRING, 
-        id_acesso:DataTypes.STRING, 
+        // id_acesso:DataTypes.STRING, 
         robo_2:DataTypes.STRING,
         venda_sms:DataTypes.STRING, 
         auditoria_sms:DataTypes.STRING, 
@@ -363,11 +363,18 @@ module.exports = (sequelize, DataTypes) => {
         digito_conta:DataTypes.STRING,
         email:DataTypes.STRING, 
         id_sim:DataTypes.STRING,
-        url:DataTypes.STRING 
+        // url:DataTypes.STRING 
     }, 
         {
         tableName: 'propostas',
         timestamps: false
     })
+    propostaOriginal.associate = function(models) {
+        propostaOriginal.hasMany(models.parceiro2,{
+            foreignKey: 'id_parceiro',
+            // through: 'propostasTable',
+            as: 'parceiro2'
+        })
+    };
     return propostaOriginal;
 };
