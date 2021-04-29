@@ -451,5 +451,10 @@ router.get("/filas/dadospropostas/busca", ControleFilasController.BuscaDadosProp
 router.get("/filas/integradasdia/buscar", ControleFilasController.BuscaIntegradasDia);
 router.get("/filas/integradasmes/buscar", ControleFilasController.BuscaIntegradasMes);
 router.get("/filas/faroltotal/buscar", ControleFilasController.FarolTotal);
+router.get("/filas/preanalise/buscar", ControleFilasController.BuscaPreAnalisa);
+router.get("/filas/confirmacao/buscar", ControleFilasController.BuscaFaseConfirmacao);
+router.get("/filas/digitacao/buscar", ControleFilasController.BuscaFilaDigitacao);
+router.get("/filas/saldo/buscar", ControleFilasController.BuscaFilaSaldo);
+router.get("/filas/acompanhamento/buscar", ControleFilasController.BuscaFaseAcompanhamento);
 
 module.exports = router;

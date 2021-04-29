@@ -1,6 +1,12 @@
 const {
     propostas,
-    fila_precadastro
+    fila_precadastro,
+    fila_total3,
+    fila_preanalise,
+    fila_confirmacao,
+    fila_digitacao,
+    fila_saldo,
+    fila_acompanhamento
 } = require("../models");
 const config = require("../config/database");
 
@@ -55,9 +61,62 @@ const ControleFilasController = {
         return res.json(resultFilter);
     },
     FarolTotal: async (req, res) => {
-        const resultFilter = await sequelize.query(`SELECT sum(qtd_dentro) qtd_dentro,sum(qtd_fora) qtd_fora FROM fila_total3`);
-
+        const resultFilter = await fila_total3.findAll({
+            attributes: [
+                [Sequelize.fn('sum', Sequelize.col('qtd_dentro')), 'qtd_dentro'],
+                [Sequelize.fn('sum', Sequelize.col('qtd_fora')), 'qtd_fora']
+            ]
+        })
         return res.json(resultFilter);
+    },
+
+    BuscaPreAnalisa: async (req, res) => {
+        const registrosLinhas = await fila_preanalise.findAll({
+            order: [
+                ['qtd', 'DESC']
+            ]
+        })
+
+        return res.json(registrosLinhas);
+    },
+    BuscaFaseConfirmacao: async (req, res) => {
+        const regitrosLinhas = await fila_confirmacao.findAll({
+            order: [
+                ['qtd', 'DESC']
+            ]
+        });
+
+        return res.json(regitrosLinhas);
+    },
+
+    BuscaFilaDigitacao: async (req, res) => {
+        const linhas = await fila_digitacao.findAll({
+            order: [
+                ['qtd', 'DESC']
+            ]
+        })
+
+        return res.json(linhas);
+    },
+
+    BuscaFilaSaldo: async (req, res) => {
+        const linhas = await fila_saldo.findAll({
+            order: [
+                ['qtd', 'DESC']
+            ]
+        })
+
+        return res.json(linhas);
+    },
+
+    BuscaFaseAcompanhamento: async (req, res) => {
+        const linhas = await fila_acompanhamento.findAll({
+            order: [
+                ['qtd', 'DESC']
+            ]
+        })
+
+        return res.json(linhas);
     }
 
 }
