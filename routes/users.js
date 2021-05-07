@@ -437,6 +437,8 @@ router.post('/assistencia/alterar', AssistenciaController.AssAlterar);
 router.post('/assistencia/filtrartodasporid', AssistenciaController.AssFiltrarTodasPorId);
 router.post('/assistencia/filtrarselecionadasporid', AssistenciaController.AssFiltrarSelecionadasPorId);
 router.post('/assistencia/filtrarParaAlterar', AssistenciaController.AssFiltrarParaAlterar);
+router.post('/assistencia/cnab', AssistenciaController.AssCnab);
+router.post('/assistencia/txt', AssistenciaController.AssGerarTxt);
 
 //Relatorio SMS
 router.get('/sms/substatus', RelatorioSmsController.SubStatus);
