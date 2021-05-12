@@ -5,13 +5,14 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true,
         },
-
         cliente_nome: DataTypes.STRING,
         cliente_cpf: DataTypes.STRING,
         data_nascimento: DataTypes.STRING,
         cep: DataTypes.STRING,
         rua: DataTypes.STRING,      
         bairro: DataTypes.STRING,
+        cidade: DataTypes.STRING,
+        estado: DataTypes.STRING,
         numero: DataTypes.STRING,
         complemento: DataTypes.STRING,
         email: DataTypes.STRING,
@@ -32,7 +33,8 @@ module.exports = (sequelize, DataTypes) => {
         gerente: DataTypes.STRING,
         data_inclusao: DataTypes.STRING,
         responsavel_alteracao: DataTypes.STRING,
-        data_alteracao: DataTypes.STRING
+        data_alteracao: DataTypes.STRING,
+        valor_assistencia: DataTypes.STRING
     },{
         tableName: 'assistencia',
         timestamps: false
