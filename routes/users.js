@@ -34,6 +34,7 @@ const RelatorioLogController = require('../controllers/RelatorioLogController');
 const RelatorioSmsController = require('../controllers/RelatorioSmsController');
 const RelatorioPendenciasController = require('../controllers/RelatorioPendenciasController');
 const ControleFilasController = require("../controllers/ControleFilasController");
+const PropostaBbController = require('../controllers/PropostaBbController');
 
 //teste
 router.get('/', (req, res) => {
@@ -457,5 +458,15 @@ router.get("/filas/confirmacao/buscar", ControleFilasController.BuscaFaseConfirm
 router.get("/filas/digitacao/buscar", ControleFilasController.BuscaFilaDigitacao);
 router.get("/filas/saldo/buscar", ControleFilasController.BuscaFilaSaldo);
 router.get("/filas/acompanhamento/buscar", ControleFilasController.BuscaFaseAcompanhamento);
+
+//Auditoria
+router.get("/auditoria/venda", PropostaBbController.Venda);
+router.get("/auditoria/operador", PropostaBbController.Operador);
+router.get('/auditoria/tipo', PropostaBbController.Tipo);
+router.get('/auditoria/mes', PropostaBbController.Mes);
+router.get("/auditoria/supervisor", PropostaBbController.Supervisor);
+router.get("/auditoria/status", PropostaBbController.StatusAuditoria);
+router.get("/auditoria/status/proposta", PropostaBbController.StatusProposta);
+router.post("/auditoria/filtro", PropostaBbController.Filtro);
 
 module.exports = router;
