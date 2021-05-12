@@ -3,47 +3,8 @@ const {
 } = require('../models');
 
 const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 
 const PropostaBbController = {
-    Supervisor: async (req, res) => {
-        const Supervisor = await propostas_bb.findAll({
-            attributes: [
-                [Sequelize.fn('DISTINCT', Sequelize.col('supervisor')), 'supervisor']
-            ],
-
-            order: [
-                ['supervisor', 'DESC']
-            ]
-        });
-        res.status(200).send(Supervisor);
-    },
-
-    StatusAuditoria: async (req, res) => {
-        const StatusAuditoria = await propostas_bb.findAll({
-            attributes: [
-                [Sequelize.fn('DISTINCT', Sequelize.col('status_auditoria')), 'status_auditoria']
-            ],
-
-            order: [
-                ['status_auditoria', 'DESC']
-            ]
-        });
-        res.status(200).send(StatusAuditoria);
-    },
-
-    StatusProposta: async (req, res) => {
-        const StatusProposta = await propostas_bb.findAll({
-            attributes: [
-                [Sequelize.fn('DISTINCT', Sequelize.col('status')), 'status']
-            ],
-
-            order: [
-                ['status', 'DESC']
-            ]
-        })
-        res.status(200).send(StatusProposta);
-    },
     Venda: async (req, res) => {
         const result = await propostas_bb.findAll({
             attributes: [
@@ -106,9 +67,67 @@ const PropostaBbController = {
         const resultOfFilter = result.filter(item => item.mes !== null && item.mes !== "");
 
         return res.json(resultOfFilter);
-
     },
 
+    Supervisor: async (req, res) => {
+        const Supervisor = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('supervisor')), 'supervisor']
+            ],
+
+            order: [
+                ['supervisor', 'DESC']
+            ]
+        });
+        res.status(200).send(Supervisor);
+    },
+
+    StatusAuditoria: async (req, res) => {
+        const StatusAuditoria = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('status_auditoria')), 'status_auditoria']
+            ],
+
+            order: [
+                ['status_auditoria', 'DESC']
+            ]
+        });
+        res.status(200).send(StatusAuditoria);
+    },
+
+    StatusProposta: async (req, res) => {
+        const StatusProposta = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('status')), 'status']
+            ],
+
+            order: [
+                ['status', 'DESC']
+            ]
+        })
+        res.status(200).send(StatusProposta);
+    },
+
+    Filtro: async (req, res) => {
+        try {
+            let objFields = {
+                ...req.body
+            };
+            console.log(objFields);
+
+            const result = await propostas_bb.findAll({
+                where: {
+                    ...objFields
+                }
+            })
+
+            return res.json(result);
+
+        } catch (error) {
+            console.error(error);
+        }
+    },
+    
     Modal: async (req, res) => {
         try {
 
@@ -123,5 +142,7 @@ const PropostaBbController = {
             res.send(error);
         }
     }
+
 }
+
 module.exports = PropostaBbController;
