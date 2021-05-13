@@ -1,267 +1,159 @@
+Skip to content
+Search or jump to…
 
-  config: {
-    url: 'http://api.erpmaisvalor.com.br/nperturbe/v1/blacklist/?telefone=11944412194',
-    method: 'get',
-    data: '{"jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkuZXJwbWFpc3ZhbG9yLmNvbS5iclwvbmFvX3BlcnR1YmUiLCJhdWQiOiJodHRwOlwvXC9hcGkuZXJwbWFpc3ZhbG9yLmNvbS5iclwvbmFvX3BlcnR1YmUiLCJpYXQiOjE2MTc5MDUwODksIm5iZiI6MTM1NzAwMDAwMCwiZGF0YSI6eyJpZCI6IjUifX0.FibCa3OHnJnkwgy-uqdXEZ1tsS9nJHSrTEi4Hl5SmBw"}',
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-      'Content-Type': 'application/json',
-      'User-Agent': 'axios/0.21.1',
-      'Content-Length': 306
-    },
-    transformRequest: [ [Function: transformRequest] ],
-    transformResponse: [ [Function: transformResponse] ],
-    timeout: 0,
-    adapter: [Function: httpAdapter],
-    xsrfCookieName: 'XSRF-TOKEN',
-    xsrfHeaderName: 'X-XSRF-TOKEN',
-    maxContentLength: -1,
-    maxBodyLength: -1,
-    validateStatus: [Function: validateStatus]
-  },
-  request: <ref *1> ClientRequest {
-    _events: [Object: null prototype] {
-      socket: [Function (anonymous)],
-      abort: [Function (anonymous)],
-      aborted: [Function (anonymous)],
-      connect: [Function (anonymous)],
-      error: [Function (anonymous)],
-      timeout: [Function (anonymous)],
-      prefinish: [Function: requestOnPrefinish]
-    },
-    _eventsCount: 7,
-    _maxListeners: undefined,
-    outputData: [],
-    outputSize: 0,
-    writable: true,
-    destroyed: false,
-    _last: true,
-    chunkedEncoding: false,
-    shouldKeepAlive: false,
-    _defaultKeepAlive: true,
-    useChunkedEncodingByDefault: false,
-    sendDate: false,
-    _removedConnection: false,
-    _removedContLen: false,
-    _removedTE: false,
-    _contentLength: null,
-    _hasBody: true,
-    _trailer: '',
-    finished: true,
-    _headerSent: true,
-    socket: Socket {
-      connecting: false,
-      _hadError: false,
-      _parent: null,
-      _host: 'api.erpmaisvalor.com.br',
-      _readableState: [ReadableState],
-      _events: [Object: null prototype],
-      _eventsCount: 7,
-      _maxListeners: undefined,
-      _writableState: [WritableState],
-      allowHalfOpen: false,
-      _sockname: null,
-      _pendingData: null,
-      _pendingEncoding: '',
-      server: null,
-      _server: null,
-      parser: null,
-      _httpMessage: [Circular *1],
-      [Symbol(async_id_symbol)]: 39,
-      [Symbol(kHandle)]: [TCP],
-      [Symbol(kSetNoDelay)]: false,
-      [Symbol(lastWriteQueueSize)]: 0,
-      [Symbol(timeout)]: null,
-      [Symbol(kBuffer)]: null,
-      [Symbol(kBufferCb)]: null,
-      [Symbol(kBufferGen)]: null,
-      [Symbol(kCapture)]: false,
-      [Symbol(kBytesRead)]: 0,
-      [Symbol(kBytesWritten)]: 0,
-      [Symbol(RequestTimeout)]: undefined
-    },
-    _header: 'GET /nperturbe/v1/blacklist/?telefone=11944412194 HTTP/1.1\r\n' +
-      'Accept: application/json, text/plain, */*\r\n' +
-      'Content-Type: application/json\r\n' +
-      'User-Agent: axios/0.21.1\r\n' +
-      'Content-Length: 306\r\n' +
-      'Host: api.erpmaisvalor.com.br\r\n' +
-      'Connection: close\r\n' +
-      '\r\n',
-    _keepAliveTimeout: 0,
-    _onPendingData: [Function: noopPendingOutput],
-    agent: Agent {
-      _events: [Object: null prototype],
-      _eventsCount: 2,
-      _maxListeners: undefined,
-      defaultPort: 80,
-      protocol: 'http:',
-      options: [Object],
-      requests: {},
-      sockets: [Object],
-      freeSockets: {},
-      keepAliveMsecs: 1000,
-      keepAlive: false,
-      maxSockets: Infinity,
-      maxFreeSockets: 256,
-      scheduling: 'fifo',
-      maxTotalSockets: Infinity,
-      totalSocketCount: 1,
-      [Symbol(kCapture)]: false
-    },
-    socketPath: undefined,
-    method: 'GET',
-    maxHeaderSize: undefined,
-    insecureHTTPParser: undefined,
-    path: '/nperturbe/v1/blacklist/?telefone=11944412194',
-    _ended: true,
-    res: IncomingMessage {
-      _readableState: [ReadableState],
-      _events: [Object: null prototype],
-      _eventsCount: 3,
-      _maxListeners: undefined,
-      socket: [Socket],
-      httpVersionMajor: 1,
-      httpVersionMinor: 1,
-      httpVersion: '1.1',
-      complete: true,
-      headers: [Object],
-      rawHeaders: [Array],
-      trailers: {},
-      rawTrailers: [],
-      aborted: false,
-      upgrade: false,
-      url: '',
-      method: null,
-      statusCode: 404,
-      statusMessage: 'Not Found',
-      client: [Socket],
-      _consuming: false,
-      _dumped: false,
-      req: [Circular *1],
-      responseUrl: 'http://api.erpmaisvalor.com.br/nperturbe/v1/blacklist/?telefone=11944412194',
-      redirects: [],
-      [Symbol(kCapture)]: false,
-      [Symbol(RequestTimeout)]: undefined
-    },
-    aborted: false,
-    timeoutCb: null,
-    upgradeOrConnect: false,
-    parser: null,
-    maxHeadersCount: null,
-    reusedSocket: false,
-    host: 'api.erpmaisvalor.com.br',
-    protocol: 'http:',
-    _redirectable: Writable {
-      _writableState: [WritableState],
-      _events: [Object: null prototype],
-      _eventsCount: 2,
-      _maxListeners: undefined,
-      _options: [Object],
-      _ended: true,
-      _ending: true,
-      _redirectCount: 0,
-      _redirects: [],
-      _requestBodyLength: 306,
-      _requestBodyBuffers: [],
-      _onNativeResponse: [Function (anonymous)],
-      _currentRequest: [Circular *1],
-      _currentUrl: 'http://api.erpmaisvalor.com.br/nperturbe/v1/blacklist/?telefone=11944412194',
-      [Symbol(kCapture)]: false
-    },
-    [Symbol(kCapture)]: false,
-    [Symbol(kNeedDrain)]: false,
-    [Symbol(corked)]: 0,
-    [Symbol(kOutHeaders)]: [Object: null prototype] {
-      accept: [Array],
-      'content-type': [Array],
-      'user-agent': [Array],
-      'content-length': [Array],
-      host: [Array]
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@marvim1990 
+DEVS-GMVB
+/
+API_Portal_GMVB
+0
+0
+0
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+8
+Insights
+Settings
+API_Portal_GMVB/controllers/MotorControlller.js /
+@marvim1990
+marvim1990 calculo
+Latest commit 07bd753 2 days ago
+ History
+ 1 contributor
+We found potential security vulnerabilities in your dependencies.
+You can see this message because you have been granted access to Dependabot alerts for this repository.
+
+110 lines (77 sloc)  5.59 KB
+  
+const Sequelize = require('sequelize');
+const config = require('../config/database')
+const db = new Sequelize(config);
+
+
+const MotorController = {
+     
+   index: async(req,res) => {
+
+    var { element: { proposta,cpf,nome,data_cadastro,data_base,valor_solicitado,valor_refin,valor_liberado,prazo_contrato,mês,portabilidade,contrato,convenio,atividade,produto,tipo,regra,nome_promotor,cpf_promotor,siglae_corrigida,siglae,empresa,correntista,taxa,pontos_campanha,banco,taxa2 }} = req.body;
+    // var {proposta,cpf,nome,data_cadastro,data_base,valor_solicitado,valor_refin,valor_liberado,prazo_contrato,mês,portabilidade,contrato,convenio,atividade,produto,tipo,regra,nome_promotor,cpf_promotor,siglae_corrigida,siglae,empresa,correntista,taxa,pontos_campanha,banco,taxa2 } = req.body;
+
+
+    const select1 = `SELECT base_parceiros.parceiro,base_parceiros.cnpj, base_parceiros.comissao_novo as convenio_padrao,base_parceiros.comissao_inss as convenio_especial,base_parceiros.tabela_crefisa as crefisa,base_parceiros.tabela_multi as multibanco,base_parceiros.tabela_sim as sim,base_parceiros.ajuda_custo, base_parceiros.supervisor_sant,base_parceiros.tipo,base_parceiros.data_admissao,base_parceiros.data_inativacao,base_parceiros.gerente_sant,base_parceiros.tipo_func FROM base_parceiros inner join parceiro2 on parceiro2.cpf = base_parceiros.cnpj inner join propostas on propostas.parceiro = parceiro2.parceiro where propostas.proposta = '${proposta}' and base_parceiros.classificacao = '1' limit 1`
+    const select2 = `SELECT base_parceiros.parceiro,base_parceiros.cnpj,base_parceiros.supervisor_sant,base_parceiros.tipo,base_parceiros.data_admissao,base_parceiros.data_inativacao,base_parceiros.gerente_sant,base_parceiros.tipo_func FROM proposta_mascara,parceiro2,base_parceiros WHERE proposta_mascara.parceiro = parceiro2.parceiro and parceiro2.cpf = base_parceiros.cnpj and proposta = '${proposta}' and  base_parceiros.classificacao = '1' limit 1;`
+    const select3 = `SELECT base_parceiros.parceiro,base_parceiros.cnpj,base_parceiros.supervisor_sant,base_parceiros.tipo,base_parceiros.data_admissao,base_parceiros.data_inativacao,base_parceiros.gerente_sant,base_parceiros.tipo_func FROM siglae,base_parceiros where siglae.cpf_usuario1 = base_parceiros.cnpj and siglae.siglae = '${siglae_corrigida}' and  base_parceiros.classificacao = '1' limit 1;`
+    const buscaConvenio = `select classificacao_convenio from tabela_comissao where convenio = '${convenio}'`
+
+    const [consulta1] = await db.query(`SELECT proposta FROM propostas where proposta = '${proposta}'`)
+  
+    if(consulta1.length > 0){
+
+        var [[dadosProposta]] = await db.query(select1)
+        console.log(dadosProposta)
+
+    } else {
+        
+        const [consulta2] = await db.query(`SELECT proposta FROM proposta_mascara where proposta = '${proposta}'`) 
+
+        if(consulta2.length > 0){
+          [[dadosProposta]] = await db.query(select2)
+        }else{
+         var consulta3 = await db.query(select3)   
+        }    
+            
+        if(consulta3.length > 0) [dadosProposta] = consulta3
+      
     }
-  },
-  response: {
-    status: 404,
-    statusText: 'Not Found',
-    headers: {
-      date: 'Thu, 08 Apr 2021 18:04:49 GMT',
-      server: 'Apache',
-      connection: 'close',
-      'transfer-encoding': 'chunked',
-      'content-type': 'application/json; charset=UTF-8'
-    },
-    config: {
-      url: 'http://api.erpmaisvalor.com.br/nperturbe/v1/blacklist/?telefone=11944412194',
-      method: 'get',
-      data: '{"jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkuZXJwbWFpc3ZhbG9yLmNvbS5iclwvbmFvX3BlcnR1YmUiLCJhdWQiOiJodHRwOlwvXC9hcGkuZXJwbWFpc3ZhbG9yLmNvbS5iclwvbmFvX3BlcnR1YmUiLCJpYXQiOjE2MTc5MDUwODksIm5iZiI6MTM1NzAwMDAwMCwiZGF0YSI6eyJpZCI6IjUifX0.FibCa3OHnJnkwgy-uqdXEZ1tsS9nJHSrTEi4Hl5SmBw"}',
-      headers: [Object],
-      transformRequest: [Array],
-      transformResponse: [Array],
-      timeout: 0,
-      adapter: [Function: httpAdapter],
-      xsrfCookieName: 'XSRF-TOKEN',
-      xsrfHeaderName: 'X-XSRF-TOKEN',
-      maxContentLength: -1,
-      maxBodyLength: -1,
-      validateStatus: [Function: validateStatus]
-    },
-    request: <ref *1> ClientRequest {
-      _events: [Object: null prototype],
-      _eventsCount: 7,
-      _maxListeners: undefined,
-      outputData: [],
-      outputSize: 0,
-      writable: true,
-      destroyed: false,
-      _last: true,
-      chunkedEncoding: false,
-      shouldKeepAlive: false,
-      _defaultKeepAlive: true,
-      useChunkedEncodingByDefault: false,
-      sendDate: false,
-      _removedConnection: false,
-      _removedContLen: false,
-      _removedTE: false,
-      _contentLength: null,
-      _hasBody: true,
-      _trailer: '',
-      finished: true,
-      _headerSent: true,
-      socket: [Socket],
-      _header: 'GET /nperturbe/v1/blacklist/?telefone=11944412194 HTTP/1.1\r\n' +
-        'Accept: application/json, text/plain, */*\r\n' +
-        'Content-Type: application/json\r\n' +
-        'User-Agent: axios/0.21.1\r\n' +
-        'Content-Length: 306\r\n' +
-        'Host: api.erpmaisvalor.com.br\r\n' +
-        'Connection: close\r\n' +
-        '\r\n',
-      _keepAliveTimeout: 0,
-      _onPendingData: [Function: noopPendingOutput],
-      agent: [Agent],
-      socketPath: undefined,
-      method: 'GET',
-      maxHeaderSize: undefined,
-      insecureHTTPParser: undefined,
-      path: '/nperturbe/v1/blacklist/?telefone=11944412194',
-      _ended: true,
-      res: [IncomingMessage],
-      aborted: false,
-      timeoutCb: null,
-      upgradeOrConnect: false,
-      parser: null,
-      maxHeadersCount: null,
-      reusedSocket: false,
-      host: 'api.erpmaisvalor.com.br',
-      protocol: 'http:',
-      _redirectable: [Writable],
-      [Symbol(kCapture)]: false,
-      [Symbol(kNeedDrain)]: false,
-      [Symbol(corked)]: 0,
-      [Symbol(kOutHeaders)]: [Object: null prototype]
-    },
-  data:{  msg: 'telefone não encontrado' }
-  },
-  isAxiosError: true,
-  toJSON: [Function: toJSON]
+
+
+
+    if(dadosProposta.length < 1) res.send({'inclusa':false,'proposta':proposta,'message':'proposta, não identificada'});
+    else{
+        const[[conv]] = await db.query(buscaConvenio);
+
+        if(!conv) var clas = {'classificacao':"Padrao"}
+        else var clas = {'classificacao':conv.classificacao_convenio}
+
+        regra = await regra.split("-")
+        if(regra.length > 1)  regra = await regra[1];
+
+        var [calc] = await db.query(`select * from tabela_comissao where convenio = '${convenio}' and correntista = '${correntista}' and tipo = '${tipo}' and banco = 'SANTANDER' and regra = '${regra}' and data_vigencia like '%ATUAL%' limit 1;`)
+
+        if(calc.length > 0) {
+            var rescal = calc;
+        } else {
+
+            if(clas.classificacao ===  'Tabela Pref Rio'){
+                [[rescal]] = await db.query(`select id_calculo,data_vigencia,parceiro  from tabela_comissao where convenio = '${convenio}' and data_vigencia like '%ATUAL%' limit 1;`)  
+            }
+        }
+
+        if(dadosProposta.tipo_func !== 'PARCEIRO') var pct_parceiro = null;
+        else var pct_parceiro = rescal.parceiro
+
+        var calculado;
+
+        if(clas === 'Convenios Taxa'){
+         calculado = await db.query(`select ROUND((${valor_liberado} * ${pct_parceiro} * comissao_especial1 / 100 ),2)  from dual;`)
+        } else if(clas === 'Gov Minas' ){
+            calculado = await db.query(`select ROUND((${valor_liberado} * ${tabela_parceiro} * comissao_minas1 / 100 ),2) from dual;`)
+        }
+    
+//  res.send({  
+//         'inclusa':true,
+//         'proposta':proposta,
+//         'nome':dadosProposta.parceiro,
+//         'valor_liberado':valor_liberado,
+//         'prazo_contrato':prazo_contrato, 
+//         'convenio':convenio,
+//         'tipo':tipo,
+//         'regra':regra,
+//         'correntista':correntista,
+//         'classificacao':clas.classificacao ,
+//         'cnpj': dadosProposta.cnpj,
+//         'convenio_padrao':dadosProposta.convenio_padrao,
+//         'convenio_especial':dadosProposta.convenio_especial,
+//         'crefisa':dadosProposta.crefisa,
+//         'multibanco':dadosProposta.multibanco,
+//         'sim':dadosProposta.sim,
+//         'ajuda_custo':dadosProposta.ajuda_custo,
+//         'supervisor_sant':dadosProposta.supervisor_sant,
+//         'tipo':dadosProposta.tipo,
+//         'gerente_sant':dadosProposta.gerente_sant,
+//         'tipo_func':dadosProposta.tipo_func,
+//         'id_calculo':rescal.id_calculo,
+//         'data_vigencia':rescal.data_vigencia,
+//         'parceiro':pct_parceiro
+
+//     })
+    }
+
+
+  }
 }
+
+   
+
+
+module.exports = MotorController;
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete
