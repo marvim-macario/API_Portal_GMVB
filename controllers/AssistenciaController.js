@@ -5,6 +5,7 @@ const {
 } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const mailer = require('../modules/mailer');
 
 const AssistenciaController = {
 
@@ -38,6 +39,7 @@ const AssistenciaController = {
             supervisor,
             gerente,
             data_inclusao,
+            data_vencimento,
             responsavel_alteracao,
             data_alteracao,
             valor_assistencia
@@ -73,6 +75,7 @@ const AssistenciaController = {
                 typeof   supervisor != undefined && supervisor !='' &&
                 typeof   gerente != undefined && gerente !='' &&
                 typeof   data_inclusao != undefined && data_inclusao !='' &&
+                typeof   data_vencimento != undefined && data_vencimento !='' &&
                 typeof   responsavel_alteracao != undefined && responsavel_alteracao !='' &&
                 typeof   data_alteracao!= undefined && data_alteracao !='' &&
                 typeof  valor_assistencia!= undefined && valor_assistencia !=''
@@ -107,6 +110,7 @@ const AssistenciaController = {
             supervisor,
             gerente,
             data_inclusao,
+            data_vencimento,
             responsavel_alteracao,
             data_alteracao,
             valor_assistencia
@@ -147,6 +151,7 @@ const AssistenciaController = {
             supervisor,
             gerente,
             data_inclusao,
+            data_vencimento,
             responsavel_alteracao,
             data_alteracao,
             valor_assistencia
@@ -180,6 +185,7 @@ const AssistenciaController = {
             supervisor,
             gerente,
             data_inclusao,
+            data_vencimento,
             responsavel_alteracao,
             data_alteracao,
             valor_assistencia
@@ -267,6 +273,7 @@ const AssistenciaController = {
                     'tipo_conta',
                     'status',
                     'tipo_assistencia',
+                    'data_vencimento',
                     'forma_contratacao',
                     'id_parceiro',
                    ],
@@ -290,6 +297,8 @@ const AssistenciaController = {
             const assCnab = await assistencia.findAll({
                 attributes: [            
                     'codigo',
+                    'id_contrato',
+                    'id_cliente',
                     'cliente_nome',
                     'cliente_cpf',
                     'data_nascimento',
@@ -311,6 +320,8 @@ const AssistenciaController = {
                     'status',
                     'tipo_assistencia',
                     'forma_contratacao',
+                    'data_vencimento',
+                    'data_inclusao',
                     'id_parceiro',
                     'valor_assistencia'
                    ],
@@ -334,24 +345,32 @@ const AssistenciaController = {
             numero_arquivo,
             cidade,
             estado,
-            valor_assistencia, //valor unitario e6
-            qtdRegistros, //qtd de pessoas que contrataram no indice z e j completar com zeros
-            valor_final,  // no indice z completar com zeros 
-            data_hoje  
+            valor_assistencia, 
+            qtdRegistros, //6 digitos  total registros
+            valor_final,  //17 digitos valor_total_registros
+            data_hoje,
+            data_vencimento,
+            id_empresa_banco  
             } = req.body;
-
-/**identificacao do cliente no banco e na empresa (usar conta bancaria - digito)c2,c4,e2,e4
-E8 numero de TELEFONE
- */
+          
 
 
+            //variaveis para gerar o TXT
             let 
             letraA = "A100333759002500032721GRUPOMAISVALOR      033SANTANDER           "+data_hoje,
             letraA2 ="06DEBITOAUTOMATICO RESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLER",
-            
+
             tamanho_numero = numero_arquivo.toString(),
             diferenca_caracteres_numero = 6-tamanho_numero.length,
             espaco_numero = "0".repeat(diferenca_caracteres_numero),
+
+            tamanho_qtdRegistros = qtdRegistros.toString(),
+            diferenca_caracteres_qtdRegistros = 6-tamanho_qtdRegistros.length,
+            espaco_qtdRegistros = "0".repeat(diferenca_caracteres_qtdRegistros),
+
+            tamanho_valor_final = valor_final.toString(),//TIRAR O PONTO NA HORA DE ENVIAR PELO FRONT
+            diferenca_caracteres_valor_final = 17-tamanho_valor_final.length,
+            espaco_valor_final = "0".repeat(diferenca_caracteres_valor_final),
 
             nome_tamanho = cliente_nome.length,
             diferenca_caracteres = 40-nome_tamanho,
@@ -361,16 +380,29 @@ E8 numero de TELEFONE
             diferenca_caracteres_cidade = 30-cidade_tamanho,
             espaco_cidade = ' '.repeat(diferenca_caracteres_cidade),
 
+            valor_assistencia2 = valor_assistencia.replace(".", ""),
+            valor_debito = valor_assistencia2.toString(),
+            diferenca_caracteres_valor_assistencia = 15-valor_debito.length,
+            espaco_valor_assistencia = '0'.repeat(diferenca_caracteres_valor_assistencia),
+
             ocorrencia1 = "ocorrencia1ocorrencia1ocorrencia1ocorren",
             ocorrencia2= "ocorrencia2ocorrencia2ocorrencia2ocorren",
+
             letraC = "C",
-            id_cliente_empresa = "0000000000000000000011111", //25 caracteres (verificar valor correto)
-            id_cliente_banco= "00000000011111",//14 digitos  verificar valor correto 
-            codigo_movimento = "2" ,//fixo (inclusao de debito automatico)
+
+            tamanho_id_empresa = id_empresa_banco.toString(),
+            diferenca_id_empresa= 25-tamanho_id_empresa.length,
+            espaco_empresa = "0".repeat(diferenca_id_empresa),
+
+            tamanho_id_banco = id_empresa_banco.toString(),
+            diferenca_id_banco= 14-tamanho_id_banco.length,
+            espaco_banco = "0".repeat(diferenca_id_banco),  
+
+            id_cliente_empresa = espaco_empresa+id_empresa_banco, //25 caracteres
+            id_cliente_banco= espaco_banco+id_empresa_banco,//14 
+            codigo_movimento = "2" ,
             reservado_futuroC = "RESERVADOPARAFUTUROFILLER",
             letraE ="E",
-            data_vencimento = "20211022",
-            valor_debito = "000000000084562",
             cod_moeda = "03",
             uso_da_empresa= "USODAEMPRESAUSODAEMPRESAUSODAEMPRESAUSODAEMPRESAUSODAEMPRESA",
             tipo_identificacao = "2",//2 (cpf)
@@ -382,16 +414,10 @@ E8 numero de TELEFONE
             cpf = "2",
             res_ff = "RESERVADOPARAOFUTUROFILLERRESERVADOPA",
             letraJ = "J",
-            nsa = espaco_numero + numero_arquivo ,// igual ao a8 numero que vem do banco para empresa 
-            data = "20211025" ,//data geracao d arquivo 
-            total_reg= "000598" ,//total do registro do arquivo (6digitos)   VER TREILLER z2
-            val_tot_arquivo= "00000000000895000" ,//valor total do arquivo 17 digitos          VER TREILLER z3
-            data_processamento = "20211022" ,
+            nsa = espaco_numero + numero_arquivo ,
             res_fut = "RESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLER", //104 caracteres
             //LETRA Z
             letraZ= "Z",
-            total_registros = "000123", //(6 digitos) seria o total de linhas
-            valor_total_registros = "00000023659874125", //(acumular os campos e6 valor do debito e f6  17 digitos)
             res_fut_Z = "RESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFI",//126 caracteres 
             
             //letraL uma vez por mes ********Marcar data separada****se for dia x mandar ****
@@ -402,22 +428,215 @@ E8 numero de TELEFONE
             
             letra_a_concatenado = letraA+nsa+letraA2,
             letra_c_concatenado =letraC+id_cliente_empresa+agencia+id_cliente_banco+ocorrencia1+ocorrencia2+reservado_futuroC+codigo_movimento,
-            letra_e_concatenado = letraE+id_cliente_empresa+agencia+id_cliente_banco+data_vencimento+valor_debito+cod_moeda+uso_da_empresa+tipo_identificacao+identificacaoE+res_futuro_filler+codigo_movimentoE,
+            letra_e_concatenado = letraE+id_cliente_empresa+agencia+id_cliente_banco+data_vencimento+espaco_valor_assistencia+valor_debito+cod_moeda+uso_da_empresa+tipo_identificacao+identificacaoE+res_futuro_filler+codigo_movimentoE,
             letra_i_concatenado = letraI+id_cliente_empresa+cpf+identificacao+cliente_nome+espaco+cidade+espaco_cidade+estado+res_ff,
-            letra_j_concatenado = letraJ+espaco_numero+numero_arquivo+data+total_reg+val_tot_arquivo+data_processamento+res_fut,
-            letra_z_concatenado = letraZ+total_registros+valor_total_registros+res_fut_Z
+            letra_j_concatenado = letraJ+espaco_numero+numero_arquivo+data_hoje+espaco_qtdRegistros+qtdRegistros+espaco_valor_final+valor_final+data_hoje+res_fut,
+            letra_z_concatenado = letraZ+espaco_qtdRegistros+qtdRegistros+espaco_valor_final+valor_final+res_fut_Z
+
+            let data_arquivo_txt = new Date();
+            let diaHoje = ("0" + data_arquivo_txt.getDate()).slice(-2);
+            let mesHoje = ("0" + (data_arquivo_txt.getMonth() + 1)).slice(-2);
+            let anoHoje = data_arquivo_txt.getFullYear();
+            hoje = diaHoje + mesHoje + anoHoje;
 
 
-            var fs = require('fs');
-            await  fs.appendFile(`../API_Portal_GMVB/assistenciaTxt/teste1.txt`,`${letra_a_concatenado}\n${letra_c_concatenado}\n${letra_e_concatenado}\n${letra_i_concatenado}\n${letra_j_concatenado}\n${letra_z_concatenado}\n`,
-                                                                                                                                                                                                                                                                                                                                                          
+            let fs = require('fs');
+            await  fs.appendFile(`../API_Portal_GMVB/temp/arquivoBanco/envioBanco${hoje}.txt`,`${letra_a_concatenado}\n${letra_c_concatenado}\n${letra_e_concatenado}\n${letra_i_concatenado}\n${letra_j_concatenado}\n${letra_z_concatenado}\n`,
+                                                                                                                                                                                                                                                                                                                                                      
             function(erro) {
                 if(erro) {
                     throw erro;
+                }else{
+                    //função de enviar email para o banco com o anexo gerado na data de hoje
                 }
             });
-            return res.status(200).json("arquivo salvo")
-        }
+            return res.status(200).json("txt banco salvo")
+        },
+
+
+        AssGerarArquivoIke: async (req, res) => {
+            const {
+                contrato, //OK
+                conta, //OK
+                qtdRegistros, //OK
+                cod_interno_cliente, //OK
+                nome ,  //OK
+                cpf, //OK
+                data_nascimento, //OK
+                data_venda,  //OK
+                endereco, //OK
+                numero , //OK
+                complemento, //OK
+                bairro, //OK
+                cidade, //OK
+                cep, //OK
+                uf,//OK
+                numero_sequencial_arquivo//10digitos completar cmo zeroa
+          
+            } = req.body;
+//10 digitos
+ 
+             let
+             layout = "L1"
+
+             data_arquivo_txt = new Date()
+             diaHoje = ("0" + data_arquivo_txt.getDate()).slice(-2)
+             mesHoje = ("0" + (data_arquivo_txt.getMonth() + 1)).slice(-2)
+             anoHoje = data_arquivo_txt.getFullYear()
+             data_geracao_arquivo = anoHoje + mesHoje + diaHoje
+
+
+             hora = ("0" + data_arquivo_txt.getHours()).slice(-2)
+             minuto = ("0" + (data_arquivo_txt.getMinutes() + 1)).slice(-2)
+             horaArquivo = hora + minuto
+
+            
+             cod_gmvb = "GMV"
+             letraH = "H"
+             vigencia_inicial = "00000000"
+             vigencia_final = "99991231"
+             produto = "02560"
+             canal_de_venda = "2"
+             tipo_movimentacao = "I"
+            
+
+             tamanho_qtdRegistros = qtdRegistros.toString(),
+             diferenca_caracteres_qtdRegistros = 10-tamanho_qtdRegistros.length,
+             espaco_qtdRegistros = "0".repeat(diferenca_caracteres_qtdRegistros),
+             
+             tamanho_cdCliente = cod_interno_cliente.toString(),
+             diferenca_caracteres_cdCliente = 20-tamanho_cdCliente.length,
+             espaco_cdCliente = " ".repeat(diferenca_caracteres_cdCliente),
+
+             tamanho_nome = nome.toString(),
+             diferenca_nome = 130-tamanho_nome.length,
+             espaco_nome = " ".repeat(diferenca_nome),
+
+             tamanho_cpf = cpf.toString(),
+             diferenca_caracteres_cpf = 14-tamanho_cpf.length,
+             espaco_cpf = "0".repeat(diferenca_caracteres_cpf),
+
+             tamanho_endereco = endereco.toString(),
+             diferenca_caracteres_endereco = 150-tamanho_endereco.length,
+             espaco_endereco = " ".repeat(diferenca_caracteres_endereco),
+
+             
+             tamanho_numero = numero.toString(),
+             diferenca_caracteres_numero = 5-tamanho_numero.length,
+             espaco_numero = " ".repeat(diferenca_caracteres_numero),
+
+             tamanho_complemento = complemento.toString(),
+             diferenca_caracteres_complemento = 10-tamanho_complemento.length,
+             espaco_complemento = " ".repeat(diferenca_caracteres_complemento),
+
+             tamanho_bairro = bairro.toString(),
+             diferenca_caracteres_bairro = 50-tamanho_bairro.length,
+             espaco_bairro = " ".repeat(diferenca_caracteres_bairro),
+
+             tamanho_cidade = cidade.toString(),
+             diferenca_caracteres_cidade = 50-tamanho_cidade.length,
+             espaco_cidade = " ".repeat(diferenca_caracteres_cidade),
+
+             contador_linhas = 5 * qtdRegistros;
+             //o primeiro é formato string tamanho 9 o segundo é formato numerico tamanho 9
+             tamanho_contador_string = contador_linhas.toString(),
+             diferenca_contador_string = 9-tamanho_contador_string.length,
+             espaco_contador_string = " ".repeat(diferenca_contador_string),
+
+             tamanho_contador_numerico = contador_linhas.toString(),
+             diferenca_caracteres_contador_numerico = 9-tamanho_contador_numerico.length,
+             espaco_contador_numerico = "0".repeat(diferenca_caracteres_contador_numerico),
+
+             tamanho_numero_sequencial_arquivo = numero_sequencial_arquivo.toString(),
+             diferenca_caracteres_numero_sequencial_arquivo = 10-tamanho_numero_sequencial_arquivo.length,
+             espaco_numero_sequencial_arquivo = "0".repeat(diferenca_caracteres_numero_sequencial_arquivo),
+
+
+             //Concatenando
+             chave = cpf + contrato + conta, //tirar caracteres especiais no front end antes de mandar 
+             header= letraH +espaco_numero_sequencial_arquivo + numero_sequencial_arquivo + cod_gmvb + layout + data_geracao_arquivo + espaco_qtdRegistros +qtdRegistros + contador_linhas + espaco_contador_string
+             dados_cliente =  cod_interno_cliente + espaco_cdCliente +nome + espaco_nome + espaco_cpf + cpf  +data_nascimento + data_venda + vigencia_inicial + vigencia_final + produto + canal_de_venda + tipo_movimentacao
+             endereco_final = endereco + espaco_endereco + numero + espaco_numero +  complemento + espaco_complemento +  bairro + espaco_bairro + cidade + espaco_cidade + cep + uf
+             contador_linhas_final = espaco_contador_numerico +  contador_linhas
+
+      
+            arquivo_completo =`${chave}\n${header}\n${dados_cliente}\n${endereco_final}\n${contador_linhas_final}\n`
+          
+            console.log(arquivo_completo)
+
+            let fs = require('fs');
+            await  fs.appendFile(`../API_Portal_GMVB/temp/arquivoIke/GMVB_L1_${data_geracao_arquivo}.txt`,`${arquivo_completo}`,//colocar hora por ultimo _${horaArquivo}
+                                                                                                                                                                                                                                                                                                                                                      
+            function(erro) {
+                if(erro) {
+                    throw erro;
+                }else{
+                    //função de enviar email para o banco com o anexo gerado na data de hoje
+                }
+            });
+            return res.status(200).json(arquivo_completo)
+        },
+
+
+        AssUpdateStatus:async (req, res) =>{
+
+            const { codigo, status } = req.body;
+    
+            const assUpdateStatus = await assistencia.update({ 
+                status
+              }, {
+                where: {codigo: codigo},
+                returning: true, 
+                plain: true 
+            })
+            return res.status(200).json(assUpdateStatus)
+
+        },
+
+          
+    AssSendEmailBanco: async (req, res) => {
+
+
+        let data_arquivo_txt = new Date();
+        let diaHoje = ("0" + data_arquivo_txt.getDate()).slice(-2);
+        let mesHoje = ("0" + (data_arquivo_txt.getMonth() + 1)).slice(-2);
+        let anoHoje = data_arquivo_txt.getFullYear();
+        hoje = diaHoje + mesHoje + anoHoje;
+
+
+     try{
+        var fs = require('fs');
+         await  fs.readFile(`../API_Portal_GMVB/assistenciaTxt/envioBanco${hoje}.txt`, function (err, data) {
+
+
+                mailer.sendMail({
+                            from: 'esteira.maisvalor@gmvb.com.br',
+                            to: 'thaynara.rodrigues@gmvb.com.br',//colocar email do banco
+                            subject: 'Email TXT para o banco',
+                            body: 'arquivo banco teste',
+                            attachments: [{'filename': `envioBanco${hoje}.txt`, 'content': data}]
+
+                }, (err) => {
+                    if (err){
+                    console.log(err);
+                        return res.status(400).send({
+                            erro: 'não foi possivel enviar o email'
+                        });
+                    }else{
+                        return res.status(200).send({
+                            sucesso: 'email enviado com sucesso'
+                        });
+                    }
+
+            })})
+
+                } catch (err) {
+                    
+                    return res.status(400).send({
+                        erro: "não foi possivel enviar o email, tente novamente."
+                    });
+                }
+     }
 
 }
 module.exports = AssistenciaController;
