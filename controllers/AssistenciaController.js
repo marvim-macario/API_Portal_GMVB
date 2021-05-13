@@ -6,6 +6,10 @@ const {
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const mailer = require('../modules/mailer');
+const multer = require('multer');
+const sftpStorage = require('multer-sftp');
+
+
 
 const AssistenciaController = {
 
@@ -553,10 +557,10 @@ const AssistenciaController = {
 
 
              //Concatenando
-             chave = cpf + contrato + conta, //tirar caracteres especiais no front end antes de mandar 
-             header= letraH +espaco_numero_sequencial_arquivo + numero_sequencial_arquivo + cod_gmvb + layout + data_geracao_arquivo + espaco_qtdRegistros +qtdRegistros + contador_linhas + espaco_contador_string
-             dados_cliente =  cod_interno_cliente + espaco_cdCliente +nome + espaco_nome + espaco_cpf + cpf  +data_nascimento + data_venda + vigencia_inicial + vigencia_final + produto + canal_de_venda + tipo_movimentacao
-             endereco_final = endereco + espaco_endereco + numero + espaco_numero +  complemento + espaco_complemento +  bairro + espaco_bairro + cidade + espaco_cidade + cep + uf
+             chave = cpf +";"+ contrato +";"+ conta, //tirar caracteres especiais no front end antes de mandar 
+             header= letraH +";"+espaco_numero_sequencial_arquivo + numero_sequencial_arquivo +";"+ cod_gmvb +";"+ layout +";"+ data_geracao_arquivo +";"+ espaco_qtdRegistros +qtdRegistros +";"+ contador_linhas + espaco_contador_string
+             dados_cliente =  cod_interno_cliente + espaco_cdCliente +";"+nome + espaco_nome +";"+ espaco_cpf + cpf  +";"+data_nascimento +";"+ data_venda +";"+ vigencia_inicial +";"+ vigencia_final +";"+ produto +";"+ canal_de_venda +";"+ tipo_movimentacao
+             endereco_final = endereco + espaco_endereco +";"+ numero + espaco_numero+";"+  complemento + espaco_complemento +";"+  bairro + espaco_bairro +";"+ cidade + espaco_cidade +";"+ cep +";"+ uf
              contador_linhas_final = espaco_contador_numerico +  contador_linhas
 
       
@@ -566,7 +570,7 @@ const AssistenciaController = {
 
             let fs = require('fs');
             await  fs.appendFile(`../API_Portal_GMVB/temp/arquivoIke/GMVB_L1_${data_geracao_arquivo}.txt`,`${arquivo_completo}`,//colocar hora por ultimo _${horaArquivo}
-                                                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                
             function(erro) {
                 if(erro) {
                     throw erro;
@@ -606,7 +610,7 @@ const AssistenciaController = {
 
      try{
         var fs = require('fs');
-         await  fs.readFile(`../API_Portal_GMVB/assistenciaTxt/envioBanco${hoje}.txt`, function (err, data) {
+         await  fs.readFile(`../API_Portal_GMVB/temp/arquivoBanco/envioBanco${hoje}.txt`, function (err, data) {
 
 
                 mailer.sendMail({
@@ -634,6 +638,25 @@ const AssistenciaController = {
                     
                     return res.status(400).send({
                         erro: "não foi possivel enviar o email, tente novamente."
+                    });
+                }
+     },
+
+
+     AssSendSmtpIke: async (req, res) => {
+
+                            const{
+                                teste
+                            } = req.body;
+                  try{
+     
+
+                   
+
+                } catch (err) {
+                    
+                    return res.status(400).send({
+                      "erro" : err
                     });
                 }
      }
