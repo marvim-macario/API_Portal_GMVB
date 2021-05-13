@@ -20,5 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false
     })
 
+    Relatorio_pendencias.removeAttribute('id');
     return Relatorio_pendencias;
 }
