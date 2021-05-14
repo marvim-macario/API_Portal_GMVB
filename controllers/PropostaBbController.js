@@ -94,7 +94,10 @@ const PropostaBbController = {
                 ['status_auditoria', 'DESC']
             ]
         });
-        res.status(200).send(StatusAuditoria);
+
+        const resultOfFilter = StatusAuditoria.filter((item) => item.status_auditoria !== null && item.status_auditoria !== "");
+
+        res.status(200).send(resultOfFilter);
     },
 
     StatusProposta: async (req, res) => {
@@ -302,7 +305,45 @@ const PropostaBbController = {
         } catch (error) {
             console.log(error)
         }
-    }
+    },
+
+    Falta: async (req, res) => {
+        const faltas = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('falta')), 'falta']
+            ]
+        })
+
+        const resultOfFilter = faltas.filter((item) => item.falta !== null && item.falta !== "");
+
+        return res.json(resultOfFilter)
+    },
+
+    SubStatus: async (req, res) => {
+        const subStatus = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('sub_status')), 'sub_status']
+            ]
+        })
+
+        const resultOfFilter = subStatus.filter((item) => item.sub_status !== null && item.sub_status !== "");
+
+        return res.json(resultOfFilter);
+    },
+
+    TipoFalta: async (req, res) => {
+        const TipoFalta = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('tipo_falta')), 'tipo_falta']
+            ],
+            order: [
+                ['tipo_falta', 'DESC']
+            ]
+        })
+
+        const resultOfFilter = TipoFalta.filter((item) => item.tipo_falta !== null && item.tipo_falta !== "");
+        res.status(200).send(resultOfFilter);
+    },
 
 }
 
