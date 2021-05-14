@@ -5,6 +5,8 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true,
         },
+        id_contrato: DataTypes.STRING,
+        id_cliente: DataTypes.STRING,
         cliente_nome: DataTypes.STRING,
         cliente_cpf: DataTypes.STRING,
         data_nascimento: DataTypes.STRING,
@@ -32,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         supervisor: DataTypes.STRING,
         gerente: DataTypes.STRING,
         data_inclusao: DataTypes.STRING,
+        data_vencimento: DataTypes.STRING,
         responsavel_alteracao: DataTypes.STRING,
         data_alteracao: DataTypes.STRING,
         valor_assistencia: DataTypes.STRING
