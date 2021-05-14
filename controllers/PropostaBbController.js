@@ -110,6 +110,42 @@ const PropostaBbController = {
         res.status(200).send(StatusProposta);
     },
 
+    Falta: async (req, res) => {
+        const faltas = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('falta')), 'falta']
+            ]
+        })
+
+        const resultOfFilter = faltas.filter((item) => item.falta !== null && item.falta !== "");
+
+        return res.json(resultOfFilter)
+    },
+
+    SubStatus: async (req, res) => {
+        const subStatus = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('sub_status')), 'sub_status']
+            ]
+        })
+
+        const resultOfFilter = subStatus.filter((item) => item.sub_status !== null && item.sub_status !== "");
+
+        return res.json(resultOfFilter);
+    },
+    
+    TipoFalta: async (req, res) => {
+        const TipoFalta = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('tipo_falta')), 'tipo_falta']
+            ],
+            order: [
+                ['tipo_falta', 'DESC']
+            ]
+        })
+        res.status(200).send(TipoFalta);
+    },
+
     Filtro: async (req, res) => {
         try {
             let objFields = {

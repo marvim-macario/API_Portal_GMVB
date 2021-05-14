@@ -477,5 +477,8 @@ router.post("/auditoria/filtro", PropostaBbController.Filtro);
 router.post('/auditoria/modal', PropostaBbController.Modal);
 router.post('/auditoria/alterar', PropostaBbController.Alterar);
 router.post('/auditoria/buscarlogs', PropostaBbController.BuscarLogs);
+router.get("/auditoria/falta", PropostaBbController.Falta);
+router.get("/auditoria/substatus", PropostaBbController.SubStatus);
+router.get('/auditoria/tipo/falta', PropostaBbController.TipoFalta);
 
 module.exports = router;
