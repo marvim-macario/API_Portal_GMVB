@@ -466,7 +466,10 @@ router.get("/filas/saldo/buscar", ControleFilasController.BuscaFilaSaldo);
 router.get("/filas/acompanhamento/buscar", ControleFilasController.BuscaFaseAcompanhamento);
 
 //Auditoria
+router.get("/auditoria/falta", PropostaBbController.Falta);
+router.get("/auditoria/substatus", PropostaBbController.SubStatus);
 router.get("/auditoria/venda", PropostaBbController.Venda);
+router.get('/auditoria/tipo/falta', PropostaBbController.TipoFalta);
 router.get("/auditoria/operador", PropostaBbController.Operador);
 router.get('/auditoria/tipo', PropostaBbController.Tipo);
 router.get('/auditoria/mes', PropostaBbController.Mes);
