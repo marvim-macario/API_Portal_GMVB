@@ -35,6 +35,7 @@ const RelatorioSmsController = require('../controllers/RelatorioSmsController');
 const RelatorioPendenciasController = require('../controllers/RelatorioPendenciasController');
 const ControleFilasController = require("../controllers/ControleFilasController");
 const PropostaBbController = require('../controllers/PropostaBbController');
+const TblUsuarioController = require('../controllers/TblUsuarioController');
 
 //teste
 router.get('/', (req, res) => {
@@ -483,5 +484,8 @@ router.post('/auditoria/buscarlogs', PropostaBbController.BuscarLogs);
 router.get("/auditoria/falta", PropostaBbController.Falta);
 router.get("/auditoria/substatus", PropostaBbController.SubStatus);
 router.get('/auditoria/tipo/falta', PropostaBbController.TipoFalta);
+
+//Produção analista
+router.post('/producao/analista/filtro', TblUsuarioController.Filtro);
 
 module.exports = router;
