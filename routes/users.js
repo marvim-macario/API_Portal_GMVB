@@ -443,7 +443,7 @@ router.post('/assistencia/txt', AssistenciaController.AssGerarTxt);
 router.post('/assistencia/updateStatus', AssistenciaController.AssUpdateStatus);
 router.post('/assistencia/emailBanco', AssistenciaController.AssSendEmailBanco);
 router.post('/assistencia/ike', AssistenciaController.AssGerarArquivoIke);
-router.post('/assistencia/ikeEnvio', AssistenciaController.AssSendSmtpIke);
+router.post('/assistencia/ikeEnvio', AssistenciaController.AssSendSmtpIke); 
 
 //Relatorio SMS
 router.get('/sms/substatus', RelatorioSmsController.SubStatus);
