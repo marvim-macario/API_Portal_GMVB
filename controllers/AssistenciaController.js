@@ -6,8 +6,6 @@ const {
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const mailer = require('../modules/mailer');
-const multer = require('multer');
-const sftpStorage = require('multer-sftp');
 
 
 
@@ -46,7 +44,9 @@ const AssistenciaController = {
             data_vencimento,
             responsavel_alteracao,
             data_alteracao,
-            valor_assistencia
+            valor_assistencia,
+            id_cliente,// cpf+nascimento
+            id_contrato // cpf+cc
         } = req.body;
 
 //colocar aqui um if de altenticacao
@@ -82,9 +82,9 @@ const AssistenciaController = {
                 typeof   data_vencimento != undefined && data_vencimento !='' &&
                 typeof   responsavel_alteracao != undefined && responsavel_alteracao !='' &&
                 typeof   data_alteracao!= undefined && data_alteracao !='' &&
-                typeof  valor_assistencia!= undefined && valor_assistencia !=''
-       
-        
+                typeof  valor_assistencia!= undefined && valor_assistencia !=''&&
+                typeof   id_cliente!= undefined && id_cliente !='' &&
+                typeof  id_contrato!= undefined && id_contrato !=''
         ){ 
         const assistenciaInserir = await assistencia.create({
             cliente_nome,
@@ -117,7 +117,9 @@ const AssistenciaController = {
             data_vencimento,
             responsavel_alteracao,
             data_alteracao,
-            valor_assistencia
+            valor_assistencia,
+            id_cliente,// cpf+nascimento
+            id_contrato // cpf+cc
         })
 
         return res.status(201).json(assistenciaInserir)
@@ -158,7 +160,9 @@ const AssistenciaController = {
             data_vencimento,
             responsavel_alteracao,
             data_alteracao,
-            valor_assistencia
+            valor_assistencia,
+            id_cliente,// cpf+nascimento
+            id_contrato // cpf+cc
         } = req.body;
 
         const assistenciaAlterar = await assistencia.update({ 
@@ -192,7 +196,9 @@ const AssistenciaController = {
             data_vencimento,
             responsavel_alteracao,
             data_alteracao,
-            valor_assistencia
+            valor_assistencia,
+            id_cliente,// cpf+nascimento
+            id_contrato // cpf+cc
           }, {
             where: {codigo: codigo},
             returning: true, 
@@ -487,7 +493,7 @@ const AssistenciaController = {
              diaHoje = ("0" + data_arquivo_txt.getDate()).slice(-2)
              mesHoje = ("0" + (data_arquivo_txt.getMonth() + 1)).slice(-2)
              anoHoje = data_arquivo_txt.getFullYear()
-             data_geracao_arquivo = anoHoje + mesHoje + diaHoje
+             data_geracao_arquivo = anoHoje + mesHoje + diaHoje //incluir hora minuto e segundo
 
 
              hora = ("0" + data_arquivo_txt.getHours()).slice(-2)
@@ -612,7 +618,6 @@ const AssistenciaController = {
         var fs = require('fs');
          await  fs.readFile(`../API_Portal_GMVB/temp/arquivoBanco/envioBanco${hoje}.txt`, function (err, data) {
 
-
                 mailer.sendMail({
                             from: 'esteira.maisvalor@gmvb.com.br',
                             to: 'thaynara.rodrigues@gmvb.com.br',//colocar email do banco
@@ -645,21 +650,58 @@ const AssistenciaController = {
 
      AssSendSmtpIke: async (req, res) => {
 
-                            const{
-                                teste
-                            } = req.body;
-                  try{
-     
+                    const {
+                        user
+                    } = req.body;
 
-                   
+                    try{
 
-                } catch (err) {
-                    
-                    return res.status(400).send({
-                      "erro" : err
-                    });
-                }
-     }
+                    data_arquivo_txt = new Date()
+                    diaHoje = ("0" + data_arquivo_txt.getDate()).slice(-2)
+                    mesHoje = ("0" + (data_arquivo_txt.getMonth() + 1)).slice(-2)
+                    anoHoje = data_arquivo_txt.getFullYear()
+                    data_geracao_arquivo = anoHoje + mesHoje + diaHoje //incluir hora minuto e segundo
+
+                    var SftpUpload = require('sftp-upload'),
+                    fs = require('fs');
+            
+                        var options = {
+                            host: "201.116.36.203",
+                            username: "Mais_Valor",
+                            path: '../API_Portal_GMVB/temp/arquivoIke/GMVB_L1_20210514.txt',//colocar as horas nesse arquivo 
+                            remoteDir: '/REMESSA',
+                            excludedFolders: ['**/.git', 'node_modules'],
+                            exclude: ['.gitignore', '.vscode/tasks.json'],
+                            password: 'gO\\7&Q+TN2', //senha com 1 barra foram usadas 2 pois tem um caractere de escape
+                            dryRun: false,
+                        },
+                        sftp = new SftpUpload(options);
+                        sftp.on('error', function(err) {
+                            throw err;
+                        })
+                        .on('uploading', function(progress) {
+                            console.log('Uploading', progress.file);
+                            console.log(progress.percent+'% completed');
+                        })
+                        .on('completed', function() {
+                            console.log('Upload Completed');
+                            return res.status(200).send({
+                                sucesso: 'sftp enviado com sucesso'
+                            });
+                            
+                        })
+                        .upload();
+
+                    }catch(error){
+                        return res.status(400).send({
+                            erro: error
+                        });
+                    }
+                      
+        
+            }
+
+
 
 }
 module.exports = AssistenciaController;
