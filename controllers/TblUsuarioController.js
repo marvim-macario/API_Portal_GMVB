@@ -20,7 +20,7 @@ const TblUsuarioController = {
         if (nivel) where.nivel = nivel;
 
         try {
-
+            
             //Setor
             const pesquisaSetor = await setor_usuario2.findAll({
                 where

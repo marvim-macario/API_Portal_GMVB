@@ -119,6 +119,7 @@ const ControleFilasController = {
         return res.json(linhas);
     }
 
+    
 }
 
-module.exports = ControleFilasController;
+module.exports = ControleFilasController; 
