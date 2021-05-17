@@ -4,6 +4,7 @@ const {
 } = require('../models');
 
 const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const PropostaBbController = {
     Venda: async (req, res) => {
@@ -93,7 +94,10 @@ const PropostaBbController = {
                 ['status_auditoria', 'DESC']
             ]
         });
-        res.status(200).send(StatusAuditoria);
+
+        const resultOfFilter = StatusAuditoria.filter((item) => item.status_auditoria !== null && item.status_auditoria !== "");
+
+        res.status(200).send(resultOfFilter);
     },
 
     StatusProposta: async (req, res) => {
@@ -107,6 +111,42 @@ const PropostaBbController = {
             ]
         })
         res.status(200).send(StatusProposta);
+    },
+
+    Falta: async (req, res) => {
+        const faltas = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('falta')), 'falta']
+            ]
+        })
+
+        const resultOfFilter = faltas.filter((item) => item.falta !== null && item.falta !== "");
+
+        return res.json(resultOfFilter)
+    },
+
+    SubStatus: async (req, res) => {
+        const subStatus = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('sub_status')), 'sub_status']
+            ]
+        })
+
+        const resultOfFilter = subStatus.filter((item) => item.sub_status !== null && item.sub_status !== "");
+
+        return res.json(resultOfFilter);
+    },
+    
+    TipoFalta: async (req, res) => {
+        const TipoFalta = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('tipo_falta')), 'tipo_falta']
+            ],
+            order: [
+                ['tipo_falta', 'DESC']
+            ]
+        })
+        res.status(200).send(TipoFalta);
     },
 
     Filtro: async (req, res) => {
@@ -129,7 +169,7 @@ const PropostaBbController = {
                 });
 
                 result.length === 0 ? res.json({
-                    message: "Array is empty"
+                    message: "nenhum registro encontrado com este filtro"
                 }) : res.json(result);
 
             } else {
@@ -142,14 +182,18 @@ const PropostaBbController = {
             console.error(error);
         }
     },
-    
+
     Modal: async (req, res) => {
         try {
 
-            const { id_proposta } = req.body;
+            const {
+                id_proposta
+            } = req.body;
 
             const dadosPropostaBb = await propostas_bb.findOne({
-                where: { id_proposta }
+                where: {
+                    id_proposta
+                }
             })
             return res.status(200).send(dadosPropostaBb);
         } catch (error) {
@@ -170,7 +214,7 @@ const PropostaBbController = {
         return res.json(result);
     },
 
-    Alterar: async (req, res) =>{
+    Alterar: async (req, res) => {
         const {
             id_proposta,
             status_auditoria,
@@ -217,7 +261,7 @@ const PropostaBbController = {
                 }
             })
 
-            if(!BuscaPropostaBb){
+            if (!BuscaPropostaBb) {
                 return res.send("Propostabb inexistente")
             }
 
@@ -228,7 +272,7 @@ const PropostaBbController = {
             BuscaPropostaBb.observacao = observacao
             BuscaPropostaBb.proposta = proposta
             BuscaPropostaBb.data_venda = data_venda
-            BuscaPropostaBb.mes = mes 
+            BuscaPropostaBb.mes = mes
             BuscaPropostaBb.status = status
             //Linha de credito
             BuscaPropostaBb.valor_proposta = valor_proposta
@@ -261,7 +305,45 @@ const PropostaBbController = {
         } catch (error) {
             console.log(error)
         }
-    }
+    },
+
+    Falta: async (req, res) => {
+        const faltas = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('falta')), 'falta']
+            ]
+        })
+
+        const resultOfFilter = faltas.filter((item) => item.falta !== null && item.falta !== "");
+
+        return res.json(resultOfFilter)
+    },
+
+    SubStatus: async (req, res) => {
+        const subStatus = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('sub_status')), 'sub_status']
+            ]
+        })
+
+        const resultOfFilter = subStatus.filter((item) => item.sub_status !== null && item.sub_status !== "");
+
+        return res.json(resultOfFilter);
+    },
+
+    TipoFalta: async (req, res) => {
+        const TipoFalta = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('tipo_falta')), 'tipo_falta']
+            ],
+            order: [
+                ['tipo_falta', 'DESC']
+            ]
+        })
+
+        const resultOfFilter = TipoFalta.filter((item) => item.tipo_falta !== null && item.tipo_falta !== "");
+        res.status(200).send(resultOfFilter);
+    },
 
 }
 

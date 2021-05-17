@@ -35,6 +35,7 @@ const RelatorioSmsController = require('../controllers/RelatorioSmsController');
 const RelatorioPendenciasController = require('../controllers/RelatorioPendenciasController');
 const ControleFilasController = require("../controllers/ControleFilasController");
 const PropostaBbController = require('../controllers/PropostaBbController');
+const TblUsuarioController = require('../controllers/TblUsuarioController');
 
 //teste
 router.get('/', (req, res) => {
@@ -466,7 +467,10 @@ router.get("/filas/saldo/buscar", ControleFilasController.BuscaFilaSaldo);
 router.get("/filas/acompanhamento/buscar", ControleFilasController.BuscaFaseAcompanhamento);
 
 //Auditoria
+router.get("/auditoria/falta", PropostaBbController.Falta);
+router.get("/auditoria/substatus", PropostaBbController.SubStatus);
 router.get("/auditoria/venda", PropostaBbController.Venda);
+router.get('/auditoria/tipo/falta', PropostaBbController.TipoFalta);
 router.get("/auditoria/operador", PropostaBbController.Operador);
 router.get('/auditoria/tipo', PropostaBbController.Tipo);
 router.get('/auditoria/mes', PropostaBbController.Mes);
@@ -477,5 +481,11 @@ router.post("/auditoria/filtro", PropostaBbController.Filtro);
 router.post('/auditoria/modal', PropostaBbController.Modal);
 router.post('/auditoria/alterar', PropostaBbController.Alterar);
 router.post('/auditoria/buscarlogs', PropostaBbController.BuscarLogs);
+router.get("/auditoria/falta", PropostaBbController.Falta);
+router.get("/auditoria/substatus", PropostaBbController.SubStatus);
+router.get('/auditoria/tipo/falta', PropostaBbController.TipoFalta);
+
+//Produção Analista
+router.post('/producao/analista/filtro', TblUsuarioController.Filtro);
 
 module.exports = router;
