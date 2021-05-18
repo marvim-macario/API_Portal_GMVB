@@ -13,14 +13,14 @@ const TblUsuarioController = {
         const {
             supervisor,
             nivel
-        } = req.body
+        } = req.body;
 
         let where = {};
         if (supervisor) where.supervisor = supervisor;
         if (nivel) where.nivel = nivel;
 
         try {
-            
+
             //Setor
             const pesquisaSetor = await setor_usuario2.findAll({
                 where
@@ -33,9 +33,7 @@ const TblUsuarioController = {
 
             // Dia
             const pesquisaDia = await usuario_dia2.findAll({
-                where: {
-                    "01": ""
-                }
+                where
             });
 
             (pesquisaSetor.length > 0 || pesquisaMes.length > 0 || pesquisaDia) ? res.json({
@@ -49,7 +47,7 @@ const TblUsuarioController = {
         } catch (error) {
             console.log(error)
         }
-    }
+    },
 
 }
 module.exports = TblUsuarioController;
