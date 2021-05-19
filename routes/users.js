@@ -325,6 +325,8 @@ router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
 
 ]), ImobiliarioController.IncluirArquivos);
 
-router.post('/motor/calculo',MotorController.index)
+router.post('/motor/calculo',MotorController.BuscaPropostas)
+router.post('/motor/identificacao',MotorController.Identifica)
+router.post('/motor/convenio',MotorController.Convenio)
 
 module.exports = router;
