@@ -34,8 +34,6 @@ module.exports = (sequelize, DataTypes) => {
         29: DataTypes.INTEGER,
         30: DataTypes.INTEGER,
         31: DataTypes.INTEGER,
-        total: DataTypes.STRING,
-        codigo: DataTypes.STRING,
     }, {
         tableName: 'usuario_dia2',
         timestamps: false

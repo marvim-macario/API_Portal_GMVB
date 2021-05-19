@@ -486,6 +486,8 @@ router.get("/auditoria/substatus", PropostaBbController.SubStatus);
 router.get('/auditoria/tipo/falta', PropostaBbController.TipoFalta);
 
 //Produção analista
-router.post('/producao/analista/filtro', TblUsuarioController.Filtro);
+router.post('/producao/analista/setor', TblUsuarioController.FiltroSetor);
+router.post('/producao/analista/mes', TblUsuarioController.FiltroMensal);
+router.get('/producao/analista/dia', TblUsuarioController.Dia);
 
 module.exports = router;

@@ -9,7 +9,38 @@ const Op = Sequelize.Op;
 
 const TblUsuarioController = {
 
-    Filtro: async (req, res) => {
+    FiltroSetor: async (req, res) => {
+        
+        const {
+            supervisor,
+            nivel
+        } = req.body;
+
+        let where = {};
+        if (supervisor) where.supervisor = supervisor;
+        if (nivel) where.nivel = nivel;
+
+        try {
+            
+            console.time("tempo desta consulta")
+            const pesquisaSetor = await setor_usuario2.findAll({
+                where
+            });
+
+            console.timeEnd("tempo desta consulta");
+            (pesquisaSetor.length > 0 ) ? res.json({
+                pesquisaSetor,
+            }): res.json({
+                message: "Não há registros com esse filtro"
+            })
+
+        }catch (error) {
+            console.log(error)
+        }
+    },
+
+    FiltroMensal: async (req, res) => {
+
         const {
             supervisor,
             nivel
@@ -21,28 +52,42 @@ const TblUsuarioController = {
 
         try {
 
-            //Setor
-            const pesquisaSetor = await setor_usuario2.findAll({
-                where
-            });
-
-            //Mes
             const pesquisaMes = await usuario_mes2.findAll({
                 where
             });
 
-            // Dia
-            const pesquisaDia = await usuario_dia2.findAll({
-                where
-            });
-
-            (pesquisaSetor.length > 0 || pesquisaMes.length > 0 || pesquisaDia) ? res.json({
-                pesquisaSetor,
+            (pesquisaMes.length > 0 ) ? res.json({
                 pesquisaMes,
-                pesquisaDia
             }): res.json({
                 message: "Não há registros com esse filtro"
             })
+
+        }catch (error) {
+            console.log(error)
+        }
+
+    },
+
+    Dia: async (req, res) => {
+        // const {
+        //     supervisor,
+        //     nivel
+        // } = req.body;
+
+        // // let where = {};
+        // if (supervisor) where.supervisor = supervisor;
+        // if (nivel) where.nivel = nivel;
+
+        try {
+
+            console.time("Tempo de resposta da 3 consultas");
+
+            //Setor
+            const pesquisaDia = await usuario_dia2.findAll({});
+
+            console.timeEnd("Tempo de resposta da 3 consultas");
+
+            return res.json({pesquisaDia: pesquisaDia});
 
         } catch (error) {
             console.log(error)
