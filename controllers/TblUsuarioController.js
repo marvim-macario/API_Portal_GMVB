@@ -8,7 +8,6 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 const TblUsuarioController = {
-
     FiltroSetor: async (req, res) => {
         
         const {
@@ -22,12 +21,10 @@ const TblUsuarioController = {
 
         try {
             
-            console.time("tempo desta consulta")
             const pesquisaSetor = await setor_usuario2.findAll({
                 where
             });
 
-            console.timeEnd("tempo desta consulta");
             (pesquisaSetor.length > 0 ) ? res.json({
                 pesquisaSetor,
             }): res.json({
@@ -69,21 +66,23 @@ const TblUsuarioController = {
     },
 
     Dia: async (req, res) => {
-        // const {
-        //     supervisor,
-        //     nivel
-        // } = req.body;
+        const {
+            supervisor,
+            nivel
+        } = req.body;
 
-        // // let where = {};
-        // if (supervisor) where.supervisor = supervisor;
-        // if (nivel) where.nivel = nivel;
+        let where = {};
+        if (supervisor) where.supervisor = supervisor;
+        if (nivel) where.nivel = nivel;
 
         try {
 
             console.time("Tempo de resposta da 3 consultas");
 
             //Setor
-            const pesquisaDia = await usuario_dia2.findAll({});
+            const pesquisaDia = await usuario_dia2.findAll({
+                where
+            });
 
             console.timeEnd("Tempo de resposta da 3 consultas");
 
@@ -92,7 +91,7 @@ const TblUsuarioController = {
         } catch (error) {
             console.log(error)
         }
-    },
+    }
 
 }
 module.exports = TblUsuarioController;
