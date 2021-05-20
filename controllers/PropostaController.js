@@ -742,6 +742,8 @@ const PropostaController = {
             outros4
         } = req.files;
 
+        console.log(proposta);
+
         (proposta) ? proposta = req.files.proposta[0].originalname: proposta = null;
         (identificacao) ? identificacao = req.files.identificacao[0].originalname: identificacao = null;
         (endereco) ? endereco = req.files.endereco[0].originalname: endereco = null;

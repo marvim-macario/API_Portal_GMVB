@@ -36,6 +36,7 @@ const RelatorioPendenciasController = require('../controllers/RelatorioPendencia
 const ControleFilasController = require("../controllers/ControleFilasController");
 const PropostaBbController = require('../controllers/PropostaBbController');
 const TblUsuarioController = require('../controllers/TblUsuarioController');
+const PropostaAguardandoController = require('../controllers/PropostaAguardandoController');
 
 //teste
 router.get('/', (req, res) => {
@@ -490,5 +491,12 @@ router.get('/auditoria/tipo/falta', PropostaBbController.TipoFalta);
 router.post('/producao/analista/setor', TblUsuarioController.FiltroSetor);
 router.post('/producao/analista/mes', TblUsuarioController.FiltroMensal);
 router.post('/producao/analista/dia', TblUsuarioController.Dia);
+
+// Proposta aguardando contrato
+//GETs
+router.get('/proposta/aguardando/banco', PropostaAguardandoController.Banco);
+router.get('/proposta/aguardando/tipo', PropostaAguardandoController.Tipo);
+router.get('/proposta/aguardando/status', PropostaAguardandoController.Status);
+router.get('/proposta/aguardando/produto', PropostaAguardandoController.Produto);
 
 module.exports = router;
