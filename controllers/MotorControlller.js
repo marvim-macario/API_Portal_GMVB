@@ -4,14 +4,15 @@ const db = new Sequelize(config);
 
 const buscaCalculo = (comissao, rescal)=>{
 
-    comissao = comissao.split(" ")[1].toLowerCase(); 
-    comissao = 'tab_'+comissao
-    for (const [key, value] of Object.entries(rescal[0])) {
-        if(key === comissao){
-            comissao =  value;
-        }
-    }
-    return comissao
+    console.log(comissao)
+    // comissao = comissao.split(" ")[1].toLowerCase(); 
+    // comissao = 'tab_'+comissao
+    // for (const [key, value] of Object.entries(rescal[0])) {
+    //     if(key === comissao){
+    //         comissao =  value;
+    //     }
+    // }
+    // return comissao
 }
 
 const MotorController = {
@@ -65,10 +66,102 @@ const MotorController = {
     },
 
     Convenio: async (req, res) =>{
-        const { element } = req.body;
-        let [classificacao] = await db.query(`select classificacao_convenio from tabela_comissao where convenio = '${element.convenio}'`);
-        if(!classificacao.length) classificacao = 'PADRAO'
-        res.send({element,classificacao})
+ 
+        const { element:{proposta,cpf,nome,data_cadastro,data_base,valor_solicitado,valor_refin,valor_liberado,prazo_contrato,mês,portabilidade,contrato,convenio,atividade,produto,tipo,regra,nome_promotor,cpf_promotor,siglae_corrigida,siglae,empresa,correntista,taxa,pontos_campanha,banco,taxa2,dadosIdenticacao}} = req.body;
+        let [[classificacao]] = await db.query(`select classificacao_convenio from tabela_comissao where convenio = '${convenio} ' limit 1`);
+       
+        if(!classificacao) classificacao = 'PADRAO'
+        else classificacao = classificacao.classificacao_convenio;
+        
+        res.send({proposta,cpf,nome,data_cadastro,data_base,valor_solicitado,valor_refin,valor_liberado,prazo_contrato,mês,portabilidade,contrato,convenio,atividade,produto,tipo,regra,nome_promotor,cpf_promotor,siglae_corrigida,siglae,empresa,correntista,taxa,pontos_campanha,banco,taxa2,classificacao,dadosIdenticacao})
+        
+    },
+
+    BuscaCalculo: async (req, res) => {
+        const {element} = req.body;
+        
+        const {dadosIdenticacao} = element;
+        
+        element.regra = await element.regra.split("-")
+        if(element.regra.length > 1)  element.regra = await element.regra[1];
+        element.regra = element.regra.trim(" ");
+        
+
+        var [tabelaCalculo] = await db.query(`select * from tabela_comissao where convenio = '${element.convenio}' and correntista = '${element.correntista}' and tipo = '${element.tipo}' and banco = 'SANTANDER' and regra = '${element.regra}' and data_vigencia like '%ATUAL%' limit 1;`)
+        if(!tabelaCalculo.length){
+            if(element.classificacao ==="Tabela Pref Rio"){
+                [tabelaCalculo] = await db.query(`select * from tabela_comissao where convenio = '${element.convenio}' and data_vigencia like '%ATUAL%' limit 1;`)  
+            }else{
+                [tabelaCalculo] = await db.query(`select * from tabela_comissao
+                                    where convenio = '${element.convenio}'
+                                    and banco = 'SANTANDER'
+                                    and regra = '${element.regra}'
+                                    and data_vigencia like '%ATUAL%'
+                                    limit 1;`)  
+            }
+        }
+
+        if(!tabelaCalculo.length) tabelaCalculo = 'calculo nao encontrado';
+        
+        
+        res.send({element,tabelaCalculo})
+
+    },
+
+    CalculoParceiro: async (req, res) => {
+            const {element} =req.body;
+            const dadosProposta = element.element;
+            const {dadosIdenticacao} = dadosProposta;
+            const {tabelaCalculo} = element;
+        
+          
+            var calculado;
+            switch(dadosProposta.classificacao) {
+                case ('Convenios Taxa'):
+                    var comissao = dadosIdenticacao.convenio_especial;
+                   
+                    // if(typeof comissao === 'string') {   
+                    //     const x = buscaCalculo(comissao, tabelaCalculo)
+                    //     calculado = (valor_liberado * x )
+                    // }else{
+                        calculado = (dadosProposta.valor_liberado * tabelaCalculo[0].parceiro * comissao / 100 )
+                      
+                    // }
+                   
+                    break;
+                case ('Gov Minas'):
+                    calculado = (dadosProposta.valor_liberado * tabelaCalculo[0].parceiro * dadosIdenticacao.governo_minas / 100 ),2
+                break;
+                case ('Tabela Pref Rio'):
+                   calculado = (dadosProposta.valor_liberado * tabelaCalculo[0].parceiro * dadosIdenticacao.prefeitura_rio / 100 ),2
+                break;
+                case ('Multi Bancos'):
+                    calculado = (dadosProposta.valor_liberado * tabelaCalculo[0].parceiro * dadosIdenticacao.multibanco / 100 ),2
+                    break;
+                default:
+                    switch(element.tipo) {
+                        case('PORTABILIDADE'):                  
+                            calculado = (dadosProposta.valor_liberado * dadosIdenticacao.convenio_padrao * 0.016 / 100),2
+                            break;
+                        case('PORTABILIDADE COMPETITIVA'):
+                            calculado = (dadosProposta.valor_liberado * dadosIdenticacao.convenio_padrao * 0.016 / 100 / 2),2
+                            break;
+                        case('NOVO COMP'):
+                            calculado = (valor_liberado * dadosIdenticacao.convenio_padrao * 0.0408 / 100 / 2),2
+                            break;
+                        default:
+                            calculado = (valor_liberado * dadosIdenticacao.convenio_padrao * 0.0408 / 100),2
+                    }
+                }
+                calculado = calculado.toFixed(2)
+                res.send({element,calculado})
+    },
+
+    CalculoMei: async (req, res) => {
+        const {element } = req.body;
+        
+
+        //
     }
 }
 

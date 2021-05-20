@@ -328,5 +328,9 @@ router.post('/imobiliario/inclusao/arquivos', multer(multerConfig).fields([{
 router.post('/motor/calculo',MotorController.BuscaPropostas)
 router.post('/motor/identificacao',MotorController.Identifica)
 router.post('/motor/convenio',MotorController.Convenio)
+router.post('/motor/calculo/busca',MotorController.BuscaCalculo)
+router.post('/motor/calculo/parceiro',MotorController.CalculoParceiro) //
+
+router.post('/motor/calculo/mei',MotorController.CalculoMei)
 
 module.exports = router;
