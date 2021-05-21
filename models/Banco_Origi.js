@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) =>{
         banco: DataTypes.STRING
     },{
         tableName: 'banco_origi',
-        timesTamps: false
+        timestamps: false
     })
     return Banco_Origi
 };
