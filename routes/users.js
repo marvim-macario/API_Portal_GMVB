@@ -36,6 +36,7 @@ const RelatorioPendenciasController = require('../controllers/RelatorioPendencia
 const ControleFilasController = require("../controllers/ControleFilasController");
 const PropostaBbController = require('../controllers/PropostaBbController');
 const TblUsuarioController = require('../controllers/TblUsuarioController');
+const PropostaAguardandoController = require('../controllers/PropostaAguardandoController');
 
 //teste
 router.get('/', (req, res) => {
@@ -486,9 +487,41 @@ router.get("/auditoria/substatus", PropostaBbController.SubStatus);
 router.get('/auditoria/tipo/falta', PropostaBbController.TipoFalta);
 
 //Produção analista
-//router.post('/producao/analista/filtro', TblUsuarioController.Filtro);
 router.post('/producao/analista/setor', TblUsuarioController.FiltroSetor);
 router.post('/producao/analista/mes', TblUsuarioController.FiltroMensal);
 router.post('/producao/analista/dia', TblUsuarioController.Dia);
+
+// Proposta aguardando contrato
+//GETs
+router.get('/proposta/aguardando/banco', PropostaAguardandoController.Banco);
+router.get('/proposta/aguardando/tipo', PropostaAguardandoController.Tipo);
+router.get('/proposta/aguardando/status', PropostaAguardandoController.Status);
+router.get('/proposta/aguardando/produto', PropostaAguardandoController.Produto);
+//POSTs
+router.post('/proposta/aguardando/incluir', PropostaAguardandoController.Incluir);
+router.post('/proposta/aguardando/filtro', PropostaAguardandoController.Filtro);
+router.post('/proposta/aguardando/anexos', multer(multerConfig).fields([{
+    name: "arquivo5",
+    macCount: 1
+},
+{
+    name: "arquivo6",
+    macCount: 1
+},
+{
+    name: "arquivo7",
+    macCount: 1
+},
+{
+    name: "arquivo8",
+    macCount: 1
+},
+
+{
+    name: "propostacsg",
+    macCount: 1
+}
+
+]) ,PropostaAguardandoController.Anexo);
 
 module.exports = router;
