@@ -140,8 +140,15 @@ const PreencherCamposController = {
             const sub = await sub_status.findAll({
                 attributes: ['sub_status']
 
-            })
-            res.send(sub);
+            });
+
+            const arrayObject = sub.map((sub_status) => sub_status.sub_status);
+
+            const resultRepeat = [...new Set(arrayObject)];
+            
+            const resultFilter =  resultRepeat.filter((sub_status) => sub_status !== null && sub_status !== "" && sub_status !== "-");
+
+            return res.json(resultFilter);
 
         } catch (error) {
             console.log(error)

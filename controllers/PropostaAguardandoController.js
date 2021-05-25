@@ -37,9 +37,11 @@ const PropostaAguardandoController = {
             attributes: ['status']
         });
 
-        return res.json(statuss);
+        const statusFilter = await statuss.filter(({status}) => status !== null && status !== "");
+
+        return res.json(statusFilter);
     },
-    
+
     Produto: async (req, res) => {
 
         const produtos = await produto.findAll({
@@ -220,6 +222,7 @@ const PropostaAguardandoController = {
 
     Anexo: async (req, res) => {
         const codigo = req.query.codigo;
+        console.log(req.files)
 
         let {
             arquivo5,
@@ -229,17 +232,21 @@ const PropostaAguardandoController = {
             termo
         } = req.files;
 
-        (arquivo5) ? arquivo5 = req.files.arquivo5[0].originalname : null;
-        (arquivo6) ? arquivo6 = req.files.arquivo6[0].originalname : null;
-        (arquivo7) ? arquivo7 = req.files.arquivo7[0].originalname : null;
-        (arquivo8) ? arquivo8 = req.files.arquivo8[0].originalname : null;
-        (termo) ? termo = req.files.termo[0].originalname : null;
+        console.log(arquivo5);
+
+        (arquivo5) ? arquivo5 = req.files.arquivo5[0].originalname: null;
+        (arquivo6) ? arquivo6 = req.files.arquivo6[0].originalname: null;
+        (arquivo7) ? arquivo7 = req.files.arquivo7[0].originalname: null;
+        (arquivo8) ? arquivo8 = req.files.arquivo8[0].originalname: null;
+        (termo) ? termo = req.files.termo[0].originalname: null;
 
 
         try {
 
             const resultData = await propostas.findOne({
-                where: {codigo}
+                where: {
+                    codigo
+                }
             });
 
             resultData.arquivo5 = arquivo5;
@@ -250,14 +257,15 @@ const PropostaAguardandoController = {
             resultData.save();
 
             return res.json(resultData);
-        } catch(error) {
+            
+        } catch (error) {
             console.error(error);
-        }
+        } 
 
 
     },
 
-    Filtro: async (req, res ) => {
+    Filtro: async (req, res) => {
 
         const {
             cpf,
@@ -295,7 +303,7 @@ const PropostaAguardandoController = {
         if (produto) where.produto = produto;
 
         try {
-            const filtro = await propostas.findAll({ 
+            const filtro = await propostas.findAll({
                 where
             })
 
