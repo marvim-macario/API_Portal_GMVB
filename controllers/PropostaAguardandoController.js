@@ -56,7 +56,7 @@ const PropostaAguardandoController = {
             mes,
             banco,
             produto,
-            //valor enrtegue
+            entregue,
             valor_troco,
             valor_parcela,
             tipo,
@@ -102,7 +102,7 @@ const PropostaAguardandoController = {
             nome_pai,
             data_admissao,
             uf,
-            //Cidade
+            municipio,
             cep,
             endereco,
             bairro,
@@ -139,7 +139,7 @@ const PropostaAguardandoController = {
             mes,
             banco,
             produto,
-            //valor enrtegue
+            entregue,
             valor_troco,
             valor_parcela,
             tipo,
@@ -185,7 +185,7 @@ const PropostaAguardandoController = {
             nome_pai,
             data_admissao,
             uf,
-            //Cidade
+            municipio,
             cep,
             endereco,
             bairro,
