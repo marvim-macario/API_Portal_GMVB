@@ -37,7 +37,9 @@ const PropostaAguardandoController = {
             attributes: ['status']
         });
 
-        const statusFilter = await statuss.filter(({status}) => status !== null && status !== "");
+        const statusFilter = await statuss.filter(({
+            status
+        }) => status !== null && status !== "");
 
         return res.json(statusFilter);
     },
@@ -257,10 +259,10 @@ const PropostaAguardandoController = {
             resultData.save();
 
             return res.json(resultData);
-            
+
         } catch (error) {
             console.error(error);
-        } 
+        }
 
 
     },
@@ -312,7 +314,33 @@ const PropostaAguardandoController = {
         } catch (error) {
             console.log(error)
         }
+    },
+
+    AnexoPreventivo: async (req, res) => {
+        const codigo = req.query.codigo;
+
+        const arquivo = req.file.originalname;
+
+        try {
+
+            const resultData = await propostas.findOne({
+                where: {
+                    codigo
+                }
+            });
+
+            if (resultData) {
+                resultData.arquivo_prev = arquivo;
+                resultData.save();
+            }
+
+            return res.json(resultData);
+
+        } catch (error) {
+            console.error(error);
+        }
     }
+
 }
 
 module.exports = PropostaAguardandoController;

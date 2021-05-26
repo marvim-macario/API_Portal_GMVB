@@ -524,4 +524,6 @@ router.post('/proposta/aguardando/anexos', multer(multerConfig).fields([{
 
 ]) ,PropostaAguardandoController.Anexo);
 
+router.post("/proposta/aguardando/preventivo", multer(multerConfig).single("arquivo_prev"), PropostaAguardandoController.AnexoPreventivo);
+
 module.exports = router;
