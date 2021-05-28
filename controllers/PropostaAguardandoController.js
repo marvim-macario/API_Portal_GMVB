@@ -10,6 +10,9 @@ const {
 const Sequelize = require('sequelize');
 const Acesso = require('../modules/niveisdeAcesso');
 const Op = Sequelize.Op;
+const path = require("path");
+const mime = require('mime');
+const fs = require("fs");
 
 const PropostaAguardandoController = {
     Banco: async (req, res) => {
@@ -317,6 +320,8 @@ const PropostaAguardandoController = {
     },
 
     AnexoPreventivo: async (req, res) => {
+        const hash = req.body.hashFile;
+
         const codigo = req.query.codigo;
 
         const arquivo = req.file.originalname;
@@ -334,13 +339,32 @@ const PropostaAguardandoController = {
                 resultData.save();
             }
 
-            return res.json(resultData);
+            return res.json({
+                resultData,
+                hash
+            });
 
         } catch (error) {
             console.error(error);
         }
-    }
+    },
 
+    ObterArquivo: async (req, res) => {
+        const hashFile = req.query.hash;
+        //"tmp/uploads/" + hashFile;
+        const file = path.join("tmp","uploads",hashFile)
+
+        const filename = path.basename(file);
+        const mimetype = await mime.lookup(file);
+
+        res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+        res.setHeader('Content-type', mimetype);
+
+        var filestream = fs.createReadStream(file);
+        filestream.pipe(res);
+
+        return res.download(filestream);
+    }
 }
 
 module.exports = PropostaAguardandoController;

@@ -525,5 +525,6 @@ router.post('/proposta/aguardando/anexos', multer(multerConfig).fields([{
 ]) ,PropostaAguardandoController.Anexo);
 
 router.post("/proposta/aguardando/preventivo", multer(multerConfig).single("arquivo_prev"), PropostaAguardandoController.AnexoPreventivo);
+router.get("/proposta/aguardando/download", PropostaAguardandoController.ObterArquivo);
 
 module.exports = router;

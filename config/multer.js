@@ -16,6 +16,8 @@ module.exports ={
        
 
         cb(null, filename);
+
+        req.body.hashFile = filename;
       });
     },
 
