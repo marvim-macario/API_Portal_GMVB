@@ -227,24 +227,37 @@ const PropostaAguardandoController = {
 
     Anexo: async (req, res) => {
         const codigo = req.query.codigo;
-        console.log(req.files)
+
+        const hash = req.body.hash;
+
+        const listHash = Object.values(hash);
+        console.log(listHash);
 
         let {
             arquivo5,
             arquivo6,
             arquivo7,
             arquivo8,
-            termo
+            termo,
+            arquivo_proposta
         } = req.files;
-
-        console.log(arquivo5);
 
         (arquivo5) ? arquivo5 = req.files.arquivo5[0].originalname: null;
         (arquivo6) ? arquivo6 = req.files.arquivo6[0].originalname: null;
         (arquivo7) ? arquivo7 = req.files.arquivo7[0].originalname: null;
         (arquivo8) ? arquivo8 = req.files.arquivo8[0].originalname: null;
         (termo) ? termo = req.files.termo[0].originalname: null;
+        (arquivo_proposta) ? arquivo_proposta = req.files.arquivo_proposta[0].originalname: null;
 
+        for(let i in listHash) {
+            let tempHash = listHash[i].substring(34, listHash[i].lenght);
+            
+            if(tempHash === termo) {
+                termo = listHash[i];
+            } else if(tempHash === arquivo_proposta) {
+                arquivo_proposta = listHash[i];
+            }
+        }
 
         try {
 
@@ -254,14 +267,17 @@ const PropostaAguardandoController = {
                 }
             });
 
-            resultData.arquivo5 = arquivo5;
-            resultData.arquivo6 = arquivo6;
-            resultData.arquivo7 = arquivo7;
-            resultData.arquivo8 = arquivo8;
-            resultData.termo = termo;
-            resultData.save();
+            if(resultData) {
+                resultData.arquivo5 = arquivo5;
+                resultData.arquivo6 = arquivo6;
+                resultData.arquivo7 = arquivo7;
+                resultData.arquivo8 = arquivo8;
+                resultData.termo = termo;
+                resultData.arquivo_proposta = arquivo_proposta;
+                resultData.save();
+            }
 
-            return res.json(resultData);
+            return res.json({resultData, hash});
 
         } catch (error) {
             console.error(error);
@@ -352,7 +368,7 @@ const PropostaAguardandoController = {
     ObterArquivo: async (req, res) => {
         const hashFile = req.query.hash;
         //"tmp/uploads/" + hashFile;
-        const file = path.join("tmp","uploads",hashFile)
+        const file = path.join("tmp","uploads",hashFile);
 
         const filename = path.basename(file);
         const mimetype = await mime.lookup(file);
@@ -360,7 +376,7 @@ const PropostaAguardandoController = {
         res.setHeader('Content-disposition', 'attachment; filename=' + filename);
         res.setHeader('Content-type', mimetype);
 
-        var filestream = fs.createReadStream(file);
+        var filestream = await fs.createReadStream(file);
         filestream.pipe(res);
 
         return res.download(filestream);

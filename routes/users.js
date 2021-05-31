@@ -518,7 +518,12 @@ router.post('/proposta/aguardando/anexos', multer(multerConfig).fields([{
 },
 
 {
-    name: "propostacsg",
+    name: "arquivo_proposta",
+    macCount: 1
+},
+
+{
+    name: "termo",
     macCount: 1
 }
 
