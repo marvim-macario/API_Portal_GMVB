@@ -336,11 +336,22 @@ const PropostaAguardandoController = {
     },
 
     AnexoPreventivo: async (req, res) => {
-        const hash = req.body.hashFile;
+        const hash = req.body.hash;
+        const listHash = Object.values(hash);
 
         const codigo = req.query.codigo;
 
-        const arquivo = req.file.originalname;
+        let arquivo = req.file.originalname;
+
+        const filename = listHash[0].substring(34, listHash[0].lenght);
+
+        if(arquivo) {
+            const filename = listHash[0].substring(34, listHash[0].lenght);
+
+            if(arquivo == filename) {
+                arquivo = listHash[0];
+            }
+        }
 
         try {
 
@@ -351,14 +362,11 @@ const PropostaAguardandoController = {
             });
 
             if (resultData) {
-                resultData.arquivo_prev = arquivo;
+                resultData.arquivo_proposta = arquivo;
                 resultData.save();
             }
 
-            return res.json({
-                resultData,
-                hash
-            });
+            return res.json(resultData);
 
         } catch (error) {
             console.error(error);

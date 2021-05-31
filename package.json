@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "stop": "taskkill -f -im node.exe"
   },
   "dependencies": {
     "axios": "^0.21.1",
