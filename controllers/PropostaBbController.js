@@ -109,8 +109,10 @@ const PropostaBbController = {
             order: [
                 ['status', 'DESC']
             ]
-        })
-        res.status(200).send(StatusProposta);
+        });
+
+        const resultOfFilter = StatusProposta.filter(({status}) => status !== null && status !== "");
+        res.status(200).send(resultOfFilter);
     },
 
     Falta: async (req, res) => {
@@ -136,7 +138,7 @@ const PropostaBbController = {
 
         return res.json(resultOfFilter);
     },
-    
+
     TipoFalta: async (req, res) => {
         const TipoFalta = await propostas_bb.findAll({
             attributes: [
@@ -155,11 +157,15 @@ const PropostaBbController = {
                 ...req.body
             };
 
+            console.log(objFields);
+
             for (let [key, value] of Object.entries(objFields)) {
                 if (value === "" || value === undefined || value === null) {
                     delete objFields[key];
                 }
             }
+
+            console.log(objFields);
 
             if (Object.keys(objFields).length !== 0) {
                 const result = await propostas_bb.findAll({
@@ -344,6 +350,29 @@ const PropostaBbController = {
         const resultOfFilter = TipoFalta.filter((item) => item.tipo_falta !== null && item.tipo_falta !== "");
         res.status(200).send(resultOfFilter);
     },
+
+    Incluir: async (req, res) => {
+        const objFields = new Object(req.body);
+
+        const result = await propostas_bb.create({
+            ...objFields
+        });
+
+        return res.json(result);
+    },
+
+    BemReferencia: async (req, res) => {
+        const limiteCredito = await propostas_bb.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('bem_referencia')), 'bem_referencia']
+            ],
+            order: [
+                ['bem_referencia', 'DESC']
+            ]
+        });
+        const resultOfFilter = limiteCredito.filter((item) => item.bem_referencia !== null && item.bem_referencia !== "");
+        res.status(200).send(resultOfFilter);
+    }
 
 }
 

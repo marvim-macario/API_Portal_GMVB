@@ -482,9 +482,11 @@ router.post("/auditoria/filtro", PropostaBbController.Filtro);
 router.post('/auditoria/modal', PropostaBbController.Modal);
 router.post('/auditoria/alterar', PropostaBbController.Alterar);
 router.post('/auditoria/buscarlogs', PropostaBbController.BuscarLogs);
+router.post("/indica/vendas", PropostaBbController.Incluir);
 router.get("/auditoria/falta", PropostaBbController.Falta);
 router.get("/auditoria/substatus", PropostaBbController.SubStatus);
 router.get('/auditoria/tipo/falta', PropostaBbController.TipoFalta);
+router.get("/indica/vendas/referencia", PropostaBbController.BemReferencia);
 
 //Produção analista
 router.post('/producao/analista/setor', TblUsuarioController.FiltroSetor);

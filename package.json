@@ -23,11 +23,10 @@
     "nodemon": "^2.0.7",
     "queue": "^6.0.2",
     "read-excel-file": "^5.0.0",
-    "sequelize": "^6.3.4",
     "sftp-upload": "^1.0.3",
     "xlsx": "^0.16.9"
   },
   "devDependencies": {
-    "sequelize": "^6.3.4"
+    "sequelize": "^6.6.2"
   }
 }
