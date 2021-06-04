@@ -111,7 +111,9 @@ const PropostaBbController = {
             ]
         });
 
-        const resultOfFilter = StatusProposta.filter(({status}) => status !== null && status !== "");
+        const resultOfFilter = StatusProposta.filter(({
+            status
+        }) => status !== null && status !== "");
         res.status(200).send(resultOfFilter);
     },
 
@@ -157,15 +159,11 @@ const PropostaBbController = {
                 ...req.body
             };
 
-            console.log(objFields);
-
             for (let [key, value] of Object.entries(objFields)) {
                 if (value === "" || value === undefined || value === null) {
                     delete objFields[key];
                 }
             }
-
-            console.log(objFields);
 
             if (Object.keys(objFields).length !== 0) {
                 const result = await propostas_bb.findAll({
@@ -173,6 +171,8 @@ const PropostaBbController = {
                         ...objFields
                     }
                 });
+
+                console.log(result);
 
                 result.length === 0 ? res.json({
                     message: "nenhum registro encontrado com este filtro"
@@ -258,6 +258,8 @@ const PropostaBbController = {
             supervisor_parceiro,
             gerente_parceiro,
             chavej,
+            responsavel,
+            data_atualizacao
         } = req.body
 
         try {
@@ -306,7 +308,10 @@ const PropostaBbController = {
             BuscaPropostaBb.supervisor_parceiro = supervisor_parceiro
             BuscaPropostaBb.gerente_parceiro = gerente_parceiro
             BuscaPropostaBb.chavej = chavej
-            BuscaPropostaBb.save()
+            BuscaPropostaBb.responsavel = responsavel
+            BuscaPropostaBb.data_atualizacao = data_atualizacao
+            BuscaPropostaBb.save();
+
             return res.status(200).json(BuscaPropostaBb)
         } catch (error) {
             console.log(error)
@@ -358,6 +363,8 @@ const PropostaBbController = {
             ...objFields
         });
 
+        console.log(result);
+
         return res.json(result);
     },
 
@@ -372,6 +379,35 @@ const PropostaBbController = {
         });
         const resultOfFilter = limiteCredito.filter((item) => item.bem_referencia !== null && item.bem_referencia !== "");
         res.status(200).send(resultOfFilter);
+    },
+
+    Anexo: async (req, res) => {
+        const {
+            id_proposta
+        } = req.query;
+
+        const {
+            anexo_gravacao_parceiro
+        } = req.file;
+
+        const gravacao_parceiro = req.file.originalname;
+
+        const gravacao = await propostas_bb.findOne({
+            where: {
+                id_proposta
+            }
+        })
+
+        if (gravacao) {
+            gravacao.gravacao_parceiro = gravacao_parceiro;
+            gravacao.save();
+
+            return res.status(200).json(gravacao);
+        }
+
+        return res.json({
+            message: "id propostabb não existe"
+        })
     }
 
 }

@@ -482,6 +482,7 @@ router.post("/auditoria/filtro", PropostaBbController.Filtro);
 router.post('/auditoria/modal', PropostaBbController.Modal);
 router.post('/auditoria/alterar', PropostaBbController.Alterar);
 router.post('/auditoria/buscarlogs', PropostaBbController.BuscarLogs);
+router.post("/indica/anexo", multer(multerConfig).single("gravacao_parceiro"), PropostaBbController.Anexo);
 router.post("/indica/vendas", PropostaBbController.Incluir);
 router.get("/auditoria/falta", PropostaBbController.Falta);
 router.get("/auditoria/substatus", PropostaBbController.SubStatus);
