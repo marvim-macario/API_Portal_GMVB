@@ -37,7 +37,12 @@ module.exports = (sequelize, DataTypes) => {
         data_vencimento: DataTypes.STRING,
         responsavel_alteracao: DataTypes.STRING,
         data_alteracao: DataTypes.STRING,
-        valor_assistencia: DataTypes.STRING
+        valor_assistencia: DataTypes.STRING,
+        parcelas_restantes: DataTypes.STRING,
+        mes_ultimo_debito: DataTypes.STRING,
+        vigencia_inicio: DataTypes.STRING,
+        vigencia_fim: DataTypes.STRING,
+
     },{
         tableName: 'assistencia',
         timestamps: false
