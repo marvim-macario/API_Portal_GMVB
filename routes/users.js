@@ -444,8 +444,12 @@ router.post('/assistencia/cnab', AssistenciaController.AssCnab);
 router.post('/assistencia/txt', AssistenciaController.AssGerarTxt);
 router.post('/assistencia/updateStatus', AssistenciaController.AssUpdateStatus);
 router.post('/assistencia/emailBanco', AssistenciaController.AssSendEmailBanco);
+router.post('/assistencia/emailCliente', AssistenciaController.AssSendEmailCliente);
 router.post('/assistencia/ike', AssistenciaController.AssGerarArquivoIke);
-router.post('/assistencia/ikeEnvio', AssistenciaController.AssSendSmtpIke); 
+router.post('/assistencia/ikeEnvio', AssistenciaController.AssSendSftpIke);  
+router.post('/assistencia/ikeDownload', AssistenciaController.AssDownloadSftpIke);  
+router.post('/assistencia/htmlToPdf', AssistenciaController.htmlToPdf); 
+router.post('/assistencia/atualizaParcelas', AssistenciaController.assUpdateParcelasRestantes); 
 
 //Relatorio SMS
 router.get('/sms/substatus', RelatorioSmsController.SubStatus);
