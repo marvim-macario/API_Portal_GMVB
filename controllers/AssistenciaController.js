@@ -492,7 +492,7 @@ const AssistenciaController = {
 
 
         let fs = require('fs');
-        await fs.appendFile(`${tmpAssistenciaBancoRemessa}/envioBanco${hoje}.txt`, `${letra_e_concatenado}\n`,
+        await fs.appendFile(`${tmpAssistenciaBancoRemessa}/envioBanco${hoje}.txt`, `${letra_a_concatenado}\n${letra_e_concatenado}\n${letra_z_concatenado}\n`,
 
             function (erro) {
                 if (erro) {
@@ -559,7 +559,7 @@ const AssistenciaController = {
         contador_linhas = 5 * qtdRegistros;
 
         chave = cpf + ";" + contrato + ";" + conta + ";", //tirar caracteres especiais no front end antes de mandar 
-        header = letraH + ";" + numero_sequencial_arquivo + ";" + cod_gmvb + ";" + layout + ";" + data_geracao_arquivo + ";" + qtdRegistros + ";" + contador_linhas + ";"
+            header = letraH + ";" + numero_sequencial_arquivo + ";" + cod_gmvb + ";" + layout + ";" + data_geracao_arquivo + ";" + qtdRegistros + ";" + contador_linhas + ";"
         dados_cliente = cod_interno_cliente + ";" + nome + ";" + cpf + ";" + data_nascimento + ";" + data_venda + ";" + vigencia_inicial + ";" + vigencia_final + ";" + produto + ";" + canal_de_venda + ";" + tipo_movimentacao + ";"
         endereco_final = endereco + ";" + numero + ";" + complemento + ";" + bairro + ";" + cidade + ";" + cep + ";" + uf + ";"
         contador_linhas_final = contador_linhas + ";"
@@ -658,13 +658,15 @@ const AssistenciaController = {
 
     AssSendEmailCliente: async (req, res) => {
 
-      const{ email } = req.body;
+        const {
+            email
+        } = req.body;
 
         try {
             var fs = require('fs');
-            await fs.readFile(`${emailBoasVindas}`,'utf-8', function (err, data) {
+            await fs.readFile(`${emailBoasVindas}`, 'utf-8', function (err, data) {
 
-                if(data){
+                if (data) {
                     mailer.sendMail({
                         from: 'esteira.maisvalor@gmvb.com.br',
                         to: 'thaynara.rodrigues@gmvb.com.br', //colocar email do cliente
@@ -672,7 +674,7 @@ const AssistenciaController = {
                         html: data,
                         attachments: [{
                             filename: `${email}.pdf`,
-                            path:  `${tmpPdfCliente}${email}.pdf`,
+                            path: `${tmpPdfCliente}${email}.pdf`,
                             contentType: 'application/pdf'
                         }]
 
@@ -683,7 +685,11 @@ const AssistenciaController = {
                                 erro: 'não foi possivel enviar o email'
                             });
                         } else {
-                            //apagar o PDF 
+                            //***********************************Apagar arquivo pdf após o envio******************************************************** */
+                            // fs.unlink(`${tmpPdfCliente}${email}.pdf`, function (err){
+                            //     if (err) throw err;
+                            //     console.log('Arquivo deletado!');
+                            // })  
                             return res.status(200).send({
                                 sucesso: 'email enviado com sucesso'
                             });
@@ -691,9 +697,9 @@ const AssistenciaController = {
 
                     })
                 }
-             
+
             })
-        
+
         } catch (err) {
 
             return res.status(400).send({
@@ -701,7 +707,7 @@ const AssistenciaController = {
             });
         }
 
-       
+
     },
 
 
@@ -737,11 +743,11 @@ const AssistenciaController = {
                     throw err;
                 })
                 .on('uploading', function (progress) {
-                  //  console.log('Uploading', progress.file);
-                   // console.log(progress.percent + '% completed');
+                    //  console.log('Uploading', progress.file);
+                    // console.log(progress.percent + '% completed');
                 })
                 .on('completed', function () {
-                   // console.log('Upload Completed');
+                    // console.log('Upload Completed');
                     return res.status(200).send({
                         sucesso: 'sftp enviado com sucesso'
                     });
@@ -761,7 +767,7 @@ const AssistenciaController = {
 
         const {} = req.body;
 
-        const SftpClient = require('../node_modules/ssh2-sftp-client/src/index');
+        const Client = require('../node_modules/ssh2-sftp-client/src/index');
 
         const config = {
             host: "201.116.36.203",
@@ -770,34 +776,38 @@ const AssistenciaController = {
             port: 22
         };
 
-        async function main() {
-            const client = new SftpClient('upload-test');
-            const dst = `${tmpAssistenciaIkeRtorno}`; //diretorio local
-            const src = '/REMESSA'; //diretorio remoto
 
-            try {
-                await client.connect(config);
-                client.on('download', info => {
-                    console.log(`Listener: Download ${info.source}`);
-                });
-                let rslt = await client.downloadDir(src, dst);
-                return rslt;
-            } finally {
-                client.end();
-            }
+        const options = {
+
+            flags: 'r',
+            encoding: null,
+            handle: null,
+            mode: 0o666,
+            autoClose: true
         }
 
-        main()
-            .then(msg => {
-                console.log(msg);
-                return res.status(200).send({
-                    sucesso: msg
-                });
+        let fs = require('fs');
 
+        let client = new Client();
+
+        let remotePath = '/REMESSA/GMVB_L1_20210608.txt';
+        let dst = fs.createWriteStream(`${tmpAssistenciaIkeRtorno}/teste08062021.txt`);
+
+        client.connect(config)
+            .then(() => {
+                return client.get(remotePath, dst, options);
+            })
+            .then(() => {
+                client.end();
+                return res.status(200).send({
+                    sucesso: 'sftp recebido com sucesso'
+                });
             })
             .catch(err => {
-                console.log(`main error: ${err.message}`);
+                console.error(err.message);
             });
+
+
     },
 
 
@@ -806,9 +816,9 @@ const AssistenciaController = {
             html,
             nomeArquivo
         } = req.body;
-      
+
         const pdf = require('html-pdf')
- 
+
         const options = {
             type: 'pdf',
             format: 'A4',
@@ -817,18 +827,17 @@ const AssistenciaController = {
 
         pdf.create(html, options).toBuffer((err, buffer) => {
             if (err) return res.status(500).json(err)
-          
+
             var fs = require('fs');
             fs.writeFile(`../API_Portal_GMVB/tmp/uploads/assistencia24h/pdfs/certificado/${nomeArquivo}.pdf`,
-            buffer, {
-                enconding: 'binary',
-                flag: 'a'
-            },
-            function (err) {
-                if (err) throw err;
-               // console.log('Arquivo salvo!');
-            });
-           
+                buffer, {
+                    enconding: 'binary',
+                    flag: 'w'
+                },
+                function (err) {
+                    if (err) throw err;
+                    // console.log('Arquivo salvo!');
+                });
             res.send(buffer) //res.end responde o arquivo pronto         
         })
     },
