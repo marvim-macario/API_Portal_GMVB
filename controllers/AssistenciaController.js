@@ -48,15 +48,15 @@ const AssistenciaController = {
             responsavel_alteracao,
             data_alteracao,
             valor_assistencia,
-            id_cliente, // cpf+nascimento
-            id_contrato, // cpf+cc
+            id_cliente,  
+            id_contrato,
             parcelas_restantes,
             mes_ultimo_debito,
             vigencia_inicio,
             vigencia_fim
         } = req.body;
 
-        //colocar aqui um if de altenticacao
+        
 
         if (
             typeof cliente_nome != undefined && cliente_nome != '' &&
@@ -124,8 +124,8 @@ const AssistenciaController = {
                 responsavel_alteracao,
                 data_alteracao,
                 valor_assistencia,
-                id_cliente, // cpf+nascimento
-                id_contrato, // cpf+cc
+                id_cliente, 
+                id_contrato, 
                 parcelas_restantes,
                 mes_ultimo_debito,
                 vigencia_inicio,
@@ -174,8 +174,8 @@ const AssistenciaController = {
             responsavel_alteracao,
             data_alteracao,
             valor_assistencia,
-            id_cliente, // cpf+nascimento
-            id_contrato // cpf+cc
+            id_cliente, 
+            id_contrato 
 
         } = req.body;
 
@@ -211,8 +211,8 @@ const AssistenciaController = {
             responsavel_alteracao,
             data_alteracao,
             valor_assistencia,
-            id_cliente, // cpf+nascimento
-            id_contrato // cpf+cc
+            id_cliente, 
+            id_contrato 
 
         }, {
             where: {
@@ -266,7 +266,7 @@ const AssistenciaController = {
             id_parceiro
         } = req.body;
 
-        const assistenciaInserir = await assistencia.findAll({ //Operador OR , busca propostas por id 
+        const assistenciaInserir = await assistencia.findAll({ 
             attributes: ['cliente_cpf', 'cliente_nome', 'tipo_contratacao', 'tipo_assistencia'],
             where: {
                 [Op.and]: [{
@@ -287,7 +287,7 @@ const AssistenciaController = {
 
         const assistenciaInserir = await assistencia.findOne({
             attributes: [
-                'codigo', //colocar input hidden 
+                'codigo', 
                 'cliente_nome',
                 'cliente_cpf',
                 'data_nascimento',
@@ -386,7 +386,6 @@ const AssistenciaController = {
     },
 
 
-    //criar uma pasta temp e la colocar uma de envio pra ike e para o banco 
     AssGerarTxt: async (req, res) => {
         const {
             agencia,
@@ -395,16 +394,15 @@ const AssistenciaController = {
             numero_arquivo,
             cidade,
             estado,
-            valor_assistencia, //Varia se for anual/mensal
-            qtdRegistros, //6 digitos  total registros
-            valor_final, //17 digitos valor_total_registros
+            valor_assistencia, 
+            qtdRegistros, 
+            valor_final, 
             data_hoje,
             data_vencimento,
             id_empresa_banco
         } = req.body;
 
 
-        //variaveis para gerar o TXT
         let
             letraA = "A100333759002500032721GRUPOMAISVALOR      033SANTANDER           " + data_hoje,
             letraA2 = "06DEBITOAUTOMATICO RESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLER",
@@ -477,7 +475,7 @@ const AssistenciaController = {
             data_remessa_contas_fisicas_assinante = "20211022", // VERIFICAR COM A CRIS
             reservado_fut = "RESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFI"
 
-        letra_a_concatenado = letraA + nsa + letraA2,
+            letra_a_concatenado = letraA + nsa + letraA2,
             letra_c_concatenado = letraC + id_cliente_empresa + agencia + id_cliente_banco + ocorrencia1 + ocorrencia2 + reservado_futuroC + codigo_movimento,
             letra_e_concatenado = letraE + id_cliente_empresa + agencia + id_cliente_banco + data_vencimento + espaco_valor_assistencia + valor_debito + cod_moeda + uso_da_empresa + tipo_identificacao + identificacaoE + res_futuro_filler + codigo_movimentoE,
             letra_i_concatenado = letraI + id_cliente_empresa + cpf + identificacao + cliente_nome + espaco + cidade + espaco_cidade + estado + res_ff,
@@ -497,8 +495,6 @@ const AssistenciaController = {
             function (erro) {
                 if (erro) {
                     throw erro;
-                } else {
-                    //função de enviar email para o banco com o anexo gerado na data de hoje
                 }
             });
         return res.status(200).json("txt banco salvo")
@@ -507,22 +503,22 @@ const AssistenciaController = {
 
     AssGerarArquivoIke: async (req, res) => {
         const {
-            contrato, //OK
-            conta, //OK
-            qtdRegistros, //OK
-            cod_interno_cliente, //OK
-            nome, //OK
-            cpf, //OK
-            data_nascimento, //OK
-            data_venda, //OK
-            endereco, //OK
-            numero, //OK
-            complemento, //OK
-            bairro, //OK
-            cidade, //OK
-            cep, //OK
-            uf, //OK
-            numero_sequencial_arquivo, //10digitos completar cmo zeroa
+            contrato, 
+            conta, 
+            qtdRegistros, 
+            cod_interno_cliente, 
+            nome, 
+            cpf, 
+            data_nascimento, 
+            data_venda, 
+            endereco, 
+            numero, 
+            complemento, 
+            bairro, 
+            cidade, 
+            cep, 
+            uf, 
+            numero_sequencial_arquivo, 
             vigencia_inicial,
             vigencia_final
 
@@ -559,7 +555,7 @@ const AssistenciaController = {
         contador_linhas = 5 * qtdRegistros;
 
         chave = cpf + ";" + contrato + ";" + conta + ";", //tirar caracteres especiais no front end antes de mandar 
-            header = letraH + ";" + numero_sequencial_arquivo + ";" + cod_gmvb + ";" + layout + ";" + data_geracao_arquivo + ";" + qtdRegistros + ";" + contador_linhas + ";"
+        header = letraH + ";" + numero_sequencial_arquivo + ";" + cod_gmvb + ";" + layout + ";" + data_geracao_arquivo + ";" + qtdRegistros + ";" + contador_linhas + ";"
         dados_cliente = cod_interno_cliente + ";" + nome + ";" + cpf + ";" + data_nascimento + ";" + data_venda + ";" + vigencia_inicial + ";" + vigencia_final + ";" + produto + ";" + canal_de_venda + ";" + tipo_movimentacao + ";"
         endereco_final = endereco + ";" + numero + ";" + complemento + ";" + bairro + ";" + cidade + ";" + cep + ";" + uf + ";"
         contador_linhas_final = contador_linhas + ";"
@@ -573,9 +569,7 @@ const AssistenciaController = {
             function (erro) {
                 if (erro) {
                     throw erro;
-                } else {
-                    //função de enviar email para o banco com o anexo gerado na data de hoje
-                }
+                } 
             });
         return res.status(200).json(arquivo_completo)
     },
