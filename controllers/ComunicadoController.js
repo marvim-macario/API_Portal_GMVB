@@ -1,4 +1,6 @@
-const {comunicado} = require('../models');
+const {
+    comunicado
+} = require('../models');
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
@@ -43,6 +45,8 @@ const ComunicadoController = {
         (url_img1) ? url_img1 = req.files.url_img1[0].originalname: url_img1 = null;
         (url_img2) ? url_img2 = req.files.url_img2[0].originalname: url_img2 = null;
 
+        
+
         try {
             const Comunicado = await comunicado.findOne({
                 where: {
@@ -50,7 +54,7 @@ const ComunicadoController = {
                 }
             })
 
-            if(Comunicado){
+            if (Comunicado) {
                 Comunicado.url_img = url_img
                 Comunicado.url_img1 = url_img1
                 Comunicado.url_img2 = url_img2
@@ -59,7 +63,9 @@ const ComunicadoController = {
                 return res.json(Comunicado)
             }
 
-            return res.status(400).json({message: "ID n existe"})
+            return res.status(400).json({
+                message: "ID n existe"
+            })
         } catch (error) {
             console.log(error)
         }
@@ -74,7 +80,7 @@ const ComunicadoController = {
             }
         })
 
-        if(exists) {
+        if (exists) {
             const ComunicadoExcluido = await comunicado.destroy({
                 where: {
                     id_comunicado
@@ -85,6 +91,23 @@ const ComunicadoController = {
         return res.status(400).json({
             message: "Este Comunicado não existe"
         })
+    },
+
+    DownloadAnexo: async (req, res) => {
+        const hashFile = req.query.hash;
+        //"tmp/uploads/" + hashFile;
+        const file = path.join("tmp", "uploads", hashFile);
+
+        const filename = path.basename(file);
+        const mimetype = await mime.lookup(file);
+
+        res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+        res.setHeader('Content-type', mimetype);
+
+        var filestream = await fs.createReadStream(file);
+        filestream.pipe(res);
+
+        return res.download(filestream);
     }
 }
 module.exports = ComunicadoController;
