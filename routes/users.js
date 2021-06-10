@@ -37,6 +37,7 @@ const ControleFilasController = require("../controllers/ControleFilasController"
 const PropostaBbController = require('../controllers/PropostaBbController');
 const TblUsuarioController = require('../controllers/TblUsuarioController');
 const PropostaAguardandoController = require('../controllers/PropostaAguardandoController');
+const ProducaoController = require('../controllers/ProducaoController');
 
 //teste
 router.get('/', (req, res) => {
@@ -538,5 +539,10 @@ router.post('/proposta/aguardando/anexos', multer(multerConfig).fields([{
 
 router.post("/proposta/aguardando/preventivo", multer(multerConfig).single("arquivo_prev"), PropostaAguardandoController.AnexoPreventivo);
 router.get("/proposta/aguardando/download", PropostaAguardandoController.ObterArquivo);
+
+router.post("/producao", ProducaoController.Incluir);
+router.post("/producao/lista", ProducaoController.Lista);
+router.post("/producao/alterar", ProducaoController.Alterar);
+router.post("/producao/modal", ProducaoController.Modal);
 
 module.exports = router;
