@@ -420,6 +420,8 @@ router.post('/comunicado/anexo', multer(multerConfig).fields([{
     },
 ]), ComunicadoController.Anexo);
 
+router.get('/comunicado/download', ComunicadoController.DownloadAnexo);
+
 router.delete('/comunicado/deletar', ComunicadoController.Deletar);
 
 // EndPoints / rotas de calculadora
@@ -540,6 +542,7 @@ router.post('/proposta/aguardando/anexos', multer(multerConfig).fields([{
 router.post("/proposta/aguardando/preventivo", multer(multerConfig).single("arquivo_prev"), PropostaAguardandoController.AnexoPreventivo);
 router.get("/proposta/aguardando/download", PropostaAguardandoController.ObterArquivo);
 
+// //Produção
 router.post("/producao", ProducaoController.Incluir);
 router.post("/producao/lista", ProducaoController.Lista);
 router.post("/producao/alterar", ProducaoController.Alterar);

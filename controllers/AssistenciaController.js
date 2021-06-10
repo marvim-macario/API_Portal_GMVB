@@ -405,7 +405,7 @@ const AssistenciaController = {
 
         let
             letraA = "A100333759002500032721GRUPOMAISVALOR      033SANTANDER           " + data_hoje,
-            letraA2 = "06DEBITOAUTOMATICO RESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLER",
+            letraA2 = "06DEBITOAUTOMATICO                                                     ",
 
             tamanho_numero = numero_arquivo.toString(),
             diferenca_caracteres_numero = 6 - tamanho_numero.length,
@@ -457,7 +457,7 @@ const AssistenciaController = {
             tipo_identificacao = "2", //2 (cpf)
             identificacao = "000" + cliente_cpf,
             identificacaoE = "0000" + cliente_cpf,
-            res_futuro_filler = "resf",
+            res_futuro_filler = "    ",
             codigo_movimentoE = "0", //fixo
             letraI = "I",
             cpf = "2",
@@ -467,7 +467,7 @@ const AssistenciaController = {
             res_fut = "RESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLER", //104 caracteres
             //LETRA Z
             letraZ = "Z",
-            res_fut_Z = "RESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFILLERRESERVADOPARAOFUTUROFI", //126 caracteres 
+            res_fut_Z = "                                                                                                                              ", //126 caracteres 
 
             //letraL uma vez por mes ********Marcar data separada****se for dia x mandar ****
             data_faturamento = "20211022", // VERIFICAR COM A CRIS

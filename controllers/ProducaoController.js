@@ -1,23 +1,26 @@
-const { producao } = require("../models");
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
+const {
+    producao
+} = require("../models");
 
+const Sequelize = require("sequelize");
 
 const ProducaoController = {
     Incluir: async (req, res) => {
+        const objFileds = new Object({
+            ...req.body
+        });
 
-        const objFileds = new Object({...req.body});
-
-        for(const [key, value] of Object.entries(objFileds)) {
-            if(value === null || value === undefined) {
+        for (const [key, value] of Object.entries(objFileds)) {
+            if (value === null || value === undefined) {
                 delete objFileds[key];
             }
         }
 
-        const result = await producao.create({...objFileds});
+        const result = await producao.create({
+            ...objFileds
+        });
 
         return res.json(result);
-        
     },
 
     Lista: async (req, res) => {
@@ -26,7 +29,7 @@ const ProducaoController = {
         } = req.body;
 
         let where = {};
-        if(supervisor) where.supervisor = supervisor;
+        if (supervisor) where.supervisor = supervisor;
 
         const Producao = await producao.findAll({
             where,
@@ -62,7 +65,9 @@ const ProducaoController = {
         try {
 
             const AlterarProducao = await producao.findOne({
-                where: {id_producao}
+                where: {
+                    id_producao
+                }
             })
 
             if (!AlterarProducao) {
@@ -88,14 +93,16 @@ const ProducaoController = {
             AlterarProducao.save()
             return res.status(200).json(AlterarProducao)
 
-        } catch(error){
+        } catch (error) {
             console.log(error)
         }
     },
 
-    Modal: async (req, res) =>{
+    Modal: async (req, res) => {
         try {
-            const {id_producao} = req.body;
+            const {
+                id_producao
+            } = req.body;
 
             const dadosProducao = await producao.findOne({
                 where: {
@@ -103,7 +110,7 @@ const ProducaoController = {
                 }
             })
             return res.status(200).send(dadosProducao)
-        } catch (error){
+        } catch (error) {
             console.log(error)
         }
     }
