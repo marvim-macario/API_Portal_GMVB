@@ -5,7 +5,25 @@ const {
 const Sequelize = require("sequelize");
 
 const ProducaoController = {
-    Incluir: async (req, res) => {
+    ProducaoAtual: async (req, res) => {
+        const supervisor = req.body.supervisor;
+
+        const resultFind = await producao.findOne({
+            where: {
+                data_cadastro: new Date().toLocaleDateString(),
+                supervisor
+            }
+        });
+
+
+
+        return res.json(resultFind);
+    },
+
+
+
+    Update: async (req, res) => {
+
         const objFileds = new Object({
             ...req.body
         });
@@ -16,9 +34,25 @@ const ProducaoController = {
             }
         }
 
-        const result = await producao.create({
-            ...objFileds
+        const result = await producao.findOne({
+            where: {
+                id_producao: req.query.codigo
+            }
         });
+
+        result.digitado_novo = objFileds.digitado_novo
+        result.digitado_port = objFileds.digitado_port
+        result.digitado_prev = objFileds.digitado_prev
+        result.integrado_novo = objFileds.integrado_novo
+        result.integrado_port = objFileds.integrado_port
+        result.integrado_prev = objFileds.integrado_prev
+        result.ole_valor = objFileds.ole_valor
+        result.ole_qtd = objFileds.ole_qtd
+        result.tipo = 1
+        result.integrado_bb = objFileds.integrado_bb
+        result.digitado_bb = objFileds.digitado_bb
+
+        result.save();
 
         return res.json(result);
     },

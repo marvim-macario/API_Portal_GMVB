@@ -543,7 +543,8 @@ router.post("/proposta/aguardando/preventivo", multer(multerConfig).single("arqu
 router.get("/proposta/aguardando/download", PropostaAguardandoController.ObterArquivo);
 
 // //Produção
-router.post("/producao", ProducaoController.Incluir);
+router.put("/producao", ProducaoController.Update);
+router.post("/producao/buscar", ProducaoController.ProducaoAtual);
 router.post("/producao/lista", ProducaoController.Lista);
 router.post("/producao/alterar", ProducaoController.Alterar);
 router.post("/producao/modal", ProducaoController.Modal);
